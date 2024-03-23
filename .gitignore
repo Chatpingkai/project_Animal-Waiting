@@ -1,1 +1,7 @@
+<<<<<<< HEAD
 /backend/build/
+=======
+/nbproject/private/
+/backend/build
+backend/nbproject/private/private.xml
+>>>>>>> fc11b579728dc173a03db2728830ffc3f7c94322
