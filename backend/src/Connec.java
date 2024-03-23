@@ -5,9 +5,9 @@ public class Connec {
     public Connection con;
     public Statement stm;
     public ResultSet rs;
-    public String url = "jdbc:mysql://localhost:3306/mydb";
-    public String nameroot = "root";
-    public String passwo = "12345678";
+    public String url = "jdbc:mysql://sql6.freesqldatabase.com:3306/sql6693770";
+    public String nameroot = "sql6693770";
+    public String passwo = "tEbNPVrjWr";
     public Connec(){
         try {
             try {

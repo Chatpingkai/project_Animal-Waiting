@@ -46,7 +46,7 @@ public class RegisterGUI extends JFrame implements ActionListener {
         db = new Connec();
         String username = usernameField.getText();
         String password = new String(passwordField.getPassword());
-        String sql = String.format("INSERT INTO mydb (name, password) VALUES('%s', '%s')", username,password);
+        String sql = String.format("INSERT INTO test (name, password) VALUES('%s', '%s')", username,password);
         db.getInsert(sql);
         db.discon();
         // Add registration logic here
