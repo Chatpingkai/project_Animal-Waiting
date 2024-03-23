@@ -1,7 +1,13 @@
 <<<<<<< HEAD
 /backend/build/
 =======
-/nbproject/private/
+backend/nbproject/private/
+nbproject/private/
 /backend/build
 backend/nbproject/private/private.xml
 >>>>>>> fc11b579728dc173a03db2728830ffc3f7c94322
+/backend/dist/
+backend/nbproject/private/private.properties/
+backend/nbproject/
+backend/nbproject/private/private.properties
+nbproject/private/private.properties
