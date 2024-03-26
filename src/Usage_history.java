@@ -19,7 +19,7 @@ public class Usage_history {
         
         JTable table = new JTable(); 
         // create a table model and set a Column Identifiers to this model 
-        Object[] columns = {"วันที่","ประเภทการใช้บริการ","ลายละเอียด"};
+        Object[] columns = {"วันที่","ประเภทการใช้บริการ","รายละเอียด"};
         DefaultTableModel model = new DefaultTableModel();
         model.setColumnIdentifiers(columns);
         
@@ -64,10 +64,11 @@ public class Usage_history {
         pa1.setBackground(backgroundColor);
  
          
-        frused.setSize(800, 600); // Initial size
+        frused.setSize(1300, 700); // Initial size
         frused.setLocationRelativeTo(null); // Center the frame on the screen
         frused.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frused.setVisible(true);
+        frused.setResizable(false);
     }
     public static void main(String[] args) {
         try {
