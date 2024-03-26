@@ -1,12 +1,17 @@
 
 import java.awt.*;
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+
 import java.awt.event.*;
+import java.util.Locale;
+import java.util.Properties;
+import org.jdatepicker.JDatePicker;
+import org.jdatepicker.UtilDateModel;
 
-
-public class Register implements KeyListener, ActionListener{
+public class Register implements ActionListener{
     private JFrame fr_register;
-    private JPanel panel_main, empty1, empty2, empty3, empty4, empty5, empty6,
+    private JPanel panel_main, empty2, empty3, empty4, empty5, empty6,
 empty7, empty8, empty9, empty10, empty11, empty12, empty13, empty14, empty15,
 empty16, empty17, empty18, empty19, empty20, empty21, empty22, empty23, empty24,
 empty25, empty26, empty27, empty28, empty29, empty30, empty31, empty32, empty33,
@@ -19,10 +24,10 @@ empty79, empty80, empty81, empty82, empty83, empty84, empty85, empty86, empty87,
 empty88, empty89, empty90, empty91, empty92, empty93, empty94, empty95, empty96,
 empty97;
     private JTextField box_name, box_lastname, box_ethnicity, 
-box_nation, box_religion, box_name_pet, box_type, box_species, box_birthday, 
-box_disease, box_ageyear, box_agemonth, box_weight, box_raising, box_place, 
-box_addres, box_alley, box_road, box_no, box_Sub_district, box_District,
- box_province, box_postal, box_phone, box_email, box_note, box_user;
+box_nation, box_religion, box_name_pet, box_type, box_species, box_disease, 
+box_ageyear, box_agemonth, box_weight, box_raising, box_place, box_addres, 
+box_alley, box_road, box_no, box_Sub_district, box_District, box_province, 
+box_postal, box_phone, box_email, box_note, box_user;
     private JLabel txt_register, txt_owner, txt_name, txt_last, txt_title, txt_gender, 
 txt_ethnicity, txt_nation, txt_religion, txt_name_pet, 
 txt_type, txt_gen_pet, txt_species, txt_birthday, 
@@ -35,14 +40,17 @@ circle_pet_female, circle_idk;
     private JButton button_submit;
     private JComboBox box_title;
     private JPasswordField box_password, box_confirm;
+    private ButtonGroup group1, group2;
+    private UtilDateModel model;
+    private Properties ppt;
+    private JDatePicker box_birthday;
 
     public Register() {
-        fr_register = new JFrame();
+        fr_register = new JFrame("Register");
         fr_register.setDefaultCloseOperation(fr_register.EXIT_ON_CLOSE);
         fr_register.setLayout(new GridLayout(1, 1));
 
         panel_main = new JPanel();
-        empty1 = new JPanel();
         empty2 = new JPanel();
         empty3 = new JPanel();
         empty4 = new JPanel();
@@ -152,7 +160,6 @@ circle_pet_female, circle_idk;
         box_name_pet = new JTextField();
         box_type = new JTextField();
         box_species = new JTextField();
-        box_birthday = new JTextField();
         box_disease = new JTextField();
         box_ageyear = new JTextField();
         box_agemonth = new JTextField();
@@ -181,19 +188,28 @@ circle_pet_female, circle_idk;
         box_password = new JPasswordField();
         box_confirm = new JPasswordField();
 
+        group1 = new ButtonGroup();
+        group2 = new ButtonGroup();
+
         circle_male = new JRadioButton("ชาย");
         circle_female = new JRadioButton("หญิง");
         circle_other = new JRadioButton("อื่น ๆ");
         circle_male_pet = new JRadioButton("ตัวผู้");
         circle_pet_female = new JRadioButton("ตัวเมีย");
         circle_idk = new JRadioButton("ไม่ทราบ");
+        group1.add(circle_male);
+        group1.add(circle_female);
+        group1.add(circle_other);
+        group2.add(circle_male_pet);
+        group2.add(circle_pet_female);
+        group2.add(circle_idk);
 
-        circle_male.addActionListener(this);
-        circle_female.addActionListener(this);
-        circle_other.addActionListener(this);
-        circle_male_pet.addActionListener(this);
-        circle_pet_female.addActionListener(this);
-        circle_idk.addActionListener(this);
+        model = new UtilDateModel();
+        ppt = new Properties();
+        ppt.put("text.today", "วันนี้");
+        ppt.put("text.month", "เดือน");
+        ppt.put("text.year", "ปี");
+        box_birthday = new JDatePicker(model);
 
         txt_register = new JLabel("   Register");
         txt_owner = new JLabel("ข้อมูลเจ้าของ");
@@ -233,7 +249,6 @@ circle_pet_female, circle_idk;
         txt_Contact_information = new JLabel("ข้อมูลติดต่อ");
         txt_regis = new JLabel("ข้อมูลลงทะเบียน");
 
-        //panel_main.add(empty1);
         panel_main.add(txt_register);
         panel_main.add(empty2);
         panel_main.add(empty3);
@@ -454,22 +469,49 @@ circle_pet_female, circle_idk;
         circle_pet_female.setFont(new Font("Tahoma", Font.PLAIN, 15));
         circle_idk.setFont(new Font("Tahoma", Font.PLAIN, 15));
         box_title.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        box_name.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        box_lastname.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        box_ethnicity.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        box_nation.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        box_religion.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        box_name_pet.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        box_type.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        box_species.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        box_birthday.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        box_disease.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        box_ageyear.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        box_agemonth.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        box_weight.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        box_raising.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        box_place.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        box_addres.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        box_alley.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        box_road.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        box_no.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        box_Sub_district.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        box_District.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        box_province.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        box_postal.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        box_phone.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        box_email.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        box_note.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        box_user.setFont(new Font("Tahoma", Font.PLAIN, 15));
+
 //space regis
-        //empty1.setPreferredSize(new Dimension(970, 2));
         empty2.setPreferredSize(new Dimension(780, 10));
 //space owner information
         empty3.setPreferredSize(new Dimension(80, 10));
         empty4.setPreferredSize(new Dimension(790, 10));
 //space name
         empty5.setPreferredSize(new Dimension(120, 10));
-        empty6.setPreferredSize(new Dimension(80, 10));
+        empty6.setPreferredSize(new Dimension(123, 10));
         empty7.setPreferredSize(new Dimension(315, 10));
-        empty8.setPreferredSize(new Dimension(295, 10));
+        empty8.setPreferredSize(new Dimension(252, 10));
 //space box name
         empty9.setPreferredSize(new Dimension(120, 10));
-        empty10.setPreferredSize(new Dimension(70, 10));
+        empty10.setPreferredSize(new Dimension(83, 10));
         empty11.setPreferredSize(new Dimension(80, 10));
-        empty12.setPreferredSize(new Dimension(100, 10));
+        empty12.setPreferredSize(new Dimension(57, 10));
 //space gender
         empty13.setPreferredSize(new Dimension(120, 10));
         empty14.setPreferredSize(new Dimension(135, 10));
@@ -481,9 +523,8 @@ circle_pet_female, circle_idk;
         empty19.setPreferredSize(new Dimension(25, 10));
         empty20.setPreferredSize(new Dimension(45, 10));
         empty21.setPreferredSize(new Dimension(120, 10));
-        empty22.setPreferredSize(new Dimension(95, 10));
+        empty22.setPreferredSize(new Dimension(85, 10));
 
-        //empty1.setBackground(Color.RED);
         empty2.setBackground(new Color(0xFFEEE3));
         empty3.setBackground(new Color(0xFFEEE3));
         empty4.setBackground(new Color(0xFFEEE3));
@@ -505,6 +546,7 @@ circle_pet_female, circle_idk;
         empty20.setBackground(new Color(0xFFEEE3));
         empty21.setBackground(new Color(0xFFEEE3));
         empty22.setBackground(new Color(0xFFEEE3));
+
 //space pet information
         empty23.setPreferredSize(new Dimension(80, 10));
         empty24.setPreferredSize(new Dimension(770, 10));
@@ -579,6 +621,7 @@ circle_pet_female, circle_idk;
         empty52.setBackground(new Color(0xFFEEE3));
         empty53.setBackground(new Color(0xFFEEE3));
         empty54.setBackground(new Color(0xFFEEE3));
+
 //space contact
         empty55.setPreferredSize(new Dimension(80, 10));
         empty56.setPreferredSize(new Dimension(795, 10));
@@ -659,6 +702,7 @@ circle_pet_female, circle_idk;
         empty86.setBackground(new Color(0xFFEEE3));
         empty87.setBackground(new Color(0xFFEEE3));
         empty88.setBackground(new Color(0xFFEEE3));
+
 //space regis
         empty89.setPreferredSize(new Dimension(80, 10));
         empty90.setPreferredSize(new Dimension(765, 10));
@@ -672,7 +716,7 @@ circle_pet_female, circle_idk;
         empty95.setPreferredSize(new Dimension(120, 10));
         empty96.setPreferredSize(new Dimension(390, 10));
 //space button
-        empty97.setPreferredSize(new Dimension(690, 10));
+        empty97.setPreferredSize(new Dimension(600, 10));
 
         empty89.setBackground(new Color(0xFFEEE3));
         empty90.setBackground(new Color(0xFFEEE3));
@@ -693,7 +737,7 @@ circle_pet_female, circle_idk;
 
         box_name.setPreferredSize(new Dimension(250, 25));
         box_lastname.setPreferredSize(new Dimension(250, 25));
-        box_title.setPreferredSize(new Dimension(70, 25));
+        box_title.setPreferredSize(new Dimension(100, 25));
         box_ethnicity.setPreferredSize(new Dimension(150, 25));
         box_nation.setPreferredSize(new Dimension(150, 25));
         box_religion.setPreferredSize(new Dimension(150, 25));
@@ -723,7 +767,8 @@ circle_pet_female, circle_idk;
         box_confirm.setPreferredSize(new Dimension(300, 25));
         button_submit.setPreferredSize(new Dimension(100, 40));
         box_addres.setFont(new Font("Tahoma", Font.PLAIN, 13));
-        //box_confirm.addKeyListener(this);
+
+        button_submit.addActionListener(this);
 
         fr_register.add(panel_main);
 
@@ -734,18 +779,20 @@ circle_pet_female, circle_idk;
     }
     public static void main(String[] args){
         new Register();
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            } catch (Exception e) {
+            e.printStackTrace();
+            }
+            SwingUtilities.invokeLater(() -> { 
+                Register frame = new Register();
+            });
     }
     @Override
-    public void actionPerformed(ActionEvent e) {}
-    @Override
-    public void keyTyped(KeyEvent e) {
-        if (box_confirm.getText().length() > 2){
-            box_confirm.setEditable(false);
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == button_submit){
+            fr_register.dispose();
+            new Login();
         }
     }
-    @Override
-    public void keyPressed(KeyEvent e) {}
-
-    @Override
-    public void keyReleased(KeyEvent e) {}
 }
