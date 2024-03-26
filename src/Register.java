@@ -22,7 +22,7 @@ empty97;
 box_nation, box_religion, box_name_pet, box_type, box_species, box_birthday, 
 box_disease, box_ageyear, box_agemonth, box_weight, box_raising, box_place, 
 box_addres, box_alley, box_road, box_no, box_Sub_district, box_District,
- box_province, box_postal, box_phone, box_email, box_note, box_user, box_pass, box_confirm;
+ box_province, box_postal, box_phone, box_email, box_note, box_user;
     private JLabel txt_register, txt_owner, txt_name, txt_last, txt_title, txt_gender, 
 txt_ethnicity, txt_nation, txt_religion, txt_name_pet, 
 txt_type, txt_gen_pet, txt_species, txt_birthday, 
@@ -34,6 +34,7 @@ txt_Contact_information, txt_regis;
 circle_pet_female, circle_idk;
     private JButton button_submit;
     private JComboBox box_title;
+    private JPasswordField box_password, box_confirm;
 
     public Register() {
         fr_register = new JFrame();
@@ -170,8 +171,6 @@ circle_pet_female, circle_idk;
         box_email = new JTextField();
         box_note = new JTextField();
         box_user = new JTextField();
-        box_pass = new JTextField();
-        box_confirm = new JTextField();
         box_title = new JComboBox();
         box_title.addItem("นาย");
         box_title.addItem("นาง");
@@ -179,6 +178,8 @@ circle_pet_female, circle_idk;
         box_title.addItem("ด.ช.");
         box_title.addItem("ด.ญ.");
         box_title.setSelectedItem(null);
+        box_password = new JPasswordField();
+        box_confirm = new JPasswordField();
 
         circle_male = new JRadioButton("ชาย");
         circle_female = new JRadioButton("หญิง");
@@ -226,13 +227,13 @@ circle_pet_female, circle_idk;
         txt_email = new JLabel("E-mail");
         txt_note = new JLabel("หมายเหตุ");
         txt_user = new JLabel("Username    ");
-        txt_pass = new JLabel("Password    ");
+        txt_pass = new JLabel("Password     ");
         txt_confirm = new JLabel("Confirm Password     ");
         txt_pet_information = new JLabel("ข้อมูลสัตว์เลี้ยง");
         txt_Contact_information = new JLabel("ข้อมูลติดต่อ");
         txt_regis = new JLabel("ข้อมูลลงทะเบียน");
 
-        panel_main.add(empty1);
+        //panel_main.add(empty1);
         panel_main.add(txt_register);
         panel_main.add(empty2);
         panel_main.add(empty3);
@@ -398,7 +399,7 @@ circle_pet_female, circle_idk;
         panel_main.add(empty92);
         panel_main.add(empty93);
         panel_main.add(txt_pass);
-        panel_main.add(box_pass);
+        panel_main.add(box_password);
         panel_main.add(empty94);
         panel_main.add(empty95);
         panel_main.add(txt_confirm);
@@ -452,8 +453,9 @@ circle_pet_female, circle_idk;
         circle_male_pet.setFont(new Font("Tahoma", Font.PLAIN, 15));
         circle_pet_female.setFont(new Font("Tahoma", Font.PLAIN, 15));
         circle_idk.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        box_title.setFont(new Font("Tahoma", Font.PLAIN, 15));
 //space regis
-        empty1.setPreferredSize(new Dimension(970, 10));
+        //empty1.setPreferredSize(new Dimension(970, 2));
         empty2.setPreferredSize(new Dimension(780, 10));
 //space owner information
         empty3.setPreferredSize(new Dimension(80, 10));
@@ -481,7 +483,7 @@ circle_pet_female, circle_idk;
         empty21.setPreferredSize(new Dimension(120, 10));
         empty22.setPreferredSize(new Dimension(95, 10));
 
-        empty1.setBackground(new Color(0xFFEEE3));
+        //empty1.setBackground(Color.RED);
         empty2.setBackground(new Color(0xFFEEE3));
         empty3.setBackground(new Color(0xFFEEE3));
         empty4.setBackground(new Color(0xFFEEE3));
@@ -503,154 +505,173 @@ circle_pet_female, circle_idk;
         empty20.setBackground(new Color(0xFFEEE3));
         empty21.setBackground(new Color(0xFFEEE3));
         empty22.setBackground(new Color(0xFFEEE3));
-
+//space pet information
         empty23.setPreferredSize(new Dimension(80, 10));
         empty24.setPreferredSize(new Dimension(770, 10));
+//space name pet
+        empty25.setPreferredSize(new Dimension(120, 10));
+        empty26.setPreferredSize(new Dimension(250, 10));
+        empty27.setPreferredSize(new Dimension(168, 10));
+        empty28.setPreferredSize(new Dimension(192, 10));
+//space box name pet
+        empty29.setPreferredSize(new Dimension(120, 10));
+        empty30.setPreferredSize(new Dimension(73, 10));
+        empty31.setPreferredSize(new Dimension(100, 10));
+        empty32.setPreferredSize(new Dimension(97, 10));
+//space gender
+        empty33.setPreferredSize(new Dimension(120, 10));
+        empty34.setPreferredSize(new Dimension(300, 10));
+        empty35.setPreferredSize(new Dimension(153, 10));
+        empty36.setPreferredSize(new Dimension(202, 10));
+//space box gender
+        empty37.setPreferredSize(new Dimension(115, 10));
+        empty38.setPreferredSize(new Dimension(129, 10));
+        empty39.setPreferredSize(new Dimension(150, 10));
+        empty40.setPreferredSize(new Dimension(166, 10));
+//space age
+        empty41.setPreferredSize(new Dimension(120, 10));
+        empty42.setPreferredSize(new Dimension(250, 10));
+        empty43.setPreferredSize(new Dimension(215, 10));
+        empty44.setPreferredSize(new Dimension(190, 10));
+//space box age
+        empty45.setPreferredSize(new Dimension(120, 10));
+        empty46.setPreferredSize(new Dimension(25, 10));
+        empty47.setPreferredSize(new Dimension(170, 10));
+        empty48.setPreferredSize(new Dimension(170, 10));
+//space place
+        empty49.setPreferredSize(new Dimension(120, 10));
+        empty50.setPreferredSize(new Dimension(213, 10));
+        empty51.setPreferredSize(new Dimension(422, 10));
+//box place
+        empty52.setPreferredSize(new Dimension(120, 10));
+        empty53.setPreferredSize(new Dimension(175, 10));
+        empty54.setPreferredSize(new Dimension(360, 10));
 
-        empty25.setPreferredSize(new Dimension(160, 10));
-        empty26.setPreferredSize(new Dimension(275, 10));
-        empty27.setPreferredSize(new Dimension(165, 10));
-        empty28.setPreferredSize(new Dimension(240, 10));
-
-        empty29.setPreferredSize(new Dimension(150, 10));
-        empty30.setPreferredSize(new Dimension(65, 10));
-        empty31.setPreferredSize(new Dimension(40, 10));
-        empty32.setPreferredSize(new Dimension(125, 10));
-
-        empty33.setPreferredSize(new Dimension(155, 10));
-        empty34.setPreferredSize(new Dimension(250, 10));
-        empty35.setPreferredSize(new Dimension(120, 10));
-        empty36.setPreferredSize(new Dimension(250, 10));
-        empty37.setPreferredSize(new Dimension(150, 10));
-        empty38.setPreferredSize(new Dimension(90, 10));
-        empty39.setPreferredSize(new Dimension(110, 10));
-        empty40.setPreferredSize(new Dimension(210, 10));
-        empty41.setPreferredSize(new Dimension(155, 10));
-        empty42.setPreferredSize(new Dimension(300, 10));
-        empty43.setPreferredSize(new Dimension(100, 10));
-        empty44.setPreferredSize(new Dimension(175, 10));
-        empty45.setPreferredSize(new Dimension(150, 10));
-        empty46.setPreferredSize(new Dimension(110, 10));
-        empty47.setPreferredSize(new Dimension(70, 10));
-        empty48.setPreferredSize(new Dimension(155, 10));
-        empty49.setPreferredSize(new Dimension(155, 10));
-        empty50.setPreferredSize(new Dimension(160, 10));
-        empty51.setPreferredSize(new Dimension(500, 10));
-        empty52.setPreferredSize(new Dimension(150, 10));
-        empty53.setPreferredSize(new Dimension(105, 10));
-        empty54.setPreferredSize(new Dimension(400, 10));
-//new Color(0xFFEEE3)
-        empty23.setBackground(Color.RED);
-        empty24.setBackground(Color.RED);
-        empty25.setBackground(Color.RED);
-        empty26.setBackground(Color.RED);
-        empty27.setBackground(Color.RED);
-        empty28.setBackground(Color.RED);
-        empty29.setBackground(Color.RED);
-        empty30.setBackground(Color.RED);
-        empty31.setBackground(Color.RED);
-        empty32.setBackground(Color.RED);
-        empty33.setBackground(Color.RED);
-        empty34.setBackground(Color.RED);
-        empty35.setBackground(Color.RED);
-        empty36.setBackground(Color.RED);
-        empty37.setBackground(Color.RED);
-        empty38.setBackground(Color.RED);
-        empty39.setBackground(Color.RED);
-        empty40.setBackground(Color.RED);
-        empty41.setBackground(Color.RED);
-        empty42.setBackground(Color.RED);
-        empty43.setBackground(Color.RED);
-        empty44.setBackground(Color.RED);
-        empty45.setBackground(Color.RED);
-        empty46.setBackground(Color.RED);
-        empty47.setBackground(Color.RED);
-        empty48.setBackground(Color.RED);
-        empty49.setBackground(Color.RED);
-        empty50.setBackground(Color.RED);
-        empty51.setBackground(Color.RED);
-        empty52.setBackground(Color.RED);
-        empty53.setBackground(Color.RED);
-        empty54.setBackground(Color.RED);
-
-        empty55.setPreferredSize(new Dimension(105, 10));
-        empty56.setPreferredSize(new Dimension(715, 10));
-        empty57.setPreferredSize(new Dimension(150, 10));
-        empty58.setPreferredSize(new Dimension(770, 10));
-        empty59.setPreferredSize(new Dimension(130, 10));
-        empty60.setPreferredSize(new Dimension(200, 10));
-        empty61.setPreferredSize(new Dimension(190, 10));
-        empty62.setPreferredSize(new Dimension(125, 10));
-        empty63.setPreferredSize(new Dimension(370, 10));
-        empty64.setPreferredSize(new Dimension(145, 10));
-        empty65.setPreferredSize(new Dimension(70, 10));
-        empty66.setPreferredSize(new Dimension(110, 10));
-        empty67.setPreferredSize(new Dimension(150, 10));
-        empty68.setPreferredSize(new Dimension(150, 10));
-        empty69.setPreferredSize(new Dimension(180, 10));
-        empty70.setPreferredSize(new Dimension(210, 10));
-        empty71.setPreferredSize(new Dimension(250, 10));
-        empty72.setPreferredSize(new Dimension(145, 10));
-        empty73.setPreferredSize(new Dimension(100, 10));
-        empty74.setPreferredSize(new Dimension(100, 10));
-        empty75.setPreferredSize(new Dimension(150, 10));
-        empty76.setPreferredSize(new Dimension(150, 10));
+        empty23.setBackground(new Color(0xFFEEE3));
+        empty24.setBackground(new Color(0xFFEEE3));
+        empty25.setBackground(new Color(0xFFEEE3));
+        empty26.setBackground(new Color(0xFFEEE3));
+        empty27.setBackground(new Color(0xFFEEE3));
+        empty28.setBackground(new Color(0xFFEEE3));
+        empty29.setBackground(new Color(0xFFEEE3));
+        empty30.setBackground(new Color(0xFFEEE3));
+        empty31.setBackground(new Color(0xFFEEE3));
+        empty32.setBackground(new Color(0xFFEEE3));
+        empty33.setBackground(new Color(0xFFEEE3));
+        empty34.setBackground(new Color(0xFFEEE3));
+        empty35.setBackground(new Color(0xFFEEE3));
+        empty36.setBackground(new Color(0xFFEEE3));
+        empty37.setBackground(new Color(0xFFEEE3));
+        empty38.setBackground(new Color(0xFFEEE3));
+        empty39.setBackground(new Color(0xFFEEE3));
+        empty40.setBackground(new Color(0xFFEEE3));
+        empty41.setBackground(new Color(0xFFEEE3));
+        empty42.setBackground(new Color(0xFFEEE3));
+        empty43.setBackground(new Color(0xFFEEE3));
+        empty44.setBackground(new Color(0xFFEEE3));
+        empty45.setBackground(new Color(0xFFEEE3));
+        empty46.setBackground(new Color(0xFFEEE3));
+        empty47.setBackground(new Color(0xFFEEE3));
+        empty48.setBackground(new Color(0xFFEEE3));
+        empty49.setBackground(new Color(0xFFEEE3));
+        empty50.setBackground(new Color(0xFFEEE3));
+        empty51.setBackground(new Color(0xFFEEE3));
+        empty52.setBackground(new Color(0xFFEEE3));
+        empty53.setBackground(new Color(0xFFEEE3));
+        empty54.setBackground(new Color(0xFFEEE3));
+//space contact
+        empty55.setPreferredSize(new Dimension(80, 10));
+        empty56.setPreferredSize(new Dimension(795, 10));
+//space address
+        empty57.setPreferredSize(new Dimension(115, 10));
+        empty58.setPreferredSize(new Dimension(810, 10));
+//space box address
+        empty59.setPreferredSize(new Dimension(115, 10));
+        empty60.setPreferredSize(new Dimension(240, 10));
+//space road
+        empty88.setPreferredSize(new Dimension(120, 10));
+        empty61.setPreferredSize(new Dimension(200, 10));
+        empty62.setPreferredSize(new Dimension(185, 10));
+        empty63.setPreferredSize(new Dimension(355, 10));
+//space box rode
+        empty64.setPreferredSize(new Dimension(115, 10));
+        empty65.setPreferredSize(new Dimension(80, 10));
+        empty66.setPreferredSize(new Dimension(145, 10));
+        empty67.setPreferredSize(new Dimension(130, 10));
+//space province
+        empty68.setPreferredSize(new Dimension(120, 10));
+        empty69.setPreferredSize(new Dimension(195, 10));
+        empty70.setPreferredSize(new Dimension(175, 10));
+        empty71.setPreferredSize(new Dimension(345, 10));
+//space box province
+        empty72.setPreferredSize(new Dimension(115, 10));
+        empty73.setPreferredSize(new Dimension(80, 10));
+        empty74.setPreferredSize(new Dimension(65, 10));
+        empty75.setPreferredSize(new Dimension(235, 10));
+//space email
+        empty76.setPreferredSize(new Dimension(120, 10));
         empty77.setPreferredSize(new Dimension(150, 10));
-        empty78.setPreferredSize(new Dimension(210, 10));
-        empty79.setPreferredSize(new Dimension(295, 10));
-        empty80.setPreferredSize(new Dimension(145, 10));
-        empty81.setPreferredSize(new Dimension(70, 10));
-        empty82.setPreferredSize(new Dimension(95, 10));
-        empty83.setPreferredSize(new Dimension(80, 10));
-        empty84.setPreferredSize(new Dimension(150, 10));
+        empty78.setPreferredSize(new Dimension(130, 10));
+        empty79.setPreferredSize(new Dimension(345, 10));
+//space box email
+        empty80.setPreferredSize(new Dimension(115, 10));
+        empty81.setPreferredSize(new Dimension(80, 10));
+        empty82.setPreferredSize(new Dimension(67, 10));
+        empty83.setPreferredSize(new Dimension(133, 10));
+//space note
+        empty84.setPreferredSize(new Dimension(115, 10));
         empty85.setPreferredSize(new Dimension(790, 10));
-        empty86.setPreferredSize(new Dimension(145, 10));
-        empty87.setPreferredSize(new Dimension(120, 10));
-        empty88.setPreferredSize(new Dimension(145, 10));
+//space box note
+        empty86.setPreferredSize(new Dimension(115, 10));
+        empty87.setPreferredSize(new Dimension(150, 10));
 
-        empty55.setBackground(Color.RED);
-        empty56.setBackground(Color.RED);
-        empty57.setBackground(Color.RED);
-        empty58.setBackground(Color.RED);
-        empty59.setBackground(Color.RED);
-        empty60.setBackground(Color.RED);
-        empty61.setBackground(Color.RED);
-        empty62.setBackground(Color.RED);
-        empty63.setBackground(Color.RED);
-        empty64.setBackground(Color.RED);
-        empty65.setBackground(Color.RED);
-        empty66.setBackground(Color.RED);
-        empty67.setBackground(Color.RED);
-        empty68.setBackground(Color.RED);
-        empty69.setBackground(Color.RED);
-        empty70.setBackground(Color.RED);
-        empty71.setBackground(Color.RED);
-        empty72.setBackground(Color.RED);
-        empty73.setBackground(Color.RED);
-        empty74.setBackground(Color.RED);
-        empty75.setBackground(Color.RED);
-        empty76.setBackground(Color.RED);
-        empty77.setBackground(Color.RED);
-        empty78.setBackground(Color.RED);
-        empty79.setBackground(Color.RED);
-        empty80.setBackground(Color.RED);
-        empty81.setBackground(Color.RED);
-        empty82.setBackground(Color.RED);
-        empty83.setBackground(Color.RED);
-        empty84.setBackground(Color.RED);
-        empty85.setBackground(Color.RED);
-        empty86.setBackground(Color.RED);
-        empty87.setBackground(Color.RED);
-        empty88.setBackground(Color.RED);
-
-        empty89.setPreferredSize(new Dimension(90, 10));
-        empty90.setPreferredSize(new Dimension(675, 10));
-        empty91.setPreferredSize(new Dimension(150, 10));
-        empty92.setPreferredSize(new Dimension(415, 10));
-        empty93.setPreferredSize(new Dimension(150, 10));
-        empty94.setPreferredSize(new Dimension(415, 10));
-        empty95.setPreferredSize(new Dimension(150, 10));
-        empty96.setPreferredSize(new Dimension(355, 10));
+        empty55.setBackground(new Color(0xFFEEE3));
+        empty56.setBackground(new Color(0xFFEEE3));
+        empty57.setBackground(new Color(0xFFEEE3));
+        empty58.setBackground(new Color(0xFFEEE3));
+        empty59.setBackground(new Color(0xFFEEE3));
+        empty60.setBackground(new Color(0xFFEEE3));
+        empty61.setBackground(new Color(0xFFEEE3));
+        empty62.setBackground(new Color(0xFFEEE3));
+        empty63.setBackground(new Color(0xFFEEE3));
+        empty64.setBackground(new Color(0xFFEEE3));
+        empty65.setBackground(new Color(0xFFEEE3));
+        empty66.setBackground(new Color(0xFFEEE3));
+        empty67.setBackground(new Color(0xFFEEE3));
+        empty68.setBackground(new Color(0xFFEEE3));
+        empty69.setBackground(new Color(0xFFEEE3));
+        empty70.setBackground(new Color(0xFFEEE3));
+        empty71.setBackground(new Color(0xFFEEE3));
+        empty72.setBackground(new Color(0xFFEEE3));
+        empty73.setBackground(new Color(0xFFEEE3));
+        empty74.setBackground(new Color(0xFFEEE3));
+        empty75.setBackground(new Color(0xFFEEE3));
+        empty76.setBackground(new Color(0xFFEEE3));
+        empty77.setBackground(new Color(0xFFEEE3));
+        empty78.setBackground(new Color(0xFFEEE3));
+        empty79.setBackground(new Color(0xFFEEE3));
+        empty80.setBackground(new Color(0xFFEEE3));
+        empty81.setBackground(new Color(0xFFEEE3));
+        empty82.setBackground(new Color(0xFFEEE3));
+        empty83.setBackground(new Color(0xFFEEE3));
+        empty84.setBackground(new Color(0xFFEEE3));
+        empty85.setBackground(new Color(0xFFEEE3));
+        empty86.setBackground(new Color(0xFFEEE3));
+        empty87.setBackground(new Color(0xFFEEE3));
+        empty88.setBackground(new Color(0xFFEEE3));
+//space regis
+        empty89.setPreferredSize(new Dimension(80, 10));
+        empty90.setPreferredSize(new Dimension(765, 10));
+//space username
+        empty91.setPreferredSize(new Dimension(120, 10));
+        empty92.setPreferredSize(new Dimension(390, 10));
+//space password
+        empty93.setPreferredSize(new Dimension(120, 10));
+        empty94.setPreferredSize(new Dimension(390, 10));
+//space confirm
+        empty95.setPreferredSize(new Dimension(120, 10));
+        empty96.setPreferredSize(new Dimension(390, 10));
+//space button
         empty97.setPreferredSize(new Dimension(690, 10));
 
         empty89.setBackground(new Color(0xFFEEE3));
@@ -670,43 +691,44 @@ circle_pet_female, circle_idk;
         circle_pet_female .setBackground(new Color(0xFFEEE3));
         circle_idk.setBackground(new Color(0xFFEEE3));
 
-        box_name.setPreferredSize(new Dimension(250, 20));
-        box_lastname.setPreferredSize(new Dimension(250, 20));
-        box_title.setPreferredSize(new Dimension(70, 20));
-        box_ethnicity.setPreferredSize(new Dimension(150, 20));
-        box_nation.setPreferredSize(new Dimension(150, 20));
-        box_religion.setPreferredSize(new Dimension(150, 20));
-        box_name_pet.setPreferredSize(new Dimension(250, 20));
-        box_type.setPreferredSize(new Dimension(150, 20));
-        box_species.setPreferredSize(new Dimension(150, 20));
-        box_birthday.setPreferredSize(new Dimension(100, 20));
-        box_disease.setPreferredSize(new Dimension(300, 20));
-        box_ageyear.setPreferredSize(new Dimension(80, 20));
-        box_agemonth.setPreferredSize(new Dimension(80, 20));
-        box_weight.setPreferredSize(new Dimension(80, 20));
-        box_raising.setPreferredSize(new Dimension(150, 20));
-        box_place.setPreferredSize(new Dimension(150, 20));
-        box_addres.setPreferredSize(new Dimension(600, 20));
-        box_alley.setPreferredSize(new Dimension(150, 20));
-        box_road.setPreferredSize(new Dimension(250, 20));
-        box_no.setPreferredSize(new Dimension(70, 20));
-        box_Sub_district.setPreferredSize(new Dimension(150, 20));
-        box_District.setPreferredSize(new Dimension(150, 20));
-        box_province.setPreferredSize(new Dimension(150, 20));
-        box_postal.setPreferredSize(new Dimension(150, 20));
-        box_phone.setPreferredSize(new Dimension(150, 20));
-        box_email.setPreferredSize(new Dimension(250, 20));
-        box_note.setPreferredSize(new Dimension(700, 20));
-        box_user.setPreferredSize(new Dimension(300, 20));
-        box_pass.setPreferredSize(new Dimension(300, 20));
-        box_confirm.setPreferredSize(new Dimension(300, 20));
+        box_name.setPreferredSize(new Dimension(250, 25));
+        box_lastname.setPreferredSize(new Dimension(250, 25));
+        box_title.setPreferredSize(new Dimension(70, 25));
+        box_ethnicity.setPreferredSize(new Dimension(150, 25));
+        box_nation.setPreferredSize(new Dimension(150, 25));
+        box_religion.setPreferredSize(new Dimension(150, 25));
+        box_name_pet.setPreferredSize(new Dimension(250, 25));
+        box_type.setPreferredSize(new Dimension(150, 25));
+        box_species.setPreferredSize(new Dimension(150, 25));
+        box_birthday.setPreferredSize(new Dimension(100, 25));
+        box_disease.setPreferredSize(new Dimension(300, 25));
+        box_ageyear.setPreferredSize(new Dimension(80, 25));
+        box_agemonth.setPreferredSize(new Dimension(80, 25));
+        box_weight.setPreferredSize(new Dimension(80, 25));
+        box_raising.setPreferredSize(new Dimension(150, 25));
+        box_place.setPreferredSize(new Dimension(150, 25));
+        box_addres.setPreferredSize(new Dimension(600, 25));
+        box_alley.setPreferredSize(new Dimension(150, 25));
+        box_road.setPreferredSize(new Dimension(250, 25));
+        box_no.setPreferredSize(new Dimension(70, 25));
+        box_Sub_district.setPreferredSize(new Dimension(150, 25));
+        box_District.setPreferredSize(new Dimension(150, 25));
+        box_province.setPreferredSize(new Dimension(150, 25));
+        box_postal.setPreferredSize(new Dimension(150, 25));
+        box_phone.setPreferredSize(new Dimension(150, 25));
+        box_email.setPreferredSize(new Dimension(250, 25));
+        box_note.setPreferredSize(new Dimension(700, 25));
+        box_user.setPreferredSize(new Dimension(355, 25));
+        box_password.setPreferredSize(new Dimension(355, 25));
+        box_confirm.setPreferredSize(new Dimension(300, 25));
         button_submit.setPreferredSize(new Dimension(100, 40));
+        box_addres.setFont(new Font("Tahoma", Font.PLAIN, 13));
         //box_confirm.addKeyListener(this);
 
         fr_register.add(panel_main);
 
         panel_main.setBackground(new Color(0xFFEEE3));
-        fr_register.setSize(1000, 900);
+        fr_register.setSize(1000, 950);
         fr_register.setVisible(true);
         fr_register.setResizable(false);
     }
