@@ -6,8 +6,8 @@ import java.util.Properties;
 import org.jdatepicker.JDatePicker;
 import org.jdatepicker.UtilDateModel;
 
-public class Register implements ActionListener{
-    private JFrame fr_register;
+public class edit_register {
+    private JFrame fr_edit_register;
     private JPanel panel_main, empty2, empty3, empty4, empty5, empty6,
 empty7, empty8, empty9, empty10, empty11, empty12, empty13, empty14, empty15,
 empty16, empty17, empty18, empty19, empty20, empty21, empty22, empty23, empty24,
@@ -18,34 +18,30 @@ empty52, empty53, empty54, empty55, empty56, empty57, empty58, empty59, empty60,
 empty61, empty62, empty63, empty64, empty65, empty66, empty67, empty68, empty69,
 empty70, empty71, empty72, empty73, empty74, empty75, empty76, empty77, empty78,
 empty79, empty80, empty81, empty82, empty83, empty84, empty85, empty86, empty87,
-empty88, empty89, empty90, empty91, empty92, empty93, empty94, empty95, empty96,
-empty97;
+empty88, empty89, empty96, empty97;
     private JTextField box_name, box_lastname, box_ethnicity, 
 box_nation, box_religion, box_name_pet, box_type, box_species, box_disease, 
 box_ageyear, box_agemonth, box_weight, box_raising, box_place, box_addres, 
 box_alley, box_road, box_no, box_Sub_district, box_District, box_province, 
-box_postal, box_phone, box_email, box_note, box_user;
+box_postal, box_phone, box_email, box_note;
     private JLabel txt_register, txt_owner, txt_name, txt_last, txt_title, txt_gender, 
-txt_ethnicity, txt_nation, txt_religion, txt_name_pet, 
-txt_type, txt_gen_pet, txt_species, txt_birthday, 
-txt_disease, txt_ageyear, txt_agemonth, txt_weight, txt_raising, txt_place, txt_addres, 
-txt_alley, txt_road, txt_no, txt_Sub_district, txt_District, txt_province, txt_postal, 
-txt_phone, txt_email, txt_note, txt_user, txt_pass, txt_confirm, txt_pet_information, 
-txt_Contact_information, txt_regis;
+txt_ethnicity, txt_nation, txt_religion, txt_name_pet, txt_type, txt_gen_pet, txt_species, 
+txt_birthday, txt_disease, txt_ageyear, txt_agemonth, txt_weight, txt_raising, txt_place, 
+txt_addres, txt_alley, txt_road, txt_no, txt_Sub_district, txt_District, txt_province, 
+txt_postal, txt_phone, txt_email, txt_note, txt_pet_information, txt_Contact_information;
     private JRadioButton circle_male, circle_female, circle_other, circle_male_pet, 
 circle_pet_female, circle_idk;
-    private JButton button_submit;
+    private JButton button_save, button_back;
     private JComboBox box_title;
-    private JPasswordField box_password, box_confirm;
     private ButtonGroup group1, group2;
     private UtilDateModel model;
     private Properties ppt;
     private JDatePicker box_birthday;
 
-    public Register() {
-        fr_register = new JFrame("Register");
-        fr_register.setDefaultCloseOperation(fr_register.EXIT_ON_CLOSE);
-        fr_register.setLayout(new GridLayout(1, 1));
+    public edit_register() {
+        fr_edit_register = new JFrame("Edit Personal Information");
+        fr_edit_register.setDefaultCloseOperation(fr_edit_register.EXIT_ON_CLOSE);
+        fr_edit_register.setLayout(new GridLayout(1, 1));
 
         panel_main = new JPanel();
         empty2 = new JPanel();
@@ -136,18 +132,13 @@ circle_pet_female, circle_idk;
         empty87 = new JPanel();
         empty88 = new JPanel();
         empty89 = new JPanel();
-        empty90 = new JPanel();
-        empty91 = new JPanel();
-        empty92 = new JPanel();
-        empty93 = new JPanel();
-        empty94 = new JPanel();
-        empty95 = new JPanel();
         empty96 = new JPanel();
         empty97 = new JPanel();
 
         panel_main.setLayout(new FlowLayout());
 
-        button_submit = new JButton("Submit");
+        button_save = new JButton("Save");
+        button_back = new JButton("Back");
 
         box_name = new JTextField();
         box_lastname = new JTextField();
@@ -174,7 +165,6 @@ circle_pet_female, circle_idk;
         box_phone = new JTextField();
         box_email = new JTextField();
         box_note = new JTextField();
-        box_user = new JTextField();
         box_title = new JComboBox();
         box_title.addItem("นาย");
         box_title.addItem("นาง");
@@ -182,8 +172,6 @@ circle_pet_female, circle_idk;
         box_title.addItem("ด.ช.");
         box_title.addItem("ด.ญ.");
         box_title.setSelectedItem(null);
-        box_password = new JPasswordField();
-        box_confirm = new JPasswordField();
 
         group1 = new ButtonGroup();
         group2 = new ButtonGroup();
@@ -208,7 +196,7 @@ circle_pet_female, circle_idk;
         ppt.put("text.year", "ปี");
         box_birthday = new JDatePicker(model);
 
-        txt_register = new JLabel("   Register");
+        txt_register = new JLabel("    แก้ไขข้อมูล");
         txt_owner = new JLabel("ข้อมูลเจ้าของ");
         txt_name = new JLabel("ชื่อ");
         txt_last = new JLabel("นามสกุล");
@@ -239,12 +227,8 @@ circle_pet_female, circle_idk;
         txt_phone = new JLabel("เบอร์โทรศัพท์");
         txt_email = new JLabel("E-mail");
         txt_note = new JLabel("หมายเหตุ");
-        txt_user = new JLabel("Username    ");
-        txt_pass = new JLabel("Password     ");
-        txt_confirm = new JLabel("Confirm Password     ");
         txt_pet_information = new JLabel("ข้อมูลสัตว์เลี้ยง");
         txt_Contact_information = new JLabel("ข้อมูลติดต่อ");
-        txt_regis = new JLabel("ข้อมูลลงทะเบียน");
 
         panel_main.add(txt_register);
         panel_main.add(empty2);
@@ -402,31 +386,20 @@ circle_pet_female, circle_idk;
         panel_main.add(box_note);
         panel_main.add(empty87);
 
-        panel_main.add(empty89);
-        panel_main.add(txt_regis);
-        panel_main.add(empty90);
-        panel_main.add(empty91);
-        panel_main.add(txt_user);
-        panel_main.add(box_user);
-        panel_main.add(empty92);
-        panel_main.add(empty93);
-        panel_main.add(txt_pass);
-        panel_main.add(box_password);
-        panel_main.add(empty94);
-        panel_main.add(empty95);
-        panel_main.add(txt_confirm);
-        panel_main.add(box_confirm);
         panel_main.add(empty96);
+        panel_main.add(empty89);
+        panel_main.add(button_back);
         panel_main.add(empty97);
-        panel_main.add(button_submit);
+        panel_main.add(button_save);
 
-        txt_register.setFont(new Font("Jost", Font.BOLD, 38));
+        txt_register.setFont(new Font("Tahoma", Font.BOLD, 38));
         txt_owner.setFont(new Font("Tahoma", Font.BOLD, 15));
         txt_pet_information.setFont(new Font("Tahoma", Font.BOLD, 15));
         txt_Contact_information.setFont(new Font("Tahoma", Font.BOLD, 15));
-        txt_regis.setFont(new Font("Tahoma", Font.BOLD, 15));
-        button_submit.setBackground(Color.WHITE);
-        button_submit.setFont(new Font("Jost", Font.BOLD, 15));
+        button_save.setBackground(Color.WHITE);
+        button_save.setFont(new Font("Jost", Font.BOLD, 15));
+        button_back.setBackground(Color.WHITE);
+        button_back.setFont(new Font("Jost", Font.BOLD, 15));
         txt_name.setFont(new Font("Tahoma", Font.PLAIN, 15));
         txt_last.setFont(new Font("Tahoma", Font.PLAIN, 15));
         txt_title.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -456,9 +429,6 @@ circle_pet_female, circle_idk;
         txt_phone.setFont(new Font("Tahoma", Font.PLAIN, 15));
         txt_email.setFont(new Font("Tahoma", Font.PLAIN, 15));
         txt_note.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        txt_user.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        txt_pass.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        txt_confirm.setFont(new Font("Tahoma", Font.PLAIN, 15));
         circle_male.setFont(new Font("Tahoma", Font.PLAIN, 15));
         circle_female.setFont(new Font("Tahoma", Font.PLAIN, 15));
         circle_other.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -492,10 +462,9 @@ circle_pet_female, circle_idk;
         box_phone.setFont(new Font("Tahoma", Font.PLAIN, 15));
         box_email.setFont(new Font("Tahoma", Font.PLAIN, 15));
         box_note.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        box_user.setFont(new Font("Tahoma", Font.PLAIN, 15));
 
 //space regis
-        empty2.setPreferredSize(new Dimension(780, 10));
+        empty2.setPreferredSize(new Dimension(730, 10));
 //space owner information
         empty3.setPreferredSize(new Dimension(80, 10));
         empty4.setPreferredSize(new Dimension(790, 10));
@@ -700,28 +669,11 @@ circle_pet_female, circle_idk;
         empty87.setBackground(new Color(0xFFEEE3));
         empty88.setBackground(new Color(0xFFEEE3));
 
-//space regis
-        empty89.setPreferredSize(new Dimension(80, 10));
-        empty90.setPreferredSize(new Dimension(765, 10));
-//space username
-        empty91.setPreferredSize(new Dimension(120, 10));
-        empty92.setPreferredSize(new Dimension(390, 10));
-//space password
-        empty93.setPreferredSize(new Dimension(120, 10));
-        empty94.setPreferredSize(new Dimension(390, 10));
-//space confirm
-        empty95.setPreferredSize(new Dimension(120, 10));
-        empty96.setPreferredSize(new Dimension(390, 10));
-//space button
-        empty97.setPreferredSize(new Dimension(600, 10));
+        empty89.setPreferredSize(new Dimension(400, 10));
+        empty96.setPreferredSize(new Dimension(900, 10));
+        empty97.setPreferredSize(new Dimension(50, 10));
 
         empty89.setBackground(new Color(0xFFEEE3));
-        empty90.setBackground(new Color(0xFFEEE3));
-        empty91.setBackground(new Color(0xFFEEE3));
-        empty92.setBackground(new Color(0xFFEEE3));
-        empty93.setBackground(new Color(0xFFEEE3));
-        empty94.setBackground(new Color(0xFFEEE3));
-        empty95.setBackground(new Color(0xFFEEE3));
         empty96.setBackground(new Color(0xFFEEE3));
         empty97.setBackground(new Color(0xFFEEE3));
 
@@ -759,37 +711,18 @@ circle_pet_female, circle_idk;
         box_phone.setPreferredSize(new Dimension(150, 25));
         box_email.setPreferredSize(new Dimension(250, 25));
         box_note.setPreferredSize(new Dimension(700, 25));
-        box_user.setPreferredSize(new Dimension(355, 25));
-        box_password.setPreferredSize(new Dimension(355, 25));
-        box_confirm.setPreferredSize(new Dimension(300, 25));
-        button_submit.setPreferredSize(new Dimension(100, 40));
+        button_save.setPreferredSize(new Dimension(100, 40));
+        button_back.setPreferredSize(new Dimension(100, 40));
         box_addres.setFont(new Font("Tahoma", Font.PLAIN, 13));
 
-        button_submit.addActionListener(this);
-
-        fr_register.add(panel_main);
+        fr_edit_register.add(panel_main);
 
         panel_main.setBackground(new Color(0xFFEEE3));
-        fr_register.setSize(1000, 950);
-        fr_register.setVisible(true);
-        fr_register.setResizable(false);
+        fr_edit_register.setSize(1000, 850);
+        fr_edit_register.setVisible(true);
+        fr_edit_register.setResizable(false);
     }
     public static void main(String[] args){
-        new Register();
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-            } catch (Exception e) {
-            e.printStackTrace();
-            }
-            SwingUtilities.invokeLater(() -> { 
-                Register frame = new Register();
-            });
-    }
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == button_submit){
-            fr_register.dispose();
-            new Login();
-        }
+        new edit_register();
     }
 }
