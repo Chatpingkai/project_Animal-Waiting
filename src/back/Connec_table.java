@@ -7,7 +7,7 @@ import java.util.*;
 public class Connec_table implements Connec{
     private Connection con;
     private Statement stm;
-    private ResultSet rs;
+    public static ResultSet rs;
     public Connec_table(){
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -33,7 +33,6 @@ public class Connec_table implements Connec{
         } catch (SQLException ex) {
         }
     }
-
     @Override
     public void Discon() {
         try {

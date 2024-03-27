@@ -1,8 +1,14 @@
+import back.Connec_table;
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 import javax.swing.table.*;
-public class AddMedicine {
+public class AddMedicine implements ActionListener, MouseListener{
     private JFrame fraddmed;
     private JTextField Tcommon_name, Ttrade_name, Ttypandsize, Thowtoeat, Tnum_date, Tall_capsule, Tprice, Thowtouse, Trecommend ;
     private JLabel Lcommon_name, Ltrade_name, Ltypandsize, Lhowtoeat, Lnum_date, Lall_capsule, Lprice, Lhowtouse, Lrecommend, Lmedorcapsule, Ltime, Lmedorcapsule2, Lbaht;
@@ -10,6 +16,10 @@ public class AddMedicine {
     private JPanel pa1;
     private JScrollPane scroll;
     private JTable table;
+    private Connec_table table_db;
+    private DefaultTableModel model;
+    private ArrayList<String> data;
+    private int introw;
     public AddMedicine(){
         //pop up//
         fraddmed = new JFrame("เพิ่มยา");
@@ -116,6 +126,7 @@ public class AddMedicine {
         
         update = new JButton("update");
         update.setBounds(75, 500, 100, 25);
+        update.addActionListener(this);
         pa1.add(update);
         update.setFont(new Font("Jost", Font.PLAIN, 15));
         
@@ -129,12 +140,17 @@ public class AddMedicine {
         pa1.add(add);
         add.setFont(new Font("Jost", Font.PLAIN, 15));
         
-        JTable table = new JTable();  
-        Object[] columns = {"ชื่อสามัญทางยา","ชื่อทางการค้า"};
-        DefaultTableModel model = new DefaultTableModel();
-        model.setColumnIdentifiers(columns);
-        table.setModel(model);
         
+        table = new JTable();
+        String sql = "SELECT * FROM Med";
+        try {
+            setTable(sql);
+        } catch (SQLException ex) {
+            Logger.getLogger(AddMedicine.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        add.addActionListener(this);
+        table.addMouseListener(this);
+        delete.addActionListener(this);
         scroll = new JScrollPane();
         scroll.setViewportView(table);
         scroll.setBounds(40, 340, 400, 130);
@@ -157,9 +173,9 @@ public class AddMedicine {
         table.setDefaultRenderer(Object.class, renderer);
         
         //number of colum//
-        for(int i=0; i <=50; i++){
-            model.addRow(new Object[0]);
-        }
+//        for(int i=0; i <=50; i++){
+//            model.addRow(new Object[0]);
+//        }
         
          table.setDefaultEditor(Object.class, null);//un edit row//
         
@@ -171,15 +187,126 @@ public class AddMedicine {
         fraddmed.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         fraddmed.setVisible(true);
     }
+    public void setTable(String sql) throws SQLException{
+        data = new ArrayList<String>();
+        table_db = new Connec_table();
+        ResultSet rs = table_db.getData(sql);
+        Object[] columns = {"ชื่อสามัญทางยา","ชื่อทางการค้า"};
+        model = new DefaultTableModel();
+        model.setColumnIdentifiers(columns);
+        while(rs.next()){
+            String full_name = rs.getString("Full_Name");
+            String name = rs.getString("Name");
+            data.add(full_name);
+            String[] row = {full_name, name};
+            model.addRow(row);
+        }
+        model.setColumnIdentifiers(columns);
+        table.setModel(model);
+        table_db.Discon();
+    }
+    public void setTextClick(int introw){
+        String sql = String.format("SELECT * FROM Med WHERE Full_Name = '%s'", data.get(introw));
+        table_db = new Connec_table();
+        ResultSet rs = table_db.getData(sql);
+        try {
+            System.out.println(rs.next());
+            Tcommon_name.setText(rs.getString("Full_Name"));
+            Ttrade_name.setText(rs.getString("Name"));
+            Ttypandsize.setText(rs.getString("Type"));
+            Tall_capsule.setText(rs.getString("Amount"));
+            Tprice.setText(rs.getString("Price"));
+            Thowtouse.setText(rs.getString("How"));
+            Trecommend.setText(rs.getString("Recom"));
+        } catch (SQLException ex) {
+            Logger.getLogger(AddMedicine.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        table_db.Discon();
+    }
+    public void setTextBlank(){
+        Tcommon_name.setText("");
+            Ttrade_name.setText("");
+            Ttypandsize.setText("");
+            Tall_capsule.setText("");
+            Tprice.setText("");
+            Thowtouse.setText("");
+            Trecommend.setText("");
+    }
     public static void main(String[] args) {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         SwingUtilities.invokeLater(() -> {
             AddMedicine frame = new AddMedicine();
         });
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource().equals(add)) {
+            System.out.println("hehe");
+            String sql = String.format("INSERT INTO Med (Full_Name, Name, Type, Amount, Price, How, Recom) VALUES('%s', '%s', '%s', '%s', '%s', '%s', '%s')", 
+            Tcommon_name.getText(), Ttrade_name.getText(), Ttypandsize.getText(),Tall_capsule.getText(), Tprice.getText(), Thowtouse.getText(), Trecommend.getText());
+            System.out.println(sql);
+            table_db = new Connec_table();
+            table_db.UpdateData(sql);
+            table_db.Discon();
+            sql = "SELECT * FROM Med";
+            try {
+                setTable(sql);
+            } catch (SQLException ex) {
+                Logger.getLogger(AddMedicine.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            setTextBlank();
+        }
+        else if (e.getSource().equals(delete)) {
+            String sql = String.format("DELETE FROM Med WHERE Full_Name = '%s'", 
+            data.get(introw));
+            table_db = new Connec_table();
+            table_db.UpdateData(sql);
+            table_db.Discon();
+            try {
+                sql = "SELECT * FROM Med";
+                setTable(sql);
+            } catch (SQLException ex) {
+                Logger.getLogger(AddMedicine.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            setTextBlank();
+        }else if (e.getSource().equals(update)){
+            System.out.println("uuuuuuuu");
+            table_db = new Connec_table();
+            String sql = String.format("UPDATE Med SET Full_name = '%s', Name = '%s', Type = '%s', Amount = '%s', Price = '%s', How = '%s', Recom = '%s' WHERE Full_Name = '%s'",
+                    Tcommon_name.getText(),Ttrade_name.getText(),Ttypandsize.getText(),Tall_capsule.getText(),Tprice.getText(),Thowtouse.getText(),Trecommend.getText(),data.get(introw));
+            table_db.UpdateData(sql);
+            table_db.Discon();
+            try {
+                setTable("SELECT * FROM Med");
+            } catch (SQLException ex) {
+            }
+        }
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        introw = table.rowAtPoint(e.getPoint());
+        setTextClick(introw);
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
     }
 }
