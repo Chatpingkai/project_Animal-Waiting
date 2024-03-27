@@ -1,7 +1,5 @@
 
 import javax.swing.*;
-import javax.swing.table.TableColumn;
-
 import java.awt.*;
 import com.toedter.calendar.JCalendar;
 
@@ -17,7 +15,7 @@ panel_right_button;
     private ImageIcon profile;
 
     public main_admin() {
-        super("title", false, true, true, true);
+        super("Animal-Waiting", false, true, true, true);
         setLayout(new BorderLayout());
 
         panel_left = new JPanel();
@@ -116,7 +114,7 @@ panel_right_button;
 
         getContentPane().add(panel_left, BorderLayout.WEST);
         getContentPane().add(panel_right, BorderLayout.CENTER);
-        setSize(1000, 550);
+        setBounds(50, 50, 1000, 550);
         setVisible(true);
     }
 

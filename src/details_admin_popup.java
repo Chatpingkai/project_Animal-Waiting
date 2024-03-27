@@ -1,20 +1,32 @@
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class details_admin_popup extends JFrame implements ActionListener{
-    private JFrame fr;
-    private JPanel fr_pet, space1, space2, space3, space4, space5, space6, space7, space8, space9, space10, space11, space12, space13, space14, space15, space16, space17, space18, space19, space20, space21, space22, space23, space24, space25, space26, space27, space28, space29, space30;
-    private JTextField box_name_owner, box_name_pet, box_type, box_breed, box_age, box_sex, box_Chronic_illness, box_date, box_name_doctor, box_symptoms, box_diagnosis, box_treatment_methods, box_doctor_opinion, box_note, box_medicine, box_quantity, box_price;
-    private JLabel pet_history, name_owner, name_pet, type, breed, age, sex, Chronic_illness, date, treatment, name_docter, symptoms, diagnosis, treatment_methods, doctor_opinion, note, medicine, quantity, price;
+public class details_admin_popup extends JInternalFrame implements ActionListener{
+    private JPanel fr_pet, space1, space2, space3, space4, 
+space5, space6, space7, space8, space9, space10, space11, 
+space12, space13, space14, space15, space16, space17, space18, 
+space19, space20, space21, space22, space23, space24, space25, 
+space26, space27, space28, space29, space30;
+    private JTextField box_name_owner, box_name_pet, box_type, 
+box_breed, box_age, box_sex, box_Chronic_illness, box_date, 
+box_name_doctor, box_symptoms, box_diagnosis, box_treatment_methods, 
+box_doctor_opinion, box_note;
+    private JLabel pet_history, name_owner, name_pet, type, breed, 
+age, sex, Chronic_illness, date, treatment, name_docter, symptoms, 
+diagnosis, treatment_methods, doctor_opinion, note;
     private JButton button_plus, button_next;
+    private JTable table;
+    private JScrollPane scroll, scrollPane_main;
 
     public details_admin_popup(){
-        fr = new JFrame("treatment");
-        fr.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        fr.setLayout(new GridLayout(1, 1));
+        super("Animal-Waiting", false, true, true, true);
+        setLayout(new GridLayout(1, 1));
 
         space1 = new JPanel();
         space2 = new JPanel();
@@ -50,44 +62,69 @@ public class details_admin_popup extends JFrame implements ActionListener{
         fr_pet = new JPanel();
         fr_pet.setLayout(new FlowLayout(FlowLayout.LEFT));
 
-        pet_history = new JLabel("  Pet History");
-        pet_history.setFont(new Font("Jost", Font.BOLD, 25));
-        name_owner = new JLabel("           Customer Name :");
-        name_owner.setFont(new Font("Jost", Font.PLAIN, 15));
-        name_pet = new JLabel("           Pet Name : ");
-        name_pet.setFont(new Font("Jost", Font.PLAIN, 15));
-        type = new JLabel("           Type of pet : ");
-        type.setFont(new Font("Jost", Font.PLAIN, 15));
-        breed = new JLabel("    Breed : ");
-        breed.setFont(new Font("Jost", Font.PLAIN, 15));
-        age = new JLabel("           Age of the pet : ");
-        age.setFont(new Font("Jost", Font.PLAIN, 15));
-        sex = new JLabel("  Gender : ");
-        sex.setFont(new Font("Jost", Font.PLAIN, 15));
-        Chronic_illness = new JLabel("           Chronic illness : ");
-        Chronic_illness.setFont(new Font("Jost", Font.PLAIN, 15));
-        date = new JLabel("  Date");
-        date.setFont(new Font("Jost", Font.BOLD, 25));
-        treatment = new JLabel("  Treatment");
-        treatment.setFont(new Font("Jost", Font.BOLD, 25));
-        name_docter = new JLabel("           Doctor's name");
-        name_docter.setFont(new Font("Jost", Font.PLAIN, 15));
-        symptoms = new JLabel("           Symptoms");
-        symptoms.setFont(new Font("Jost", Font.PLAIN, 15));
-        diagnosis = new JLabel("           Diagnosis");
-        diagnosis.setFont(new Font("Jost", Font.PLAIN, 15));
-        treatment_methods = new JLabel("           Treatment methods");
-        treatment_methods.setFont(new Font("Jost", Font.PLAIN, 15));
-        doctor_opinion = new JLabel("           Doctor's opinion");
-        doctor_opinion.setFont(new Font("Jost", Font.PLAIN, 15));
-        note = new JLabel("           Note");
-        note.setFont(new Font("Jost", Font.PLAIN, 15));
-        medicine = new JLabel("           Medicine");
-        medicine.setFont(new Font("Jost", Font.PLAIN, 15));
-        quantity = new JLabel("                                     Quantity");
-        quantity.setFont(new Font("Jost", Font.PLAIN, 15));
-        price = new JLabel("    Price");
-        price.setFont(new Font("Jost", Font.PLAIN, 15));
+        pet_history = new JLabel("  ประวัติสัตว์เลี้ยง");
+        pet_history.setFont(new Font("Tahoma", Font.BOLD, 25));
+        name_owner = new JLabel("           ชื่อลุกค้า :");
+        name_owner.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        name_pet = new JLabel("           ชื่อสัตว์เลี้ยง : ");
+        name_pet.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        type = new JLabel("           ประเภทของสัตว์ : ");
+        type.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        breed = new JLabel("    สายพันธุ์ : ");
+        breed.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        age = new JLabel("           อายุสัตว์เลี้ยง : ");
+        age.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        sex = new JLabel("  เพศ : ");
+        sex.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        Chronic_illness = new JLabel("           โรคประจำตัว : ");
+        Chronic_illness.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        date = new JLabel("  วันที่");
+        date.setFont(new Font("Tahoma", Font.BOLD, 25));
+        treatment = new JLabel("  การรักษา");
+        treatment.setFont(new Font("Tahoma", Font.BOLD, 25));
+        name_docter = new JLabel("           ชื่อแพทย์");
+        name_docter.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        symptoms = new JLabel("           อาการ");
+        symptoms.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        diagnosis = new JLabel("           การวินิจฉัย");
+        diagnosis.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        treatment_methods = new JLabel("           การรักษา");
+        treatment_methods.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        doctor_opinion = new JLabel("           ความเห็นแพทย์");
+        doctor_opinion.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        note = new JLabel("           หมายเหตุ");
+        note.setFont(new Font("Tahoma", Font.PLAIN, 15));
+
+        table = new JTable();  
+        Object[] columns = {"ชื่อสามัญทางยา","ชื่อทางการค้า"};
+        DefaultTableModel model = new DefaultTableModel();
+        model.setColumnIdentifiers(columns);
+        table.setModel(model);
+        
+        scrollPane_main= new JScrollPane();
+        scroll = new JScrollPane();
+        scroll.setViewportView(table);
+        scroll.setBounds(40, 340, 400, 130);
+        scroll.setViewportView(table);
+
+        table.setRowHeight(24);
+        table.getTableHeader().setReorderingAllowed(false);
+        table.setGridColor(new Color(0xFFE3A7));
+        
+        Font defaultFont2 = table.getFont();
+        Font font = defaultFont2.deriveFont(defaultFont2.getSize() + 1.5f); 
+        table.setFont(font);
+        table.getTableHeader().setFont(font);
+        
+        DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
+        renderer.setBackground(new Color(0xFFE3A8));
+        table.setDefaultRenderer(Object.class, renderer);
+        
+        for(int i=0; i <=50; i++){
+            model.addRow(new Object[0]);
+        }
+        
+        table.setDefaultEditor(Object.class, null);
 
         box_name_owner = new JTextField();
         box_name_pet = new JTextField();
@@ -103,15 +140,13 @@ public class details_admin_popup extends JFrame implements ActionListener{
         box_treatment_methods = new JTextField();
         box_doctor_opinion = new JTextField();
         box_note = new JTextField();
-        box_medicine = new JTextField();
-        box_quantity = new JTextField();
-        box_price = new JTextField();
 
         button_next = new JButton("Next");
         button_next.setFont(new Font("Jost", Font.BOLD, 15));
         button_plus = new JButton("+");
         button_next.addActionListener(this);
 
+        getContentPane().add(scrollPane_main);
         fr_pet.add(pet_history);
         fr_pet.add(space1);
         fr_pet.add(name_owner);
@@ -166,26 +201,15 @@ public class details_admin_popup extends JFrame implements ActionListener{
         fr_pet.add(space22);
         fr_pet.add(box_note);
         fr_pet.add(space23);
-        fr_pet.add(medicine);
-        fr_pet.add(quantity);
-        fr_pet.add(price);
-        fr_pet.add(space24);
-        fr_pet.add(space25);
-        fr_pet.add(box_medicine);
-        fr_pet.add(box_quantity);
-        fr_pet.add(box_price);
-        fr_pet.add(space26);
-        fr_pet.add(space28);
-        fr_pet.add(button_plus);
-        fr_pet.add(space29);
+        fr_pet.add(scroll);
         fr_pet.add(space30);
         fr_pet.add(button_next);
 
-        fr.add(fr_pet);
+        getContentPane().add(fr_pet);
 
         button_next.setBackground(Color.WHITE);
         button_plus.setBackground(Color.WHITE);
-        fr.setBackground(new Color(0xFFEEE3));
+        setBackground(new Color(0xFFEEE3));
         fr_pet.setBackground(new Color(0xFFEEE3));
         space1.setBackground(new Color(0xFFEEE3));
         space2.setBackground(new Color(0xFFEEE3));
@@ -263,30 +287,20 @@ public class details_admin_popup extends JFrame implements ActionListener{
         box_treatment_methods.setPreferredSize(new Dimension(370, 20));
         box_doctor_opinion.setPreferredSize(new Dimension(370, 20));
         box_note.setPreferredSize(new Dimension(370, 20));
-        box_medicine.setPreferredSize(new Dimension(200, 20));
-        box_quantity.setPreferredSize(new Dimension(70, 20));
-        box_price.setPreferredSize(new Dimension(70, 20));
 
         button_next.setPreferredSize(new Dimension(80, 40));
 
-        fr.setSize(500, 750);
-        fr.setVisible(true);
-        fr.setResizable(false);
+        setSize(500, 750);
+        setVisible(true);
+        setResizable(false);
     }
     public static void main(String[] args){
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-            } catch (Exception e) {
-            e.printStackTrace();
-            }
-            SwingUtilities.invokeLater(() -> { 
-                details_admin_popup frame = new details_admin_popup();
-            });
+        new details_admin_popup();
     }
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == button_next){
-            fr.dispose();
+            dispose();
             new doctor_popup();
         }
     }

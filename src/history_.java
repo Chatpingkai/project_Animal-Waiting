@@ -8,7 +8,7 @@ public class history_ {
     private JLabel janimalhis, jpeoplename, janimalname, jcateanimal, jtypeanimal,jage, jgender, jdisea,jconclu, jdate, jdocname, jsymptom, jdocdescrip, jcure,jdocopi,jmedi;
     private JTextField tpeoplename, tanimalname, tcateanimal, ttypeanimal,tage, tgender, tdisea,tdate, tdocname,tsymptom;
     private JTextArea txtamedi , txtadocdescrip, txtacure,txtadocopi;
-    private JScrollPane meddi, symp, descrip, cure,opi,scrollPane;
+    private JScrollPane meddi, symp, descrip, cure, opi, scrollPane;
     private JTable table;
     public history_(){
         frhis = new JFrame("ประวัติ");
@@ -20,7 +20,7 @@ public class history_ {
 //        scrollPane.setPreferredSize(new Dimension(760, 700));
 //        scrollPane.setViewportView(pa1);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         
         janimalhis = new JLabel("ประวัติสัตว์เลี้ยง");
         janimalhis.setBounds(40, 30, 200, 20);
