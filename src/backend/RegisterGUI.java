@@ -1,16 +1,19 @@
+package backend;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class LoginGUI extends JFrame implements ActionListener {
+public class RegisterGUI extends JFrame implements ActionListener {
     private JLabel titleLabel, usernameLabel, passwordLabel;
     private JTextField usernameField;
     private JPasswordField passwordField;
-    private JButton loginButton;
+    private JButton registerButton;
+    private Connec db;
 
-    public LoginGUI() {
-        setTitle("Login");
+    public RegisterGUI() {
+        setTitle("Register");
         setSize(300, 200);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -18,15 +21,15 @@ public class LoginGUI extends JFrame implements ActionListener {
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(3, 2));
 
-        titleLabel = new JLabel("Login Form");
+        titleLabel = new JLabel("Register Form");
         usernameLabel = new JLabel("Username:");
         passwordLabel = new JLabel("Password:");
 
         usernameField = new JTextField();
         passwordField = new JPasswordField();
 
-        loginButton = new JButton("Login");
-        loginButton.addActionListener(this);
+        registerButton = new JButton("Register");
+        registerButton.addActionListener(this);
 
         panel.add(titleLabel);
         panel.add(new JLabel());
@@ -35,29 +38,26 @@ public class LoginGUI extends JFrame implements ActionListener {
         panel.add(passwordLabel);
         panel.add(passwordField);
         panel.add(new JLabel());
-        panel.add(loginButton);
+        panel.add(registerButton);
 
         add(panel);
         setVisible(true);
     }
 
     public void actionPerformed(ActionEvent e) {
+        db = new Connec();
         String username = usernameField.getText();
         String password = new String(passwordField.getPassword());
-        Connec db = new Connec();
-        String sql = String.format("select * from mydb where name = '%s' and password = '%s'", username, password);
-        db.getConnec(sql);
-        if (db.getConnec(sql) != null){
-            System.out.println("fdsfaf");
-            db.discon();
-        }
-        // Add login logic here
+        String sql = String.format("INSERT INTO test (name, password) VALUES('%s', '%s')", username,password);
+        db.getInsert(sql);
+        db.discon();
+        // Add registration logic here
+        System.out.println("Registering new user:");
         System.out.println("Username: " + username);
         System.out.println("Password: " + password);
     }
 
     public static void main(String[] args) {
-        new LoginGUI();
+        new RegisterGUI();
     }
-
 }
