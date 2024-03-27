@@ -4,7 +4,7 @@ import java.text.*;
 import javax.swing.*;
 
 import java.util.*;
-public class Treatment{
+public class Treatment_BAC {
     private JFrame frame;
     private JPanel panel1, panel2, panelreceipt, panel4, panel5, panel6, panel7, panel8, panel9, panel10, panel11, panel12, panel9_1, panelsumPureAmountTH, 
     panelpureAmount, panelsumPureAmount, panel13, panel14, panel15, paneldescription, panelamount, paneldescriptionData, panelamountData, panelnameO, 
@@ -20,10 +20,10 @@ public class Treatment{
         }
     
         SwingUtilities.invokeLater(() -> {
-            new Treatment();
+            new Treatment_BAC();
         });
     }
-    public Treatment(){
+    public Treatment_BAC(){
         frame = new JFrame("สรุป");
         panel1 = new JPanel(new BorderLayout());
         panel2 = new JPanel(new BorderLayout()); 
@@ -247,4 +247,3 @@ public class Treatment{
         frame.setSize(650, 650);
     }
 }
-

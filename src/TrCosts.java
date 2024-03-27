@@ -1,22 +1,35 @@
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import static java.awt.Color.*;
 import javax.swing.*;
 
-public class TrCosts {
+public class TrCosts implements ActionListener {
     private JFrame frame;
     private JPanel panelAll, panelAllHistory, panelAllTreatmen, panelHistory_t, panelTreatment_t, panelHistory, panelHistory1, panelHistory2, panelTreatment, panelTreatment1, panelTreatment2,
     panelNameOw, panelNameAn, panelTypeA, panelSpecies, panelAgeA, panelGenderA, panelChronicDisease, panelnameOW_A, panelTS, panelAG, panelTreatment2_1, panelTreatment2_2,
-    panelDateOfTreatment, panelDoctor, panelSymptom, panelDiagnosis, panelTreatmentt, panelDoctorOpinion;
+    panelDateOfTreatment, panelDoctor, panelSymptom, panelDiagnosis, panelTreatmentt, panelDoctorOpinion, panelAll_final, panelbutton;
     private JLabel historyA_t, treatment_t, nameOw, nameAn, typeA, species, ageA, genderA, chronicDisease,
     dateOfTreatment, doctor, symptom, diagnosis, treatmentt, doctorOpinion;
     private JTextField textNameOw, textNameAn, textTypeA, textSpecies, textAgeA, textGenderA, textChronicDisease,
     textDateOfTreatment, textDoctor;
     private JTextArea textSymptom, textDiagnosis, textTreatmentt, textDoctorOpinion;
+    private JButton Treatment;
     public static void main(String[] args) {
-        new TrCosts();
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    
+        SwingUtilities.invokeLater(() -> {
+            new TrCosts();
+        });
     }
     public TrCosts(){
         frame = new JFrame("สรุป");
+        panelAll_final = new JPanel(new BorderLayout());
         panelAll = new JPanel(new BorderLayout());
         panelAllHistory = new JPanel(new BorderLayout());
         panelHistory_t = new JPanel(new FlowLayout((FlowLayout.LEFT)));
@@ -50,11 +63,11 @@ public class TrCosts {
         ));
         historyA_t.setFont(new Font(historyA_t.getFont().getName(), Font.PLAIN, 15));
         nameOw = new JLabel("           ชื่อเจ้าของ  ");
-        nameAn = new JLabel("  ชื่อสัตว์เลี้ยง  ");
+        nameAn = new JLabel("        ชื่อสัตว์เลี้ยง  ");
         typeA = new JLabel("           ประเภทสัตว์เลี้ยง  ");
-        species = new JLabel("       สายพันธุ์  ");
+        species = new JLabel("                  สายพันธุ์  ");
         ageA = new JLabel("           อายุสัตว์เลี้ยง  ");
-        genderA = new JLabel("                     เพศ  ");
+        genderA = new JLabel("                                เพศ  ");
         chronicDisease = new JLabel("           โรคประจำตัว  ");
         textNameOw = new JTextField("", 20);
         textNameAn = new JTextField("", 12);
@@ -133,14 +146,19 @@ public class TrCosts {
         doctor = new JLabel("            แพทย์ที่ทำการตรวจ  ");
         symptom = new JLabel("            อาการ  ");
         diagnosis = new JLabel("            การวินิจฉัย   ");
-        treatmentt = new JLabel("             การรักษา   ");
+        treatmentt = new JLabel("             การรักษา  ");
         doctorOpinion = new JLabel("             ความเห็นของแพทย์  ");
         textDateOfTreatment = new JTextField("", 30);
         textDoctor = new JTextField("", 20);
         textSymptom = new JTextArea("", 2,58);
-        textDiagnosis = new JTextArea("", 2,51);
-        textTreatmentt = new JTextArea("", 2,54);
-        textDoctorOpinion = new JTextArea("", 2,46);
+        textDiagnosis = new JTextArea("", 2,55);
+        textTreatmentt = new JTextArea("", 2,56);
+        textDoctorOpinion = new JTextArea("", 2,50);
+        textDoctor.setFont(new Font("Angsana New", Font.PLAIN, 15));
+        textSymptom.setFont(new Font("Angsana New", Font.PLAIN, 15));
+        textDiagnosis.setFont(new Font("Angsana New", Font.PLAIN, 15));
+        textTreatmentt.setFont(new Font("Angsana New", Font.PLAIN, 15));
+        textDoctorOpinion.setFont(new Font("Angsana New", Font.PLAIN, 15));
 
         textDateOfTreatment.setBackground(white);
         textDoctor.setBackground(white);
@@ -155,6 +173,13 @@ public class TrCosts {
         textTreatmentt.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         textDoctorOpinion.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
+        //Jbutton
+        panelbutton = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        panelbutton.setBackground(new Color(0xFFEEE3));
+        Treatment = new JButton("ค่ารักษา");
+        Treatment.setPreferredSize(new Dimension(100, 30));
+        panelbutton.add(Treatment);
+
         panelTreatment_t.add(treatment_t);
         panelDateOfTreatment.add(dateOfTreatment); panelDateOfTreatment.add(textDateOfTreatment);
         panelDoctor.add(doctor); panelDoctor.add(textDoctor);
@@ -162,7 +187,7 @@ public class TrCosts {
         panelSymptom.add(symptom); panelSymptom.add(textSymptom);
         panelDiagnosis.add(diagnosis); panelDiagnosis.add(textDiagnosis);
         panelTreatmentt.add(treatmentt); panelTreatmentt.add(textTreatmentt);
-        panelDoctorOpinion.add(doctorOpinion); panelDoctorOpinion.add(textDoctorOpinion);
+        panelDoctorOpinion.add(doctorOpinion); panelDoctorOpinion.add(textDoctorOpinion); panelDoctorOpinion.add(panelbutton);
         panelTreatment2_1 = new JPanel(new BorderLayout());
         panelTreatment2_2 = new JPanel(new BorderLayout());
         panelTreatment2_1.add(panelSymptom, BorderLayout.NORTH);
@@ -177,9 +202,18 @@ public class TrCosts {
         panelAllTreatmen.add(panelTreatment_t, BorderLayout.NORTH); panelAllTreatmen.add(panelTreatment, BorderLayout.CENTER);
 
         panelAll.add(panelAllHistory, BorderLayout.NORTH); panelAll.add(panelAllTreatmen, BorderLayout.CENTER);
-        frame.add(panelAll);
+        panelAll_final.add(panelAll, BorderLayout.CENTER);
+        frame.add(panelAll_final);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(650, 650);
+        Treatment.addActionListener(this);
+    }
+    @Override
+    public void actionPerformed(ActionEvent ev) {
+        if (ev.getSource().equals(Treatment)) {
+            new Treatment();
+        }
+
     }
 }
