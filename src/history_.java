@@ -14,7 +14,7 @@ public class history_ {
         frhis = new JFrame("ประวัติ");
         pa1 = new JPanel(null);
         pa1.setBackground(new Color(0xFFEEE3));
-        pa1.setPreferredSize(new Dimension(760, 630));
+        pa1.setPreferredSize(new Dimension(760, 800));
         
         scrollPane = new JScrollPane(pa1);
 //        scrollPane.setPreferredSize(new Dimension(760, 700));
@@ -147,7 +147,7 @@ public class history_ {
         
 
         txtadocdescrip = new JTextArea();
-//        txtadocdescrip.setLineWrap(true);
+        txtadocdescrip.setLineWrap(true);
         descrip = new JScrollPane(txtadocdescrip);
 //        descrip.setViewportView(txtadocdescrip);
         descrip.setBounds(210, 320, 480, 40);
@@ -157,7 +157,7 @@ public class history_ {
         txtacure = new JTextArea(); 
         cure = new JScrollPane(txtacure);
 //        cure.setViewportView(txtacure);
-//        txtacure.setLineWrap(true);
+        txtacure.setLineWrap(true);
         cure.setBounds(210, 370, 480, 40);
         cure.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         pa1.add(cure);
@@ -165,7 +165,7 @@ public class history_ {
         txtadocopi = new JTextArea();
         opi = new JScrollPane(txtadocopi);
 //        opi.setViewportView(txtadocopi);
-//        txtadocopi.setLineWrap(true);
+        txtadocopi.setLineWrap(true);
         opi.setBounds(210, 420, 480, 40);
         opi.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         pa1.add(opi);

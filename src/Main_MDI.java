@@ -6,11 +6,14 @@ public class Main_MDI {
     private JDesktopPane desktopPane;
     private main_admin internal_Main_admin;
     private JFrame frame;
+    private AddMedicine internal_AddMedicine;
     public Main_MDI(){
         desktopPane = new JDesktopPane();
         internal_Main_admin = new main_admin();
+        internal_AddMedicine = new AddMedicine();
 
         desktopPane.add(internal_Main_admin);
+        desktopPane.add(internal_AddMedicine);
 
         desktopPane.setBackground(new Color(0xFFF5F5));
 

@@ -8,8 +8,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
 import javax.swing.table.*;
-public class AddMedicine implements ActionListener, MouseListener{
-    private JFrame fraddmed;
+public class AddMedicine extends JInternalFrame implements ActionListener, MouseListener {
+//    private JFrame fraddmed;
     private JTextField Tcommon_name, Ttrade_name, Ttypandsize, Thowtoeat, Tnum_date, Tall_capsule, Tprice, Thowtouse, Trecommend ;
     private JLabel Lcommon_name, Ltrade_name, Ltypandsize, Lhowtoeat, Lnum_date, Lall_capsule, Lprice, Lhowtouse, Lrecommend, Lmedorcapsule, Ltime, Lmedorcapsule2, Lbaht;
     private JButton submit, update, delete, add;
@@ -22,7 +22,8 @@ public class AddMedicine implements ActionListener, MouseListener{
     private int introw;
     public AddMedicine(){
         //pop up//
-        fraddmed = new JFrame("เพิ่มยา");
+//        fraddmed = new JFrame("เพิ่มยา");
+        super("Animal-Waiting", false, true, true, true);
         pa1 = new JPanel();
         pa1.setLayout(null);
         pa1.setBackground(new Color(0xFFEEE3));
@@ -154,7 +155,7 @@ public class AddMedicine implements ActionListener, MouseListener{
         scroll = new JScrollPane();
         scroll.setViewportView(table);
         scroll.setBounds(40, 340, 400, 130);
-        fraddmed.getContentPane().add(scroll);
+        getContentPane().add(scroll);
         scroll.setViewportView(table);
 
         table.setRowHeight(24);
@@ -180,12 +181,13 @@ public class AddMedicine implements ActionListener, MouseListener{
          table.setDefaultEditor(Object.class, null);//un edit row//
         
         
-        fraddmed.add(pa1);
-        fraddmed.setSize(500, 650); // Initial size
-        fraddmed.setResizable(false);
-        fraddmed.setLocationRelativeTo(null); // Center the frame on the screen
-        fraddmed.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        fraddmed.setVisible(true);
+//        fraddmed.add(pa1);
+        setSize(500, 650); // Initial size
+        setResizable(false);
+//        setLocation(500, 500);
+//        setLocationRelativeTo(null); // Center the frame on the screen
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setVisible(true);
     }
     public void setTable(String sql) throws SQLException{
         data = new ArrayList<String>();
