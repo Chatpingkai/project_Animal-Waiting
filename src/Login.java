@@ -109,7 +109,6 @@ public class Login implements ActionListener {
         //JFrame Setting
         fr.add(imagLabel, BorderLayout.WEST);
         fr.add(main, BorderLayout.CENTER);
-        fr.setLocationRelativeTo(null);
         fr.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         fr.setSize(1280, 980);
         fr.setVisible(true);

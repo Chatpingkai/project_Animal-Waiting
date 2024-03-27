@@ -6,7 +6,7 @@ import java.util.Properties;
 import org.jdatepicker.JDatePicker;
 import org.jdatepicker.UtilDateModel;
 
-public class edit_register {
+public class edit_register implements ActionListener{
     private JFrame fr_edit_register;
     private JPanel panel_main, empty2, empty3, empty4, empty5, empty6,
 empty7, empty8, empty9, empty10, empty11, empty12, empty13, empty14, empty15,
@@ -722,6 +722,17 @@ circle_pet_female, circle_idk;
         fr_edit_register.setVisible(true);
         fr_edit_register.setResizable(false);
     }
+
+    @Override
+    public void actionPerformed(ActionEvent e){
+        if (e.getSource().equals(button_back)){
+
+        }
+        else if (e.getSource().equals(button_save)){
+
+        }
+    }
+
     public static void main(String[] args){
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
