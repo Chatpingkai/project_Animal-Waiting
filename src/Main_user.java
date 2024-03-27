@@ -222,6 +222,12 @@ public class Main_user implements ActionListener {
             fr.dispose();
             new edit_register();
         }
+        else if(e.getSource().equals(history)){
+            new history_();
+        }
+        else if(e.getSource().equals(logout)){
+
+        }
     }
 
     public static void main(String[] args) {
