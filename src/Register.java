@@ -775,7 +775,6 @@ circle_pet_female, circle_idk;
         fr_register.setResizable(false);
     }
     public static void main(String[] args){
-        new Register();
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
             } catch (Exception e) {

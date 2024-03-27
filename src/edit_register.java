@@ -534,7 +534,7 @@ circle_pet_female, circle_idk;
 //space box gender
         empty37.setPreferredSize(new Dimension(115, 10));
         empty38.setPreferredSize(new Dimension(129, 10));
-        empty39.setPreferredSize(new Dimension(150, 10));
+        empty39.setPreferredSize(new Dimension(130, 10));
         empty40.setPreferredSize(new Dimension(166, 10));
 //space age
         empty41.setPreferredSize(new Dimension(120, 10));
@@ -693,7 +693,7 @@ circle_pet_female, circle_idk;
         box_name_pet.setPreferredSize(new Dimension(250, 25));
         box_type.setPreferredSize(new Dimension(150, 25));
         box_species.setPreferredSize(new Dimension(150, 25));
-        box_birthday.setPreferredSize(new Dimension(100, 25));
+        box_birthday.setPreferredSize(new Dimension(120, 25));
         box_disease.setPreferredSize(new Dimension(300, 25));
         box_ageyear.setPreferredSize(new Dimension(80, 25));
         box_agemonth.setPreferredSize(new Dimension(80, 25));
