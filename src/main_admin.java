@@ -1,177 +1,126 @@
 
 import javax.swing.*;
+import javax.swing.table.TableColumn;
+
 import java.awt.*;
-import java.awt.geom.Ellipse2D;
-import java.awt.image.BufferedImage;
 import com.toedter.calendar.JCalendar;
 
-public class main_admin{
-    private JFrame fr;
-    private JPanel fr_left, fr_right, fr_left_under, emthy1, emthy2, emthy3, fr_left_under_med, emthy4, emthy5, emthy6, emthy7, fr_left_under_Medical_records, fr_right_top, fr_right_under, emthy8, emthy9, emthy10, emthy11, emthy12;
-    private ImageIcon photo, photo_size, photo_smth;
-    private JLabel photo_JLabel;
-    private JButton button_med, button_Medical_records, button_logout;
+public class main_admin extends JInternalFrame {
+    private JPanel panel_left, panel_right, panel_left1, panel_calendar, 
+panel_left2, panel_left3, panel_left4, panel_left5, panel_left6, 
+panel_right1, panel_right2, panel_right3,
+panel_right_button;
+    private JButton button_medicine, button_history, button_logout;
     private JTable table;
+    private JLabel photo;
     private JCalendar calendar;
+    private ImageIcon profile;
 
-    public main_admin(){
-        fr = new JFrame("Animal-Wating");
-        fr.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        fr.setLayout(new BorderLayout());
+    public main_admin() {
+        super("title", false, true, true, true);
+        setLayout(new BorderLayout());
 
-        fr_left = new JPanel();
-        fr_right = new JPanel();
-        fr_left_under = new JPanel();
-        emthy1 = new JPanel();
-        emthy2 = new JPanel();
-        emthy3 = new JPanel();
-        emthy4 = new JPanel();
-        emthy5 = new JPanel();
-        emthy6 = new JPanel();
-        emthy7 = new JPanel();
-        emthy8 = new JPanel();
-        emthy9 = new JPanel();
-        emthy10 = new JPanel();
-        emthy11 = new JPanel();
-        emthy12 = new JPanel();
-        fr_left_under_med = new JPanel();
-        fr_left_under_med.setLayout(new BorderLayout());
-        fr_left_under_Medical_records = new JPanel();
-        fr_left_under_Medical_records.setLayout(new BorderLayout());
-        fr_right_top = new JPanel();
-        fr_right_top.setLayout(new FlowLayout(FlowLayout.RIGHT));
-        fr_right_under = new JPanel();
-        fr_right_under.setLayout(new BorderLayout());
-        fr_left.setLayout(new GridLayout(3, 1));
-        fr_left_under.setLayout(new GridLayout(5, 1));
-        fr_right.setLayout(new BorderLayout());
+        panel_left = new JPanel();
+        panel_right = new JPanel();
+        panel_left1 = new JPanel();
+        panel_left2 = new JPanel();
+        panel_left3 = new JPanel();
+        panel_left4 = new JPanel();
+        panel_left5 = new JPanel();
+        panel_left6 = new JPanel();
+        panel_calendar = new JPanel();
+        panel_right_button = new JPanel();
+        panel_right1 = new JPanel();
+        panel_right2 = new JPanel();
+        panel_right3 = new JPanel();
 
-        String[] columnNames = {"Time", "details"};
-        Object[][] data= {{"10:00 - 11:00", null},
-        {"11:00 - 12:00", null},
-        {"12:00 - 13:00", null},
-        {"13:00 - 14:00", null},
-        {"14:00 - 15:00", null},
-        {"15:00 - 16:00", null},
-        {"16:00 - 17:00", null},
-        {"17:00 - 18:00", null},
-        {"18:00 - 19:00", null},
-        {"19:00 - 20:00", null}};
+        panel_left.setLayout(new BorderLayout());
+        panel_left1.setLayout(new BorderLayout());
+        panel_left2.setLayout(new GridLayout(2, 1));
+        panel_left3.setLayout(new FlowLayout());
+        panel_left4.setLayout(new FlowLayout());
+        panel_left5.setLayout(new FlowLayout());
+        panel_left6.setLayout(new FlowLayout());
+        panel_right_button.setLayout(new FlowLayout(FlowLayout.RIGHT));
+
+        button_medicine = new JButton("คลังยา");
+        button_history = new JButton("เวชระเบียน");
+        button_logout = new JButton("Logout");
+
+        calendar = new JCalendar();
+
+        profile = new ImageIcon(getClass().getResource("koala.png"));
+
+        photo = new JLabel();
+        photo.setIcon(profile);
+        photo.setSize(100, 50);
+        panel_left5.add(photo);
+
+        panel_left.add(panel_left5, BorderLayout.NORTH);
+        panel_left.add(panel_left1, BorderLayout.CENTER);
+
+        panel_left1.add(panel_left6, BorderLayout.NORTH);
+        panel_left1.add(panel_calendar, BorderLayout.CENTER);
+        panel_left1.add(panel_left2, BorderLayout.SOUTH);
+
+        panel_left2.add(panel_left3);
+        panel_left2.add(panel_left4);
+
+        panel_left3.add(button_medicine);
+
+        panel_left4.add(button_history);
+        
+        panel_calendar.add(calendar);
+
+        // สร้างตาราง
+        String[][] data = {{"10:00 - 11:00", null}, {"11:00 - 12:00", null}, 
+{"12:00 - 13:00", null}, {"13:00 - 14:00", null}, {"14:00 - 15:00", null}, 
+{"15:00 - 16:00", null}, {"16:00 - 17:00", null}, {"17:00 - 18:00", null}, 
+{"18:00 - 19:00", null}, {"19:00 - 20:00", null}};
+        String[] columnNames = {"เวลา", "รายละเอียด"};
         table = new JTable(data, columnNames);
-        table.getTableHeader().setReorderingAllowed(false);
-
-        fr_right_under.add(table, BorderLayout.CENTER);
-        fr_right_under.add(emthy9, BorderLayout.WEST);
-        fr_right_under.add(emthy10, BorderLayout.EAST);
-        fr_right_under.add(emthy11, BorderLayout.SOUTH);
-        table.setRowHeight(29);
+        table.setRowHeight(30);
         table.getColumnModel().getColumn(0).setPreferredWidth(50);
         table.getColumnModel().getColumn(1).setPreferredWidth(300);
-        emthy9.setBackground(new Color(0xFFEEE3));
-        emthy10.setBackground(new Color(0xFFEEE3));
-        emthy11.setBackground(new Color(0xFFEEE3));
+        table.setIntercellSpacing(new Dimension(5, 5));
 
-        fr_right.add(fr_right_top, BorderLayout.NORTH);
-        fr_right.add(fr_right_under, BorderLayout.CENTER);
+        panel_right_button.add(button_logout);
 
-        button_logout = new JButton("Logout");
-        button_logout.setBackground(Color.WHITE);
-        button_logout.setFont(new Font("Jost", Font.PLAIN, 20));
+        panel_right.setLayout(new BorderLayout());
+        panel_right.add(panel_right_button, BorderLayout.NORTH);
+        panel_right.add(new JScrollPane(table), BorderLayout.CENTER);
+        panel_right.add(panel_right1, BorderLayout.WEST);
+        panel_right.add(panel_right2, BorderLayout.EAST);
+        panel_right.add(panel_right3, BorderLayout.SOUTH);
 
-        button_med = new JButton("Pharmacy");
-        button_Medical_records = new JButton("Medical records");
-        button_med.setBackground(Color.WHITE);
-        button_med.setFont(new Font("Jost", Font.PLAIN, 20));
-        button_med.setHorizontalAlignment(SwingConstants.CENTER);
-        button_Medical_records.setBackground(Color.WHITE);
-        button_Medical_records.setFont(new Font("Jost", Font.PLAIN, 20));
-        button_Medical_records.setHorizontalAlignment(SwingConstants.CENTER);
+        button_medicine.setPreferredSize(new Dimension(150, 50));
+        button_history.setPreferredSize(new Dimension(150, 50));
+        button_logout.setPreferredSize(new Dimension(150, 50));
+        panel_left.setPreferredSize(new Dimension(200, 500));
+        panel_left5.setPreferredSize(new Dimension(200, 150));
+        panel_left6.setPreferredSize(new Dimension(200, 50));
+        panel_right3.setPreferredSize(new Dimension(200, 133));
 
-        fr_right_top.add(emthy8);
-        fr_right_top.add(button_logout);
-        fr_right_top.add(emthy12);
+        panel_left.setBackground(new Color(0xFFE3A8));
+        panel_left1.setBackground(new Color(0xFFE3A8));
+        panel_left2.setBackground(new Color(0xFFE3A8));
+        panel_left3.setBackground(new Color(0xFFE3A8));
+        panel_left4.setBackground(new Color(0xFFE3A8));
+        panel_left6.setBackground(new Color(0xFFE3A8));
+        panel_calendar.setBackground(new Color(0xFFE3A8));
+        panel_right_button.setBackground(new Color(0xFFEEE3));
+        panel_right.setBackground(new Color(0xFFEEE3));
+        panel_right1.setBackground(new Color(0xFFEEE3));
+        panel_right2.setBackground(new Color(0xFFEEE3));
+        panel_right3.setBackground(new Color(0xFFEEE3));
 
-        fr_left_under_med.add(button_med, BorderLayout.CENTER);
-        fr_left_under_med.add(emthy4, BorderLayout.WEST);
-        fr_left_under_med.add(emthy5, BorderLayout.EAST);
-
-        fr_left_under_Medical_records.add(button_Medical_records, BorderLayout.CENTER);
-        fr_left_under_Medical_records.add(emthy6, BorderLayout.WEST);
-        fr_left_under_Medical_records.add(emthy7, BorderLayout.EAST);
-
-        fr_left_under.add(emthy1);
-        fr_left_under.add(fr_left_under_med);
-        fr_left_under.add(emthy2);
-        fr_left_under.add(fr_left_under_Medical_records);
-        fr_left_under.add(emthy3);
-        emthy1.setBackground(new Color(0xFFE3A8));
-        emthy2.setBackground(new Color(0xFFE3A8));
-        emthy3.setBackground(new Color(0xFFE3A8));
-        emthy4.setBackground(new Color(0xFFE3A8));
-        emthy5.setBackground(new Color(0xFFE3A8));
-        emthy6.setBackground(new Color(0xFFE3A8));
-        emthy7.setBackground(new Color(0xFFE3A8));
-        emthy8.setBackground(new Color(0xFFEEE3));
-        emthy12.setBackground(new Color(0xFFEEE3));
-
-        photo = new ImageIcon(System.getProperty("user.dir")+"/src/koala.png");
-        photo_size = resizeImageIcon(photo, 150, 150);
-        photo_smth = getRoundedImageIcon(photo_size);
-        photo_JLabel = new JLabel(photo_smth);
-        
-        calendar = new JCalendar();
-        
-
-        fr_left.add(photo_JLabel);
-        fr_left.add(calendar);
-        fr_left.add(fr_left_under);
-        fr_left.setBackground(new Color(0xFFE3A8));
-        fr_right.setBackground(new Color(0xFFEEE3));
-        fr_right_top.setBackground(new Color(0xFFEEE3));
-        fr_right_under.setBackground(new Color(0xFFEEE3));
-
-        fr.add(fr_left, BorderLayout.WEST);
-        fr.add(fr_right, BorderLayout.CENTER);
-
-        fr_left.setPreferredSize(new Dimension(300, 500));
-        fr_right.setPreferredSize(new Dimension(200, 500));
-        emthy4.setPreferredSize(new Dimension(50, 100));
-        emthy5.setPreferredSize(new Dimension(50, 100));
-        emthy6.setPreferredSize(new Dimension(50, 100));
-        emthy7.setPreferredSize(new Dimension(50, 100));
-        emthy8.setPreferredSize(new Dimension(300, 100));
-        emthy9.setPreferredSize(new Dimension(20, 100));
-        emthy10.setPreferredSize(new Dimension(20, 100));
-        //emthy11.setPreferredSize(new Dimension(300, 198));
-        emthy12.setPreferredSize(new Dimension(10, 100));
-        fr_right_top.setPreferredSize(new Dimension(200, 200));
-
-        fr.setSize(1000, 750);
-        fr.setVisible(true);
-        fr.setResizable(false);
+        getContentPane().add(panel_left, BorderLayout.WEST);
+        getContentPane().add(panel_right, BorderLayout.CENTER);
+        setSize(1000, 550);
+        setVisible(true);
     }
 
-    private ImageIcon resizeImageIcon(ImageIcon originalIcon, int width, int height) {
-        Image img = originalIcon.getImage();
-        Image resizedImg = img.getScaledInstance(width, height, Image.SCALE_SMOOTH);
-        return new ImageIcon(resizedImg);
-    }
-
-    private ImageIcon getRoundedImageIcon(ImageIcon originalIcon) {
-        int diameter = Math.min(originalIcon.getIconWidth(), originalIcon.getIconHeight());
-        BufferedImage image = new BufferedImage(diameter, diameter, BufferedImage.TYPE_INT_ARGB);
-        Graphics2D g2 = image.createGraphics();
-
-        Ellipse2D.Double ellipse = new Ellipse2D.Double(0, 0, diameter, diameter);
-        g2.setClip(ellipse);
-        originalIcon.paintIcon(null, g2, 0, 0);
-
-        g2.dispose();
-        return new ImageIcon(image);
-    }
-
-    public static void main(String[] args){
+    public static void main(String[] args) {
         new main_admin();
     }
 }
-
