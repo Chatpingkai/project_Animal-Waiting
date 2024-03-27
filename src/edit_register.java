@@ -721,12 +721,16 @@ circle_pet_female, circle_idk;
         fr_edit_register.setSize(1000, 850);
         fr_edit_register.setVisible(true);
         fr_edit_register.setResizable(false);
+
+        button_back.addActionListener(this);
+        button_save.addActionListener(this);
     }
 
     @Override
     public void actionPerformed(ActionEvent e){
         if (e.getSource().equals(button_back)){
-
+                fr_edit_register.dispose();
+                new Main_user();
         }
         else if (e.getSource().equals(button_save)){
 
