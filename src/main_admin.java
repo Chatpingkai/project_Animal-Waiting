@@ -114,7 +114,7 @@ public class main_admin{
         emthy8.setBackground(new Color(0xFFEEE3));
         emthy12.setBackground(new Color(0xFFEEE3));
 
-        photo = new ImageIcon(getClass().getResource("koala.png"));
+        photo = new ImageIcon(System.getProperty("user.dir")+"/src/koala.png");
         photo_size = resizeImageIcon(photo, 150, 150);
         photo_smth = getRoundedImageIcon(photo_size);
         photo_JLabel = new JLabel(photo_smth);
