@@ -79,7 +79,6 @@ public class Medicinehome extends JInternalFrame implements ActionListener {
         getContentPane().add(pa1);
         setSize(800, 600); // Initial size
 //        setLocationRelativeTo(null); // Center the frame on the screen
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
         
         

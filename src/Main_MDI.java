@@ -20,7 +20,6 @@ public class Main_MDI {
         internal_history_ = new history_();
         internal_Usage_history = new Usage_history();
         
-
         desktopPane.add(internal_Main_admin);
         desktopPane.add(internal_AddMedicine);
         desktopPane.add(internal_Medicinehome);

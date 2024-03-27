@@ -32,7 +32,6 @@ public class Usage_history extends JInternalFrame implements MouseListener{
         getContentPane().add(pa1);
         setSize(1300, 700); // Initial size
 //        setLocationRelativeTo(null); // Center the frame on the screen
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
         setResizable(false);
     }

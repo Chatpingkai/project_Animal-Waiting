@@ -224,7 +224,6 @@ public class history_  extends JInternalFrame{
         setSize(760, 600);
         setResizable(false);
 //        frhis.setLocationRelativeTo(null); // Center the frame on the screen
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
     }
     public static void main(String[] args) {

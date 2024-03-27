@@ -15,7 +15,7 @@ panel_right_button;
     private ImageIcon profile;
 
     public main_admin() {
-        super("Animal-Waiting", false, true, true, true);
+        super("Animal-Waiting", false, true, false, true);
         setLayout(new BorderLayout());
 
         panel_left = new JPanel();

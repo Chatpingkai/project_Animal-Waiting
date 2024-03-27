@@ -1,307 +1,386 @@
 
+import java.awt.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
-import java.awt.*;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import org.jdatepicker.JDatePicker;
+import org.jdatepicker.UtilDateModel;
 
-public class details_admin_popup extends JInternalFrame implements ActionListener{
-    private JPanel fr_pet, space1, space2, space3, space4, 
-space5, space6, space7, space8, space9, space10, space11, 
-space12, space13, space14, space15, space16, space17, space18, 
-space19, space20, space21, space22, space23, space24, space25, 
-space26, space27, space28, space29, space30;
-    private JTextField box_name_owner, box_name_pet, box_type, 
-box_breed, box_age, box_sex, box_Chronic_illness, box_date, 
-box_name_doctor, box_symptoms, box_diagnosis, box_treatment_methods, 
-box_doctor_opinion, box_note;
-    private JLabel pet_history, name_owner, name_pet, type, breed, 
-age, sex, Chronic_illness, date, treatment, name_docter, symptoms, 
-diagnosis, treatment_methods, doctor_opinion, note;
-    private JButton button_plus, button_next;
-    private JTable table;
-    private JScrollPane scroll, scrollPane_main;
+public class details_admin_popup{
+    private JFrame fr;
+    private JPanel panel_main, panel_history, panel_his_north, panel_his_center, panel_his1, panel_his2, 
+panel_his3, panel_his4, panel_his5, panel_his6, panel_his7, panel_date, panel_txt_date, 
+panel_box_date, panel_treatment, panel_treat_north, panel_treat_center, panel_treat_south, 
+panel_cen1, panel_cen2, panel_cen3, panel_cen4, panel_center, panel_help1, panel_help2, 
+panel_help3, panel_help4, panel_help5, panel_help6, panel_button, panel_cen5, panel_help7, 
+panel_help8, panel_help9, panel_help10, panel_help11, panel_button_jingjing;
+    private JScrollPane scroll_table, scroll_main;
+    private JLabel txt_history_pet, txt_name, txt_name_pet, txt_type, txt_breed, txt_age, txt_gender, 
+txt_disease, txt_date, txt_treatment, txt_name_docter, txt_symptom, txt_diagnose, txt_trestment_method, 
+txt_opinion, txt_note;
+    private JTextField box_name, box_name_pet, box_type, box_breed, box_age, box_gender, 
+box_disease, box_name_docter, box_symptom, box_diagnose, box_trestment_method, 
+box_opinion, box_note;
+    private JButton button_plus, button_minus, button_next;
+    private JDatePicker box_date;
+    private UtilDateModel models;
 
     public details_admin_popup(){
-        super("Animal-Waiting", false, true, true, true);
-        setLayout(new GridLayout(1, 1));
+        fr = new JFrame("การรักษา");
+        fr.setLayout(new GridLayout(1, 1));
+        fr.setDefaultCloseOperation(fr.EXIT_ON_CLOSE);
 
-        space1 = new JPanel();
-        space2 = new JPanel();
-        space3 = new JPanel();
-        space4 = new JPanel();
-        space5 = new JPanel();
-        space6 = new JPanel();
-        space7 = new JPanel();
-        space8 = new JPanel();
-        space9 = new JPanel();
-        space10 = new JPanel();
-        space11 = new JPanel();
-        space12 = new JPanel();
-        space13 = new JPanel();
-        space14 = new JPanel();
-        space15 = new JPanel();
-        space16 = new JPanel();
-        space17 = new JPanel();
-        space18 = new JPanel();
-        space19 = new JPanel();
-        space20 = new JPanel();
-        space21 = new JPanel();
-        space22 = new JPanel();
-        space23 = new JPanel();
-        space24 = new JPanel();
-        space25 = new JPanel();
-        space26 = new JPanel();
-        space27 = new JPanel();
-        space28 = new JPanel();
-        space29 = new JPanel();
-        space30 = new JPanel();
+        txt_history_pet = new JLabel("ประวัติสัตว์เลี้ยง");
+        txt_name = new JLabel("        ชื่อลูกค้า ");
+        txt_name_pet = new JLabel("ชื่อสัตว์เลี้ยง ");
+        txt_type = new JLabel("        ประเภทของสัตว์เลี้ยง ");
+        txt_breed = new JLabel("สายพันธุ์");
+        txt_age = new JLabel("       อายุของสัตว์เลี้ยง ");
+        txt_gender = new JLabel("เพศ ");
+        txt_disease = new JLabel("       โรคประจำตัว ");
+        txt_date = new JLabel("วันที่ ");
+        txt_treatment = new JLabel("รายละเอียดการรักษา");
+        txt_name_docter = new JLabel("ชื่อแพทย์ ");
+        txt_symptom = new JLabel("อาการ ");
+        txt_diagnose = new JLabel("การวินิจฉัย");
+        txt_trestment_method = new JLabel("การักษา");
+        txt_opinion = new JLabel("ความเห็นแพทย์ ");
+        txt_note = new JLabel("หมายเหตุ ");
 
-        fr_pet = new JPanel();
-        fr_pet.setLayout(new FlowLayout(FlowLayout.LEFT));
+        box_name = new JTextField();
+        box_name_pet = new JTextField();
+        box_type = new JTextField();
+        box_breed = new JTextField();
+        box_age = new JTextField();
+        box_gender = new JTextField();
+        box_disease = new JTextField();
+        box_name_docter = new JTextField();
+        box_symptom = new JTextField();
+        box_diagnose = new JTextField();
+        box_trestment_method = new JTextField();
+        box_opinion = new JTextField();
+        box_note = new JTextField();
 
-        pet_history = new JLabel("  ประวัติสัตว์เลี้ยง");
-        pet_history.setFont(new Font("Tahoma", Font.BOLD, 25));
-        name_owner = new JLabel("           ชื่อลุกค้า :");
-        name_owner.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        name_pet = new JLabel("           ชื่อสัตว์เลี้ยง : ");
-        name_pet.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        type = new JLabel("           ประเภทของสัตว์ : ");
-        type.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        breed = new JLabel("    สายพันธุ์ : ");
-        breed.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        age = new JLabel("           อายุสัตว์เลี้ยง : ");
-        age.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        sex = new JLabel("  เพศ : ");
-        sex.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        Chronic_illness = new JLabel("           โรคประจำตัว : ");
-        Chronic_illness.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        date = new JLabel("  วันที่");
-        date.setFont(new Font("Tahoma", Font.BOLD, 25));
-        treatment = new JLabel("  การรักษา");
-        treatment.setFont(new Font("Tahoma", Font.BOLD, 25));
-        name_docter = new JLabel("           ชื่อแพทย์");
-        name_docter.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        symptoms = new JLabel("           อาการ");
-        symptoms.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        diagnosis = new JLabel("           การวินิจฉัย");
-        diagnosis.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        treatment_methods = new JLabel("           การรักษา");
-        treatment_methods.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        doctor_opinion = new JLabel("           ความเห็นแพทย์");
-        doctor_opinion.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        note = new JLabel("           หมายเหตุ");
-        note.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        button_minus = new JButton("-");
+        button_plus = new JButton("+");
+        button_next = new JButton("Next");
 
-        table = new JTable();  
-        Object[] columns = {"ชื่อสามัญทางยา","ชื่อทางการค้า"};
+        JTable table = new JTable();
+        Object[] columns = {"ชื่อยา", "จำนวน", "ราคา"};
         DefaultTableModel model = new DefaultTableModel();
         model.setColumnIdentifiers(columns);
+        
         table.setModel(model);
         
-        scrollPane_main= new JScrollPane();
-        scroll = new JScrollPane();
-        scroll.setViewportView(table);
-        scroll.setBounds(40, 340, 400, 130);
-        scroll.setViewportView(table);
+        scroll_table = new JScrollPane(table);
+        scroll_table.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        scroll_table.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+        scroll_table.setViewportView(table);
 
-        table.setRowHeight(24);
+        table.setRowHeight(20);
         table.getTableHeader().setReorderingAllowed(false);
         table.setGridColor(new Color(0xFFE3A7));
         
-        Font defaultFont2 = table.getFont();
-        Font font = defaultFont2.deriveFont(defaultFont2.getSize() + 1.5f); 
-        table.setFont(font);
-        table.getTableHeader().setFont(font);
+        table.getColumnModel().getColumn(0).setPreferredWidth(100);
+        table.getColumnModel().getColumn(1).setPreferredWidth(20);
+        table.getColumnModel().getColumn(2).setPreferredWidth(20);
         
         DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
         renderer.setBackground(new Color(0xFFE3A8));
         table.setDefaultRenderer(Object.class, renderer);
         
-        for(int i=0; i <=50; i++){
-            model.addRow(new Object[0]);
+        for(int i=0; i <=20; i++){
+            model.addRow(new Object[4]);
         }
         
         table.setDefaultEditor(Object.class, null);
+        scroll_table.setPreferredSize(new Dimension(50, 200));
 
-        box_name_owner = new JTextField();
-        box_name_pet = new JTextField();
-        box_type = new JTextField();
-        box_breed = new JTextField();
-        box_age = new JTextField();
-        box_sex = new JTextField();
-        box_Chronic_illness = new JTextField();
-        box_date = new JTextField();
-        box_name_doctor = new JTextField();
-        box_symptoms = new JTextField();
-        box_diagnosis = new JTextField();
-        box_treatment_methods = new JTextField();
-        box_doctor_opinion = new JTextField();
-        box_note = new JTextField();
+        models = new UtilDateModel();
+        box_date = new JDatePicker(models);
 
-        button_next = new JButton("Next");
+        panel_main = new JPanel();
+        panel_history = new JPanel();
+        panel_his_north = new JPanel();
+        panel_his_center = new JPanel();
+        panel_his1 = new JPanel();
+        panel_his2 = new JPanel();
+        panel_his3 = new JPanel();
+        panel_his4 = new JPanel();
+        panel_his5 = new JPanel();
+        panel_his6 = new JPanel();
+        panel_his7 = new JPanel();
+        panel_date = new JPanel();
+        panel_txt_date = new JPanel();
+        panel_box_date = new JPanel();
+        panel_treatment = new JPanel();
+        panel_treat_north = new JPanel();
+        panel_treat_center = new JPanel();
+        panel_treat_south = new JPanel();
+        panel_cen1 = new JPanel();
+        panel_cen2 = new JPanel();
+        panel_cen3 = new JPanel();
+        panel_cen4 = new JPanel();
+        panel_center = new JPanel();
+        panel_help1 = new JPanel();
+        panel_help2 = new JPanel();
+        panel_help3 = new JPanel();
+        panel_help4 = new JPanel();
+        panel_help5 = new JPanel();
+        panel_help6 = new JPanel();
+        panel_button = new JPanel();
+        panel_cen5 = new JPanel();
+        panel_help7 = new JPanel();
+        panel_help8 = new JPanel();
+        panel_help9 = new JPanel();
+        panel_help10 = new JPanel();
+        panel_help11 = new JPanel();
+        panel_button_jingjing = new JPanel();
+
+        panel_main.setLayout(new BorderLayout());
+        panel_history.setLayout(new BorderLayout());
+        panel_his_north.setLayout(new FlowLayout(FlowLayout.LEFT));
+        panel_his_center.setLayout(new GridLayout(4,2));
+        panel_his1.setLayout(new FlowLayout(FlowLayout.LEFT));
+        panel_his2.setLayout(new FlowLayout(FlowLayout.LEFT));
+        panel_his3.setLayout(new FlowLayout(FlowLayout.LEFT));
+        panel_his4.setLayout(new FlowLayout(FlowLayout.LEFT));
+        panel_his5.setLayout(new FlowLayout(FlowLayout.LEFT));
+        panel_his6.setLayout(new FlowLayout(FlowLayout.LEFT));
+        panel_his7.setLayout(new FlowLayout(FlowLayout.LEFT));
+        panel_date.setLayout(new GridLayout(2, 1));
+        panel_txt_date.setLayout(new FlowLayout(FlowLayout.LEFT));
+        panel_box_date.setLayout(new FlowLayout(FlowLayout.LEFT));
+        panel_treatment.setLayout(new BorderLayout());
+        panel_treat_north.setLayout(new FlowLayout(FlowLayout.LEFT));
+        panel_treat_center.setLayout(new GridLayout(6, 1));
+        panel_treat_south.setLayout(new BorderLayout());
+        panel_center.setLayout(new BorderLayout());
+        panel_help1.setLayout(new GridLayout(2, 1));
+        panel_help2.setLayout(new GridLayout(2, 1));
+        panel_help3.setLayout(new GridLayout(2, 1));
+        panel_help4.setLayout(new GridLayout(2, 1));
+        panel_help5.setLayout(new GridLayout(2, 1));
+        panel_help6.setLayout(new GridLayout(2, 1));
+        panel_button.setLayout(new GridLayout(2, 1));
+        panel_help7.setLayout(new FlowLayout(FlowLayout.LEFT));
+        panel_help8.setLayout(new FlowLayout(FlowLayout.RIGHT));
+        panel_button_jingjing.setLayout(new BorderLayout());
+
+        panel_main.add(panel_history, BorderLayout.NORTH);
+        panel_main.add(panel_center, BorderLayout.CENTER);
+
+        panel_history.add(panel_his_north, BorderLayout.NORTH);
+        panel_history.add(panel_his_center, BorderLayout.CENTER);
+
+        panel_his_north.add(txt_history_pet);
+
+        panel_his_center.add(panel_his1);
+        panel_his_center.add(panel_his2);
+        panel_his_center.add(panel_his3);
+        panel_his_center.add(panel_his4);
+        panel_his_center.add(panel_his5);
+        panel_his_center.add(panel_his6);
+        panel_his_center.add(panel_his7);
+
+        panel_his1.add(txt_name);
+        panel_his1.add(box_name);
+
+        panel_his2.add(txt_name_pet);
+        panel_his2.add(box_name_pet);
+
+        panel_his3.add(txt_type);
+        panel_his3.add(box_type);
+
+        panel_his4.add(txt_breed);
+        panel_his4.add(box_breed);
+
+        panel_his5.add(txt_age);
+        panel_his5.add(box_age);
+
+        panel_his6.add(txt_gender);
+        panel_his6.add(box_gender);
+
+        panel_his7.add(txt_disease);
+        panel_his7.add(box_disease);
+
+        panel_center.add(panel_date, BorderLayout.NORTH);
+        panel_center.add(panel_treatment, BorderLayout.CENTER);
+
+        panel_date.add(panel_txt_date);
+        panel_date.add(panel_box_date);
+
+        panel_txt_date.add(txt_date);
+
+        panel_box_date.add(box_date);
+
+        panel_treatment.add(panel_treat_north, BorderLayout.NORTH);
+        panel_treatment.add(panel_treat_center, BorderLayout.CENTER);
+        panel_treatment.add(panel_treat_south, BorderLayout.SOUTH);
+        panel_treatment.add(panel_cen1, BorderLayout.WEST);
+        panel_treatment.add(panel_cen2, BorderLayout.EAST);
+
+        panel_treat_north.add(txt_treatment);
+
+        panel_treat_center.add(panel_help1);
+        panel_treat_center.add(panel_help2);
+        panel_treat_center.add(panel_help3);
+        panel_treat_center.add(panel_help4);
+        panel_treat_center.add(panel_help5);
+        panel_treat_center.add(panel_help6);
+
+        panel_help1.add(txt_name_docter);
+        panel_help1.add(box_name_docter);
+
+        panel_help2.add(txt_symptom);
+        panel_help2.add(box_symptom);
+
+        panel_help3.add(txt_diagnose);
+        panel_help3.add(box_diagnose);
+
+        panel_help4.add(txt_trestment_method);
+        panel_help4.add(box_trestment_method);
+
+        panel_help5.add(txt_opinion);
+        panel_help5.add(box_opinion);
+
+        panel_help6.add(txt_note);
+        panel_help6.add(box_note);
+
+        panel_treat_south.add(scroll_table, BorderLayout.CENTER);
+        panel_treat_south.add(panel_cen3, BorderLayout.WEST);
+        panel_treat_south.add(panel_cen4, BorderLayout.EAST);
+        panel_treat_south.add(panel_button_jingjing, BorderLayout.SOUTH);
+        panel_treat_south.add(panel_cen5, BorderLayout.NORTH);
+
+        panel_button_jingjing.add(panel_button, BorderLayout.CENTER);
+        panel_button_jingjing.add(panel_help9, BorderLayout.NORTH);
+        panel_button_jingjing.add(panel_help10, BorderLayout.WEST);
+        panel_button_jingjing.add(panel_help11, BorderLayout.EAST);
+        
+        panel_button.add(panel_help7);
+        panel_button.add(panel_help8);
+
+        panel_help7.add(button_plus);
+        panel_help7.add(button_minus);
+
+        panel_help8.add(button_next);
+
+        scroll_main = new JScrollPane(panel_main);
+        scroll_main.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        scroll_main.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scroll_main.setViewportView(panel_main);
+        fr.add(scroll_main);
+
+        box_name.setPreferredSize(new Dimension(200, 25));
+        box_name_pet.setPreferredSize(new Dimension(120, 25));
+        box_type.setPreferredSize(new Dimension(100, 25));
+        box_breed.setPreferredSize(new Dimension(100, 25));
+        box_age.setPreferredSize(new Dimension(100, 25));
+        box_gender.setPreferredSize(new Dimension(100, 25));
+        box_disease.setPreferredSize(new Dimension(180, 25));
+        box_date.setPreferredSize(new Dimension(150, 25));
+
+        button_plus.setPreferredSize(new Dimension(100, 40));
+        button_minus.setPreferredSize(new Dimension(100, 40));
+        button_next.setPreferredSize(new Dimension(100, 40));
+
+        button_plus.setFont(new Font("Jost", Font.BOLD, 15));
+        button_minus.setFont(new Font("Jost", Font.BOLD, 15));
         button_next.setFont(new Font("Jost", Font.BOLD, 15));
-        button_plus = new JButton("+");
-        button_next.addActionListener(this);
 
-        getContentPane().add(scrollPane_main);
-        fr_pet.add(pet_history);
-        fr_pet.add(space1);
-        fr_pet.add(name_owner);
-        fr_pet.add(box_name_owner);
-        fr_pet.add(name_pet);
-        fr_pet.add(box_name_pet);
-        fr_pet.add(space2);
-        fr_pet.add(type);
-        fr_pet.add(box_type);
-        fr_pet.add(breed);
-        fr_pet.add(box_breed);
-        fr_pet.add(age);
-        fr_pet.add(box_age);
-        fr_pet.add(sex);
-        fr_pet.add(box_sex);
-        fr_pet.add(Chronic_illness);
-        fr_pet.add(box_Chronic_illness);
-        fr_pet.add(date);
-        fr_pet.add(space3);
-        fr_pet.add(space27);
-        fr_pet.add(box_date);
-        fr_pet.add(space11);
-        fr_pet.add(treatment);
-        fr_pet.add(space4);
-        fr_pet.add(name_docter);
-        fr_pet.add(space5);
-        fr_pet.add(space12);
-        fr_pet.add(box_name_doctor);
-        fr_pet.add(space13);
-        fr_pet.add(symptoms);
-        fr_pet.add(space6);
-        fr_pet.add(space14);
-        fr_pet.add(box_symptoms);
-        fr_pet.add(space15);
-        fr_pet.add(diagnosis);
-        fr_pet.add(space7);
-        fr_pet.add(space16);
-        fr_pet.add(box_diagnosis);
-        fr_pet.add(space17);
-        fr_pet.add(treatment_methods);
-        fr_pet.add(space8);
-        fr_pet.add(space18);
-        fr_pet.add(box_treatment_methods);
-        fr_pet.add(space19);
-        fr_pet.add(doctor_opinion);
-        fr_pet.add(space9);
-        fr_pet.add(space20);
-        fr_pet.add(box_doctor_opinion);
-        fr_pet.add(space21);
-        fr_pet.add(note);
-        fr_pet.add(space10);
-        fr_pet.add(space22);
-        fr_pet.add(box_note);
-        fr_pet.add(space23);
-        fr_pet.add(scroll);
-        fr_pet.add(space30);
-        fr_pet.add(button_next);
+        box_name.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        box_name_pet.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        box_type.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        box_breed.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        box_age.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        box_gender.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        box_disease.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        box_date.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        box_name_docter.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        box_symptom.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        box_diagnose.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        box_trestment_method.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        box_opinion.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        box_note.setFont(new Font("Tahoma", Font.PLAIN, 13));
 
-        getContentPane().add(fr_pet);
+        txt_history_pet.setFont(new Font("Tahoma", Font.BOLD, 15));
+        txt_name.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        txt_name_pet.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        txt_type.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        txt_breed.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        txt_age.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        txt_gender.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        txt_disease.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        txt_date.setFont(new Font("Tahoma", Font.BOLD, 15));
+        txt_treatment.setFont(new Font("Tahoma", Font.BOLD, 15));
+        txt_name_docter.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        txt_symptom.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        txt_diagnose.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        txt_trestment_method.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        txt_opinion.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        txt_note.setFont(new Font("Tahoma", Font.PLAIN, 15));
 
-        button_next.setBackground(Color.WHITE);
-        button_plus.setBackground(Color.WHITE);
-        setBackground(new Color(0xFFEEE3));
-        fr_pet.setBackground(new Color(0xFFEEE3));
-        space1.setBackground(new Color(0xFFEEE3));
-        space2.setBackground(new Color(0xFFEEE3));
-        space3.setBackground(new Color(0xFFEEE3));
-        space4.setBackground(new Color(0xFFEEE3));
-        space5.setBackground(new Color(0xFFEEE3));
-        space6.setBackground(new Color(0xFFEEE3));
-        space7.setBackground(new Color(0xFFEEE3));
-        space8.setBackground(new Color(0xFFEEE3));
-        space9.setBackground(new Color(0xFFEEE3));
-        space10.setBackground(new Color(0xFFEEE3));
-        space11.setBackground(new Color(0xFFEEE3));
-        space12.setBackground(new Color(0xFFEEE3));
-        space13.setBackground(new Color(0xFFEEE3));
-        space14.setBackground(new Color(0xFFEEE3));
-        space15.setBackground(new Color(0xFFEEE3));
-        space16.setBackground(new Color(0xFFEEE3));
-        space17.setBackground(new Color(0xFFEEE3));
-        space18.setBackground(new Color(0xFFEEE3));
-        space19.setBackground(new Color(0xFFEEE3));
-        space20.setBackground(new Color(0xFFEEE3));
-        space21.setBackground(new Color(0xFFEEE3));
-        space22.setBackground(new Color(0xFFEEE3));
-        space23.setBackground(new Color(0xFFEEE3));
-        space24.setBackground(new Color(0xFFEEE3));
-        space25.setBackground(new Color(0xFFEEE3));
-        space26.setBackground(new Color(0xFFEEE3));
-        space27.setBackground(new Color(0xFFEEE3));
-        space28.setBackground(new Color(0xFFEEE3));
-        space29.setBackground(new Color(0xFFEEE3));
-        space30.setBackground(new Color(0xFFEEE3));
+        panel_cen1.setPreferredSize(new Dimension(50, 50));
+        panel_cen2.setPreferredSize(new Dimension(50, 50));
+        panel_cen3.setPreferredSize(new Dimension(50, 50));
+        panel_cen4.setPreferredSize(new Dimension(50, 50));
+        panel_help9.setPreferredSize(new Dimension(50, 20));
+        panel_help10.setPreferredSize(new Dimension(50, 50));
+        panel_help11.setPreferredSize(new Dimension(50, 50));
+        panel_button.setPreferredSize(new Dimension(100, 150));
 
-        space1.setPreferredSize(new Dimension(300, 10));
-        space2.setPreferredSize(new Dimension(30, 10));
-        space3.setPreferredSize(new Dimension(400, 10));
-        space4.setPreferredSize(new Dimension(300, 10));
-        space5.setPreferredSize(new Dimension(300, 10));
-        space6.setPreferredSize(new Dimension(350, 10));
-        space7.setPreferredSize(new Dimension(350, 10));
-        space8.setPreferredSize(new Dimension(300, 10));
-        space9.setPreferredSize(new Dimension(300, 10));
-        space10.setPreferredSize(new Dimension(400, 10));
-        space11.setPreferredSize(new Dimension(200, 10));
-        space12.setPreferredSize(new Dimension(40, 10));
-        space13.setPreferredSize(new Dimension(50, 10));
-        space14.setPreferredSize(new Dimension(40, 10));
-        space15.setPreferredSize(new Dimension(50, 10));
-        space16.setPreferredSize(new Dimension(40, 10));
-        space17.setPreferredSize(new Dimension(50, 10));
-        space18.setPreferredSize(new Dimension(40, 10));
-        space19.setPreferredSize(new Dimension(50, 10));
-        space20.setPreferredSize(new Dimension(40, 10));
-        space21.setPreferredSize(new Dimension(50, 10));
-        space22.setPreferredSize(new Dimension(40, 10));
-        space23.setPreferredSize(new Dimension(50, 10));
-        space24.setPreferredSize(new Dimension(80, 10));
-        space25.setPreferredSize(new Dimension(40, 10));
-        space26.setPreferredSize(new Dimension(50, 10));
-        space27.setPreferredSize(new Dimension(10, 10));
-        space28.setPreferredSize(new Dimension(40, 10));
-        space29.setPreferredSize(new Dimension(300, 10));
-        space30.setPreferredSize(new Dimension(330, 10));
+        panel_main.setBackground(new Color(0xFFEEE3));
+        panel_history.setBackground(new Color(0xFFEEE3));
+        panel_his_north.setBackground(new Color(0xFFEEE3));
+        panel_his_center.setBackground(new Color(0xFFEEE3));
+        panel_his1.setBackground(new Color(0xFFEEE3));
+        panel_his2.setBackground(new Color(0xFFEEE3));
+        panel_his3.setBackground(new Color(0xFFEEE3));
+        panel_his4.setBackground(new Color(0xFFEEE3));
+        panel_his5.setBackground(new Color(0xFFEEE3));
+        panel_his6.setBackground(new Color(0xFFEEE3));
+        panel_his7.setBackground(new Color(0xFFEEE3));
+        panel_date.setBackground(new Color(0xFFEEE3));
+        panel_txt_date.setBackground(new Color(0xFFEEE3));
+        panel_box_date.setBackground(new Color(0xFFEEE3));
+        panel_treatment.setBackground(new Color(0xFFEEE3));
+        panel_treat_north.setBackground(new Color(0xFFEEE3));
+        panel_treat_center.setBackground(new Color(0xFFEEE3));
+        panel_treat_south.setBackground(new Color(0xFFEEE3));
+        panel_cen1.setBackground(new Color(0xFFEEE3));
+        panel_cen2.setBackground(new Color(0xFFEEE3));
+        panel_cen3.setBackground(new Color(0xFFEEE3));
+        panel_cen4.setBackground(new Color(0xFFEEE3));
+        panel_center.setBackground(new Color(0xFFEEE3));
+        panel_help1.setBackground(new Color(0xFFEEE3));
+        panel_help2.setBackground(new Color(0xFFEEE3));
+        panel_help3.setBackground(new Color(0xFFEEE3));
+        panel_help4.setBackground(new Color(0xFFEEE3));
+        panel_help5.setBackground(new Color(0xFFEEE3));
+        panel_help6.setBackground(new Color(0xFFEEE3));
+        panel_button.setBackground(new Color(0xFFEEE3));
+        panel_cen5.setBackground(new Color(0xFFEEE3));
+        panel_help7.setBackground(new Color(0xFFEEE3));
+        panel_help8.setBackground(new Color(0xFFEEE3));
+        panel_help9.setBackground(new Color(0xFFEEE3));
+        panel_help10.setBackground(new Color(0xFFEEE3));
+        panel_help11.setBackground(new Color(0xFFEEE3));
+        panel_button_jingjing.setBackground(new Color(0xFFEEE3));
 
-        box_name_owner.setPreferredSize(new Dimension(250, 20));
-        box_name_pet.setPreferredSize(new Dimension(250, 20));
-        box_type.setPreferredSize(new Dimension(120, 20));
-        box_breed.setPreferredSize(new Dimension(120, 20));
-        box_age.setPreferredSize(new Dimension(100, 20));
-        box_sex.setPreferredSize(new Dimension(100, 20));
-        box_Chronic_illness.setPreferredSize(new Dimension(280, 20));
-        box_date.setPreferredSize(new Dimension(200, 20));
-        box_name_doctor.setPreferredSize(new Dimension(370, 20));
-        box_symptoms.setPreferredSize(new Dimension(370, 20));
-        box_diagnosis.setPreferredSize(new Dimension(370, 20));
-        box_treatment_methods.setPreferredSize(new Dimension(370, 20));
-        box_doctor_opinion.setPreferredSize(new Dimension(370, 20));
-        box_note.setPreferredSize(new Dimension(370, 20));
-
-        button_next.setPreferredSize(new Dimension(80, 40));
-
-        setSize(500, 750);
-        setVisible(true);
-        setResizable(false);
+        fr.setSize(650, 750);
+        fr.setVisible(true);
+        fr.setResizable(false);
     }
     public static void main(String[] args){
-        new details_admin_popup();
-    }
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == button_next){
-            dispose();
-            new doctor_popup();
-        }
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            } catch (Exception e) {
+            e.printStackTrace();
+            }
+            SwingUtilities.invokeLater(() -> { 
+                details_admin_popup frame = new details_admin_popup();
+            });
     }
 }
