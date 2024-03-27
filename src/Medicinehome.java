@@ -6,18 +6,20 @@ import javax.swing.table.*;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-public class Medicinehome implements ActionListener {
-    private JFrame fr;
+public class Medicinehome extends JInternalFrame implements ActionListener {
+//    private JFrame fr;
     private JButton addmed;
-    private JDesktopPane des;
+//    private JDesktopPane des;
+    private JPanel pa1;
     private JScrollPane scroll;
     private JTable table;
     private Connec_table table_db;
     private DefaultTableModel model;
 
     public Medicinehome() {
-        fr = new JFrame("คลังยา");
-        des = new JDesktopPane();
+        super("Animal-Waiting", false, true, true, true);
+//        fr = new JFrame("คลังยา");
+        pa1 = new JPanel(null);
         addmed = new JButton("เพิ่มยา");
         addmed.setBounds(1140, 30, 100, 30); 
         addmed.addActionListener(this);
@@ -26,11 +28,12 @@ public class Medicinehome implements ActionListener {
         Font font1 = defaultFont.deriveFont(defaultFont.getSize() + 2f); 
         addmed.setFont(font1);
 
-        fr.add(addmed);
+        pa1.add(addmed);
 
         scroll = new JScrollPane();
         scroll.setBounds(40, 80, 1200, 550);
-        fr.getContentPane().add(scroll);
+        getContentPane().add(scroll);
+        
         
         
         table = new JTable(); 
@@ -47,6 +50,7 @@ public class Medicinehome implements ActionListener {
         table.setRowHeight(24);
         table.getTableHeader().setReorderingAllowed(false); //tap can't move//
         table.setGridColor(new Color(0xFFE3A7)); //color of grid//
+        pa1.add(scroll);
         
         
         Font defaultFont2 = table.getFont();
@@ -69,14 +73,14 @@ public class Medicinehome implements ActionListener {
         
         // Set background color for JDesktopPane
         Color backgroundColor = new Color(0xFFEEE3);
-        des.setBackground(backgroundColor);
-        fr.add(des); 
+        pa1.setBackground(backgroundColor);
+//        fr.add(des); 
         
-        
-        fr.setSize(800, 600); // Initial size
-        fr.setLocationRelativeTo(null); // Center the frame on the screen
-        fr.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        fr.setVisible(true);
+        getContentPane().add(pa1);
+        setSize(800, 600); // Initial size
+//        setLocationRelativeTo(null); // Center the frame on the screen
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setVisible(true);
         
         
     }

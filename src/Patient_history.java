@@ -2,21 +2,21 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.table.*;
-public class Patient_history {
-    private JFrame frpatient;
+public class Patient_history extends JInternalFrame{
+//    private JFrame frpatient;
     private JScrollPane scroll;
     private JTable table;
     private JPanel pa1;
     public Patient_history(){
-       
-        frpatient = new JFrame("เวชระเบียนคนไข้");
+        super("Animal-Waiting", false, true, true, true);
+//        frpatient = new JFrame("เวชระเบียนคนไข้");
         pa1 = new JPanel();
         pa1.setLayout(null);
         scroll = new JScrollPane();
         
         scroll.setBounds(40, 30, 1200, 590);
         pa1.add(scroll);
-        frpatient.add(pa1);
+//        frpatient.add(pa1);
         
         
         
@@ -55,11 +55,11 @@ public class Patient_history {
         Color backgroundColor = new Color(0xFFEEE3);
         pa1.setBackground(backgroundColor);
  
-         
-        frpatient.setSize(800, 600); // Initial size
-        frpatient.setLocationRelativeTo(null); // Center the frame on the screen
-        frpatient.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frpatient.setVisible(true);
+        getContentPane().add(pa1);
+        setSize(800, 600); // Initial size
+//        frpatient.setLocationRelativeTo(null); // Center the frame on the screen
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setVisible(true);
     }
     public static void main(String[] args) {
         try {

@@ -2,8 +2,8 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.table.*;
-public class history_ {
-    private JFrame frhis;
+public class history_  extends JInternalFrame{
+//    private JFrame frhis;
     private JPanel pa1,pa2;
     private JLabel janimalhis, jpeoplename, janimalname, jcateanimal, jtypeanimal,jage, jgender, jdisea,jconclu, jdate, jdocname, jsymptom, jdocdescrip, jcure,jdocopi,jmedi;
     private JTextField tpeoplename, tanimalname, tcateanimal, ttypeanimal,tage, tgender, tdisea,tdate, tdocname,tsymptom;
@@ -11,7 +11,8 @@ public class history_ {
     private JScrollPane meddi, symp, descrip, cure, opi, scrollPane;
     private JTable table;
     public history_(){
-        frhis = new JFrame("ประวัติ");
+        super("Animal-Waiting", false, true, true, true);
+//        frhis = new JFrame("ประวัติ");
         pa1 = new JPanel(null);
         pa1.setBackground(new Color(0xFFEEE3));
         pa1.setPreferredSize(new Dimension(760, 800));
@@ -218,13 +219,13 @@ public class history_ {
 //        meddi.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 //        frhis.getContentPane().add(meddi);
         
- 
-        frhis.add(scrollPane);
-        frhis.setSize(760, 600);
-        frhis.setResizable(false);
-        frhis.setLocationRelativeTo(null); // Center the frame on the screen
-        frhis.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frhis.setVisible(true);
+        getContentPane().add(scrollPane);
+//        frhis.add(scrollPane);
+        setSize(760, 600);
+        setResizable(false);
+//        frhis.setLocationRelativeTo(null); // Center the frame on the screen
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setVisible(true);
     }
     public static void main(String[] args) {
         try {

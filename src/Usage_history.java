@@ -6,34 +6,35 @@ import back.*;
 import java.sql.*;
 import java.util.*;
 
-public class Usage_history implements MouseListener{
-    private JFrame frused;
+public class Usage_history extends JInternalFrame implements MouseListener{
+//    private JFrame frused;
     private JScrollPane scroll;
     private JTable table;
     private JPanel pa1;
     private Connec_table con_table;
     private ArrayList<String> data;
     public Usage_history(){
+        super("Animal-Waiting", false, true, true, true);
         data = new ArrayList<String>();
-        frused = new JFrame("ประวัติการใช้บริการ");
+//        frused = new JFrame("ประวัติการใช้บริการ");
         pa1 = new JPanel();
         pa1.setLayout(null);
         scroll = new JScrollPane();
         
         scroll.setBounds(40, 30, 1200, 590);
         pa1.add(scroll);
-        frused.add(pa1);
+//        frused.add(pa1);
         setTable();
         
         Color backgroundColor = new Color(0xFFEEE3);
         pa1.setBackground(backgroundColor);
  
-         
-        frused.setSize(1300, 700); // Initial size
-        frused.setLocationRelativeTo(null); // Center the frame on the screen
-        frused.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frused.setVisible(true);
-        frused.setResizable(false);
+        getContentPane().add(pa1);
+        setSize(1300, 700); // Initial size
+//        setLocationRelativeTo(null); // Center the frame on the screen
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setVisible(true);
+        setResizable(false);
     }
     public static void main(String[] args) {
         try {

@@ -157,6 +157,7 @@ public class AddMedicine extends JInternalFrame implements ActionListener, Mouse
         scroll.setBounds(40, 340, 400, 130);
         getContentPane().add(scroll);
         scroll.setViewportView(table);
+        pa1.add(scroll);
 
         table.setRowHeight(24);
         table.getTableHeader().setReorderingAllowed(false); //tap can't move//
@@ -180,7 +181,7 @@ public class AddMedicine extends JInternalFrame implements ActionListener, Mouse
         
          table.setDefaultEditor(Object.class, null);//un edit row//
         
-        
+        getContentPane().add(pa1);
 //        fraddmed.add(pa1);
         setSize(500, 650); // Initial size
         setResizable(false);
