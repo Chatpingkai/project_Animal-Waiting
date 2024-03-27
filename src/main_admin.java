@@ -47,12 +47,13 @@ panel_right_button;
 
         calendar = new JCalendar();
 
-        profile = new ImageIcon(getClass().getResource("koala.png"));
+        //profile = new ImageIcon(getClass().getResource("koala.png"));
 
         photo = new JLabel();
-        photo.setIcon(profile);
-        photo.setSize(100, 50);
-        panel_left5.add(photo);
+        //photo.setIcon(profile);
+        //photo.setSize(100, 50);
+        //panel_left5.add(photo);
+        panel_left5.setBackground(Color.RED);
 
         panel_left.add(panel_left5, BorderLayout.NORTH);
         panel_left.add(panel_left1, BorderLayout.CENTER);
