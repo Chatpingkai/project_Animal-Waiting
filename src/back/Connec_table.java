@@ -1,9 +1,46 @@
-package back;
-import java.sql.*;
 
-public interface Connec_table {
-    public abstract ResultSet getData(String sql);
-    public abstract void UpdateData(String sql);
-    public abstract void Discon();
+package back;
+
+import java.sql.*;
+import java.util.*;
+
+public class Connec_table implements Connec{
+    private Connection con;
+    private Statement stm;
+    private ResultSet rs;
+    public Connec_table(){
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            con = DriverManager.getConnection(Connec_db.url,Connec_db.nameroot,Connec_db.password);
+        } catch (ClassNotFoundException | SQLException ex) {
+        }
+    }
+    @Override
+    public ResultSet getData(String sql) {
+        try {
+            stm = con.createStatement();
+            rs = stm.executeQuery(sql);
+        } catch (SQLException ex) {
+        }
+        return rs;
+    }
+
+    @Override
+    public void UpdateData(String sql) {
+        try {
+            stm = con.createStatement();
+            stm.executeUpdate(sql);
+        } catch (SQLException ex) {
+        }
+    }
+
+    @Override
+    public void Discon() {
+        try {
+            stm.close();
+            con.close();
+        } catch (SQLException ex) {
+        }
+    }
     
 }

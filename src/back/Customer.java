@@ -11,7 +11,7 @@ public class Customer {
     private String ethnicity;
     private String religion;
     private Pet pet;
-    private Connec db;
+//    private Connec db;
     public Customer(){
         acct = null;
         first_name = "";
@@ -82,25 +82,25 @@ public class Customer {
     
     
     public void reserve(String date, String time, String type){
-        try{
-            db = new Connec();
-            String sql = String.format("INSERT INTO reserve (Date, Time, Type) VALUES('%s', '%s', '%s')", date, time, type);
-            db.getInsert(sql);
-            db.discon();
-        }
-        catch(Exception e){
-            e.printStackTrace();
-        }
+//        try{
+//            db = new Connec();
+//            String sql = String.format("INSERT INTO reserve (Date, Time, Type) VALUES('%s', '%s', '%s')", date, time, type);
+//            db.getInsert(sql);
+//            db.discon();
+//        }
+//        catch(Exception e){
+//            e.printStackTrace();
+//        }
     }
     public void reserve(String date, String time, String type, String detail){
-        try{
-            db = new Connec();
-            String sql = String.format("INSERT INTO reserve (Date, Time, Type, detail) VALUES('%s', '%s', '%s', '%s')", date, time, type, detail);
-            db.getInsert(sql);
-            db.discon();
-        }
-        catch(Exception e){
-            e.printStackTrace();
-        }
+//        try{
+//            db = new Connec();
+//            String sql = String.format("INSERT INTO reserve (Date, Time, Type, detail) VALUES('%s', '%s', '%s', '%s')", date, time, type, detail);
+//            db.getInsert(sql);
+//            db.discon();
+//        }
+//        catch(Exception e){
+//            e.printStackTrace();
+//        }
     }
 }
