@@ -1,14 +1,19 @@
+import back.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.table.*;
-
+import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 public class Medicinehome implements ActionListener {
     private JFrame fr;
     private JButton addmed;
     private JDesktopPane des;
     private JScrollPane scroll;
     private JTable table;
+    private Connec_table table_db;
+    private DefaultTableModel model;
 
     public Medicinehome() {
         fr = new JFrame("คลังยา");
@@ -28,14 +33,15 @@ public class Medicinehome implements ActionListener {
         fr.getContentPane().add(scroll);
         
         
-        JTable table = new JTable(); 
+        table = new JTable(); 
         // create a table model and set a Column Identifiers to this model 
-        Object[] columns = {"ชื่อสามัญทางยา","ชื่อทางการค้า","รูปแบบ/ขนาด","ราคา","จำนวน","เหลือ","คำแนะนำ"};
-        DefaultTableModel model = new DefaultTableModel();
-        model.setColumnIdentifiers(columns);
-        
+        String sql = "SELECT * FROM Med";
+        try {
+            setTable(sql);
+        } catch (SQLException ex) {
+            Logger.getLogger(Medicinehome.class.getName()).log(Level.SEVERE, null, ex);
+        }
         // set the model to the table
-        table.setModel(model);
         
         scroll.setViewportView(table);
         table.setRowHeight(24);
@@ -54,9 +60,9 @@ public class Medicinehome implements ActionListener {
         table.setDefaultRenderer(Object.class, renderer);
         
         //number of colum//
-        for(int i=0; i <=50; i++){
-            model.addRow(new Object[0]);
-        }
+//        for(int i=0; i <=50; i++){
+//            model.addRow(new Object[0]);
+//        }
         
          table.setDefaultEditor(Object.class, null);//un edit row//
         
@@ -65,10 +71,7 @@ public class Medicinehome implements ActionListener {
         Color backgroundColor = new Color(0xFFEEE3);
         des.setBackground(backgroundColor);
         fr.add(des); 
-
-        // Set background color for title bar
-//        Color titleBarColor = new Color(0xFFEEE3A8);
-//        fr.getRootPane().setBackground(titleBarColor);
+        
         
         fr.setSize(800, 600); // Initial size
         fr.setLocationRelativeTo(null); // Center the frame on the screen
@@ -76,6 +79,29 @@ public class Medicinehome implements ActionListener {
         fr.setVisible(true);
         
         
+    }
+    public void setTable(String sql) throws SQLException{
+        table_db = new Connec_table();
+        ResultSet rs = table_db.getData(sql);
+        Object[] columns = {"ชื่อสามัญทางยา","ชื่อทางการค้า","รูปแบบ/ขนาด","ราคา","จำนวน","เหลือ","คำแนะนำ"};
+        model = new DefaultTableModel();
+        model.setColumnIdentifiers(columns);
+        int i =0;
+        while(rs.next()){
+            i++;
+            String full_name = rs.getString("Full_Name");
+            String name = rs.getString("Name");
+            String type = rs.getString("Type");
+            String amount = rs.getString("Amount");
+            String price = rs.getString("price");
+            String how = rs.getString("How");
+            String recom = rs.getString("Recom");
+            String[] row = {full_name, name, type, price, amount, how, recom};
+            model.addRow(row);
+    }
+        model.setColumnIdentifiers(columns);
+        table.setModel(model);
+        table_db.Discon();
     }
 
     public static void main(String[] args) {
