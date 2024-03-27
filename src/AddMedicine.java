@@ -186,7 +186,6 @@ public class AddMedicine extends JInternalFrame implements ActionListener, Mouse
         setResizable(false);
 //        setLocation(500, 500);
 //        setLocationRelativeTo(null); // Center the frame on the screen
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
     }
     public void setTable(String sql) throws SQLException{
