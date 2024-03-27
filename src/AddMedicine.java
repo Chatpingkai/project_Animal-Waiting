@@ -126,6 +126,7 @@ public class AddMedicine implements ActionListener, MouseListener{
         
         update = new JButton("update");
         update.setBounds(75, 500, 100, 25);
+        update.addActionListener(this);
         pa1.add(update);
         update.setFont(new Font("Jost", Font.PLAIN, 15));
         
@@ -172,9 +173,9 @@ public class AddMedicine implements ActionListener, MouseListener{
         table.setDefaultRenderer(Object.class, renderer);
         
         //number of colum//
-        for(int i=0; i <=50; i++){
-            model.addRow(new Object[0]);
-        }
+//        for(int i=0; i <=50; i++){
+//            model.addRow(new Object[0]);
+//        }
         
          table.setDefaultEditor(Object.class, null);//un edit row//
         
@@ -273,6 +274,17 @@ public class AddMedicine implements ActionListener, MouseListener{
                 Logger.getLogger(AddMedicine.class.getName()).log(Level.SEVERE, null, ex);
             }
             setTextBlank();
+        }else if (e.getSource().equals(update)){
+            System.out.println("uuuuuuuu");
+            table_db = new Connec_table();
+            String sql = String.format("UPDATE Med SET Full_name = '%s', Name = '%s', Type = '%s', Amount = '%s', Price = '%s', How = '%s', Recom = '%s' WHERE Full_Name = '%s'",
+                    Tcommon_name.getText(),Ttrade_name.getText(),Ttypandsize.getText(),Tall_capsule.getText(),Tprice.getText(),Thowtouse.getText(),Trecommend.getText(),data.get(introw));
+            table_db.UpdateData(sql);
+            table_db.Discon();
+            try {
+                setTable("SELECT * FROM Med");
+            } catch (SQLException ex) {
+            }
         }
     }
 
