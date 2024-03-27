@@ -274,7 +274,14 @@ public class details_admin_popup extends JFrame implements ActionListener{
         fr.setResizable(false);
     }
     public static void main(String[] args){
-        new details_admin_popup();
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            } catch (Exception e) {
+            e.printStackTrace();
+            }
+            SwingUtilities.invokeLater(() -> { 
+                details_admin_popup frame = new details_admin_popup();
+            });
     }
     @Override
     public void actionPerformed(ActionEvent e) {

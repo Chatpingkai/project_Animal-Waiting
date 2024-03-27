@@ -94,7 +94,14 @@ public class doctor_popup{
         frame_Hospital_Medical_Expenses.setResizable(false);
     }
     public static void main(String[] args){
-        new doctor_popup();
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            } catch (Exception e) {
+            e.printStackTrace();
+            }
+            SwingUtilities.invokeLater(() -> { 
+                doctor_popup frame = new doctor_popup();
+            });
     }
     public JFrame getFrame(){
         return frame_Hospital_Medical_Expenses;

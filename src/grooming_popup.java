@@ -257,6 +257,13 @@ public class grooming_popup{
         frame_grooming.setResizable(false);
     }
     public static void main(String[] args){
-        new grooming_popup();
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            } catch (Exception e) {
+            e.printStackTrace();
+            }
+            SwingUtilities.invokeLater(() -> {
+                grooming_popup frame = new grooming_popup();
+            });
     }
 }

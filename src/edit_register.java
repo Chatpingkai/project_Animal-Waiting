@@ -723,6 +723,13 @@ circle_pet_female, circle_idk;
         fr_edit_register.setResizable(false);
     }
     public static void main(String[] args){
-        new edit_register();
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            } catch (Exception e) {
+            e.printStackTrace();
+            }
+            SwingUtilities.invokeLater(() -> {
+                edit_register frame = new edit_register();
+            });
     }
 }
