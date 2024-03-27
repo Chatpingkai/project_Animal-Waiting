@@ -2,12 +2,19 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.table.*;
-public class Usage_history {
+import back.*;
+import java.sql.*;
+import java.util.*;
+
+public class Usage_history implements MouseListener{
     private JFrame frused;
     private JScrollPane scroll;
     private JTable table;
     private JPanel pa1;
+    private Connec_table con_table;
+    private ArrayList<String> data;
     public Usage_history(){
+        data = new ArrayList<String>();
         frused = new JFrame("ประวัติการใช้บริการ");
         pa1 = new JPanel();
         pa1.setLayout(null);
@@ -16,8 +23,32 @@ public class Usage_history {
         scroll.setBounds(40, 30, 1200, 590);
         pa1.add(scroll);
         frused.add(pa1);
+        setTable();
         
-        JTable table = new JTable(); 
+        Color backgroundColor = new Color(0xFFEEE3);
+        pa1.setBackground(backgroundColor);
+ 
+         
+        frused.setSize(1300, 700); // Initial size
+        frused.setLocationRelativeTo(null); // Center the frame on the screen
+        frused.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frused.setVisible(true);
+        frused.setResizable(false);
+    }
+    public static void main(String[] args) {
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        SwingUtilities.invokeLater(() -> {
+            Usage_history frame = new Usage_history();
+        });
+    }
+
+    private void setTable() {
+        table = new JTable(); 
         // create a table model and set a Column Identifiers to this model 
         Object[] columns = {"วันที่","ประเภทการใช้บริการ","รายละเอียด"};
         DefaultTableModel model = new DefaultTableModel();
@@ -54,32 +85,44 @@ public class Usage_history {
         table.setDefaultRenderer(Object.class, renderer);
         
         //number of colum//
-        for(int i=0; i <=50; i++){
-            model.addRow(new Object[0]);
-        }
-        
-         table.setDefaultEditor(Object.class, null);//un edit row//
-        
-        Color backgroundColor = new Color(0xFFEEE3);
-        pa1.setBackground(backgroundColor);
- 
-         
-        frused.setSize(1300, 700); // Initial size
-        frused.setLocationRelativeTo(null); // Center the frame on the screen
-        frused.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frused.setVisible(true);
-        frused.setResizable(false);
-    }
-    public static void main(String[] args) {
+        con_table = new Connec_table();
+        String sql = String.format("select * from History where id = '%d'",1);
+        ResultSet rs = con_table.getData(sql);
         try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (Exception e) {
-            e.printStackTrace();
+            while (rs.next()) {
+                String date = rs.getString("Date");
+                String detail = rs.getString("Detail");
+                String type = rs.getString("Type");
+                String[] row = {date, type ,detail};
+                data.add(rs.getString("Type_Code"));
+                model.addRow(row);
+            }
+        } catch (SQLException ex) {
         }
-
-        SwingUtilities.invokeLater(() -> {
-            Usage_history frame = new Usage_history();
-        });
+        con_table.Discon();
+        table.setDefaultEditor(Object.class, null);//un edit row//}
+        table.addMouseListener(this);
     }
-    
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        int introw = table.rowAtPoint(e.getPoint());
+        System.out.println(data.get(introw));
+}
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+}
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+}
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+}
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+}
 }
