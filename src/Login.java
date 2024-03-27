@@ -23,17 +23,17 @@ public class Login implements ActionListener {
         main.setBackground(new Color(255, 238, 227));
 
         //BorderLayout.WEST
-        imagepage = new ImageIcon(Login.class.getResource("test.jpg"));
+        imagepage = new ImageIcon(System.getProperty("user.dir")+"/src/test.jpg");
         imagLabel = new JLabel(imagepage);
         imagLabel.setPreferredSize(new Dimension(300, 200));
 
         //Head Line
-        imagelogo = new ImageIcon(getClass().getResource("test.jpg"));
+        imagelogo = new ImageIcon(System.getProperty("user.dir")+"/src/test.jpg");
         resizedImageIcon = resizeImageIcon(imagelogo, 150, 150);
         roundedIcon = getRoundedImageIcon(resizedImageIcon);
         imagelogoLabel = new JLabel(roundedIcon);
         
-
+        
         head = new JLabel("Animal-Waiting", SwingConstants.LEADING);
         head.setFont(new Font("Inter", Font.BOLD, 50));
 
@@ -140,15 +140,25 @@ public class Login implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent ev) {
         if (ev.getSource() == login) {
-
+            if (usernameField.getText().equals("admin")) {
+                new main_admin();
+            }
         }
         if (ev.getSource() == register) {
-
+            fr.dispose();
+            new Register();
         }
     }
     
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new Login());
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            SwingUtilities.invokeLater(() -> { 
+                Login frame = new Login();
+            });
     }
 }
