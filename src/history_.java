@@ -6,16 +6,16 @@ public class history_  extends JInternalFrame{
 //    private JFrame frhis;
     private JPanel pa1,pa2;
     private JLabel janimalhis, jpeoplename, janimalname, jcateanimal, jtypeanimal,jage, jgender, jdisea,jconclu, jdate, jdocname, jsymptom, jdocdescrip, jcure,jdocopi,jmedi;
-    private JTextField tpeoplename, tanimalname, tcateanimal, ttypeanimal,tage, tgender, tdisea,tdate, tdocname,tsymptom;
-    private JTextArea txtamedi , txtadocdescrip, txtacure,txtadocopi;
-    private JScrollPane meddi, symp, descrip, cure, opi, scrollPane;
+    private JTextField tpeoplename, tanimalname, tcateanimal, ttypeanimal,tage, tgender, tdisea,tdate, tdocname;
+    private JTextArea txtamedi , txtadocdescrip, txtacure,txtadocopi,tsymptom;
+    private JScrollPane meddi, symp, descrip, cure,opi,scrollPane, symto;
     private JTable table;
     public history_(){
         super("Animal-Waiting", false, true,false, true);
 //        frhis = new JFrame("ประวัติ");
         pa1 = new JPanel(null);
         pa1.setBackground(new Color(0xFFEEE3));
-        pa1.setPreferredSize(new Dimension(760, 800));
+        pa1.setPreferredSize(new Dimension(750, 750));
         
         scrollPane = new JScrollPane(pa1);
 //        scrollPane.setPreferredSize(new Dimension(760, 700));
@@ -25,149 +25,175 @@ public class history_  extends JInternalFrame{
         
         janimalhis = new JLabel("ประวัติสัตว์เลี้ยง");
         janimalhis.setBounds(40, 30, 200, 20);
-        janimalhis.setFont(janimalhis.getFont().deriveFont(janimalhis.getFont().getSize() + 5.5f));
+        janimalhis.setFont(new Font("Tahoma", Font.PLAIN, 17));
         pa1.add(janimalhis);
         
         jpeoplename = new JLabel("ชื่อเจ้าของ");
-        jpeoplename.setBounds(80, 60, 200, 20);
-        jpeoplename.setFont(jpeoplename.getFont().deriveFont(jpeoplename.getFont().getSize() + 3f));
+        jpeoplename.setBounds(80, 65, 200, 20);
+        jpeoplename.setFont(new Font("Tahoma", Font.PLAIN, 14));
         pa1.add(jpeoplename);
         
         janimalname = new JLabel("ชื่อสัตว์เลี้ยง");
-        janimalname.setBounds(400, 60, 200, 20);
-        janimalname.setFont(janimalname.getFont().deriveFont(janimalname.getFont().getSize() + 3f));
+        janimalname.setBounds(400, 65, 200, 20);
+        janimalname.setFont(new Font("Tahoma", Font.PLAIN, 14));
         pa1.add(janimalname);
         
         jcateanimal = new JLabel("ประเภทสัตว์เลี้ยง");
-        jcateanimal.setBounds(80, 90, 200, 20);
-        jcateanimal.setFont(jcateanimal.getFont().deriveFont(jcateanimal.getFont().getSize() + 3f));
+        jcateanimal.setBounds(80, 95, 200, 20);
+        jcateanimal.setFont(new Font("Tahoma", Font.PLAIN, 14));
         pa1.add(jcateanimal);
         
         jtypeanimal = new JLabel("สายพันธุ์");
-        jtypeanimal.setBounds(400, 90, 200, 20);
-        jtypeanimal.setFont(jtypeanimal.getFont().deriveFont(jtypeanimal.getFont().getSize() + 3f));
+        jtypeanimal.setBounds(400, 95, 200, 20);
+        jtypeanimal.setFont(new Font("Tahoma", Font.PLAIN, 14));
         pa1.add(jtypeanimal);
         
         jage = new JLabel("อายุสัตว์เลี้ยง");
-        jage.setBounds(80, 120, 200, 20);
-        jage.setFont(jage.getFont().deriveFont(jage.getFont().getSize() + 3f));
+        jage.setBounds(80, 125, 200, 20);
+        jage.setFont(new Font("Tahoma", Font.PLAIN, 14));
         pa1.add(jage);
         
         jgender = new JLabel("เพศ");
-        jgender.setBounds(400, 120, 200, 20);
-        jgender.setFont(jgender.getFont().deriveFont(jgender.getFont().getSize() + 3f));
+        jgender.setBounds(400, 125, 200, 20);
+        jgender.setFont(new Font("Tahoma", Font.PLAIN, 14));
         pa1.add(jgender);
         
         jdisea = new JLabel("โรคประจำตัว");
-        jdisea.setBounds(80, 150, 200, 20);
-        jdisea.setFont(jdisea.getFont().deriveFont(jdisea.getFont().getSize() + 3f));
+        jdisea.setBounds(80, 155, 200, 20);
+        jdisea.setFont(new Font("Tahoma", Font.PLAIN, 14));
         pa1.add(jdisea);
         
         
         jconclu = new JLabel("ผลการรักษา");
-        jconclu.setBounds(40, 180, 200, 20);
-        jconclu.setFont(jconclu.getFont().deriveFont(jconclu.getFont().getSize() + 5.5f));
+        jconclu.setBounds(40, 190, 200, 20);
+        jconclu.setFont(new Font("Tahoma", Font.PLAIN, 17));
         pa1.add(jconclu);
         
         
         jdate = new JLabel("วันที่รับการตรวจ");
-        jdate.setBounds(80, 210, 200, 20);
-        jdate.setFont(jdate.getFont().deriveFont(jdate.getFont().getSize() + 3f));
+        jdate.setBounds(80, 225, 200, 20);
+        jdate.setFont(new Font("Tahoma", Font.PLAIN, 14));
         pa1.add(jdate);
         
         jdocname = new JLabel("แพทย์ที่ทำการตรวจ");
-        jdocname.setBounds(80, 240, 200, 20);
-        jdocname.setFont(jdocname.getFont().deriveFont(jdocname.getFont().getSize() + 3f));
+        jdocname.setBounds(80, 255, 200, 20);
+        jdocname.setFont(new Font("Tahoma", Font.PLAIN, 14));
         pa1.add(jdocname);
         
         jsymptom = new JLabel("อาการ");
-        jsymptom.setBounds(80, 270, 200, 20);
-        jsymptom.setFont(jsymptom.getFont().deriveFont(jsymptom.getFont().getSize() + 3f));
+        jsymptom.setBounds(80, 285, 200, 20);
+        jsymptom.setFont(new Font("Tahoma", Font.PLAIN, 14));
         pa1.add(jsymptom);
         
         jdocdescrip = new JLabel("การวินิจฉัย");
-        jdocdescrip.setBounds(80, 320, 200, 20);
-        jdocdescrip.setFont(jdocdescrip.getFont().deriveFont(jdocdescrip.getFont().getSize() + 3f));
+        jdocdescrip.setBounds(80, 355, 200, 20);
+        jdocdescrip.setFont(new Font("Tahoma", Font.PLAIN, 14));
         pa1.add(jdocdescrip);
         
         jcure = new JLabel("การรักษา");
-        jcure.setBounds(80, 370, 200, 20);
-        jcure.setFont(jcure.getFont().deriveFont(jcure.getFont().getSize() + 3f));
+        jcure.setBounds(80, 425, 200, 20);
+        jcure.setFont(new Font("Tahoma", Font.PLAIN, 14));
         pa1.add(jcure);
         
         jdocopi = new JLabel("ความเห็นของแพทย์");
-        jdocopi.setBounds(80, 420, 200, 20);
-        jdocopi.setFont(jdocopi.getFont().deriveFont(jdocopi.getFont().getSize() + 3f));
+        jdocopi.setBounds(80, 495, 200, 20);
+        jdocopi.setFont(new Font("Tahoma", Font.PLAIN, 14));
         pa1.add(jdocopi);
         
         jmedi = new JLabel("ยา");
-        jmedi.setBounds(80, 470, 200, 20);
-        jmedi.setFont(jmedi.getFont().deriveFont(jmedi.getFont().getSize() + 3f));
+        jmedi.setBounds(80, 565, 200, 20);
+        jmedi.setFont(new Font("Tahoma", Font.PLAIN, 14));
         pa1.add(jmedi);
         
         
         tpeoplename = new JTextField();
-        tpeoplename.setBounds(190, 60, 200, 20);
+        tpeoplename.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        tpeoplename.setBounds(190, 65, 200, 20);
         pa1.add(tpeoplename);
         
+        
         tanimalname = new JTextField();
-        tanimalname.setBounds(490, 60, 200, 20);
+        tanimalname.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        tanimalname.setBounds(490, 65, 200, 20);
         pa1.add(tanimalname);
         
+        
         tcateanimal = new JTextField();
-        tcateanimal.setBounds(190, 90, 200, 20);
+        tcateanimal.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        tcateanimal.setBounds(190, 95, 200, 20);
         pa1.add(tcateanimal);
         
+        
         ttypeanimal = new JTextField();
-        ttypeanimal.setBounds(490, 90, 200, 20);
+        ttypeanimal.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        ttypeanimal.setBounds(490, 95, 200, 20);
         pa1.add(ttypeanimal);
         
+        
         tage = new JTextField();
-        tage.setBounds(190, 120, 200, 20);
+        tage.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        tage.setBounds(190, 125, 200, 20);
         pa1.add(tage);
         
+        
         tgender = new JTextField();
-        tgender.setBounds(490, 120, 200, 20);
+        tgender.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        tgender.setBounds(490, 125, 200, 20);
         pa1.add(tgender);
         
+        
         tdisea = new JTextField();
-        tdisea.setBounds(190, 150, 200, 20);
+        tdisea.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        tdisea.setBounds(190, 155, 200, 20);
         pa1.add(tdisea);
         
+        
         tdate = new JTextField();
-        tdate.setBounds(210, 210, 220, 20);
+        tdate.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        tdate.setBounds(210, 225, 220, 20);
         pa1.add(tdate);
         
+        
         tdocname = new JTextField();
-        tdocname.setBounds(210, 240, 220, 20);
+        tdocname.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        tdocname.setBounds(210, 255, 220, 20);
         pa1.add(tdocname);
         
-        tsymptom = new JTextField();
-        tsymptom.setBounds(210, 270, 480, 40);
-        pa1.add(tsymptom);
         
-
+        tsymptom = new JTextArea();
+        tsymptom.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        tsymptom.setLineWrap(true);
+        symto = new JScrollPane(tsymptom);
+        symto.setBounds(210, 285, 480, 60);
+        symto.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        pa1.add(symto);
+        
+        
         txtadocdescrip = new JTextArea();
+        txtadocdescrip.setFont(new Font("Tahoma", Font.PLAIN, 14));
         txtadocdescrip.setLineWrap(true);
         descrip = new JScrollPane(txtadocdescrip);
 //        descrip.setViewportView(txtadocdescrip);
-        descrip.setBounds(210, 320, 480, 40);
+        descrip.setBounds(210, 355, 480, 60);
         descrip.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         pa1.add(descrip);
         
+        
         txtacure = new JTextArea(); 
+        txtacure.setFont(new Font("Tahoma", Font.PLAIN, 14));
         cure = new JScrollPane(txtacure);
 //        cure.setViewportView(txtacure);
-        txtacure.setLineWrap(true);
-        cure.setBounds(210, 370, 480, 40);
+//        txtacure.setLineWrap(true);
+        cure.setBounds(210, 425, 480, 60);
         cure.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         pa1.add(cure);
         
         txtadocopi = new JTextArea();
+        txtadocopi.setFont(new Font("Tahoma", Font.PLAIN, 14));
         opi = new JScrollPane(txtadocopi);
 //        opi.setViewportView(txtadocopi);
-        txtadocopi.setLineWrap(true);
-        opi.setBounds(210, 420, 480, 40);
+//        txtadocopi.setLineWrap(true);
+        opi.setBounds(210, 495, 480, 60);
         opi.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         pa1.add(opi);
         
@@ -180,7 +206,7 @@ public class history_  extends JInternalFrame{
         
         meddi = new JScrollPane(table);
 //        meddi.setViewportView(table);
-        meddi.setBounds(210, 470, 500, 120);
+        meddi.setBounds(210, 565, 500, 120);
         pa1.add(meddi);
 //        meddi.setViewportView(table);
 
