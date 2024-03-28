@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import com.toedter.calendar.JCalendar;
+import javax.swing.event.*;
 
 public class main_admin extends JInternalFrame{
     private JPanel panel_left, panel_right, panel_left1, panel_calendar, 
@@ -135,7 +136,14 @@ panel_right_button;
         new main_admin();
     }
     private void openInternalFrame(JInternalFrame internalFrame) {
+        internalFrame.addInternalFrameListener(new InternalFrameAdapter() {
+        @Override
+        public void internalFrameClosing(InternalFrameEvent e) {
+            button_medicine.setEnabled(true);
+            }
+        });
         internalFrame.setVisible(true);
         getParent().add(internalFrame);
+        
     }
 }
