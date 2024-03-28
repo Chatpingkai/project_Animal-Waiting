@@ -1,16 +1,25 @@
-
+package back;
 
 
 public class Account {
+    private int id;
     private String username;
     private String password;
     public Account(){
+        id = 0;
         username = "";
         password = "";
     }
-    public Account(String username, String password){
+    public Account(int id, String username, String password){
+        this.id = id;
         this.username = username;
         this.password = password;
+    }
+    public int getId(){
+        return id;
+    }
+    public void setId(int id){
+        this.id = id;
     }
     public String getUsername(){
         return username;
