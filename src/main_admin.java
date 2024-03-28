@@ -1,10 +1,14 @@
-
+import  back.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import com.toedter.calendar.JCalendar;
+import java.sql.*;
+import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.event.*;
 
 public class main_admin extends JInternalFrame{
@@ -18,9 +22,18 @@ panel_right_button;
     private JCalendar calendar;
     private ImageIcon profile;
     private Main_MDI main;
-
+    private Connec_table tabledb;
+    private String today;
+    private Map<String, String> queue;
     public main_admin() {
         super("Animal-Waiting", false, true, false, true);
+        today = String.format("%d-%02d-%02d", Datetoday.date.getYear()+543,Datetoday.date.getMonthValue(),Datetoday.date.getDayOfMonth());
+        try {
+            setQueue(today);
+        } catch (SQLException ex) {
+            Logger.getLogger(main_admin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        System.out.println(today);
         setLayout(new BorderLayout());
 
         panel_left = new JPanel();
@@ -93,10 +106,10 @@ panel_right_button;
         panel_calendar.add(calendar);
 
         // สร้างตาราง
-        String[][] data = {{"10:00 - 11:00", null}, {"11:00 - 12:00", null}, 
-{"12:00 - 13:00", null}, {"13:00 - 14:00", null}, {"14:00 - 15:00", null}, 
-{"15:00 - 16:00", null}, {"16:00 - 17:00", null}, {"17:00 - 18:00", null}, 
-{"18:00 - 19:00", null}, {"19:00 - 20:00", null}};
+        String[][] data = {{"10:00 - 11:00", queue.get("10.00-11.00")}, {"11:00 - 12:00", queue.get("11.00-12.00")}, 
+{"12:00 - 13:00", queue.get("12.00-13.00")}, {"13:00 - 14:00", "พัก"}, {"14:00 - 15:00", queue.get("14.00-15.00")},       
+{"15:00 - 16:00", queue.get("15.00-16.00")}, {"16:00 - 17:00", queue.get("16.00-17.00")}, {"17:00 - 18:00", queue.get("17.00-18.00")}, 
+{"18:00 - 19:00", queue.get("18.00-19.00")}, {"19:00 - 20:00", queue.get("19.00-20.00")}};
         String[] columnNames = {"เวลา", "รายละเอียด"};
         table = new JTable(data, columnNames);
         table.setRowHeight(30);
@@ -155,5 +168,26 @@ panel_right_button;
         internalFrame.setVisible(true);
         getParent().add(internalFrame);
         
+    }
+    public void setQueue(String today) throws SQLException{
+        System.out.println("fdffdsffsdfsdf");
+        queue = new HashMap<String, String>();
+        tabledb = new Connec_table();
+        String sql = String.format("SELECT * FROM Reserve where date = '2567-03-28' ORDER BY Time ASC");
+        System.out.println(sql);
+        ResultSet rs = tabledb.getData(sql);
+        while (rs.next()) {
+            queue.put(rs.getString("Time"), rs.getString("Details"));
+        }
+//        for (int i = 0; i < 9; i++) {
+//            if(rs.next()){
+//                System.out.println(rs.getString("Time"));
+//                queue.add(rs.getString("Details"));
+//            }
+//            else{
+//                queue.add("");
+//            }
+//        }
+        tabledb.Discon();
     }
 }

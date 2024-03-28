@@ -26,7 +26,7 @@ Lmedorcapsule, Ltime, Lmedorcapsule2, Lbaht;
     public AddMedicine(){
         //pop up//
 //        fraddmed = new JFrame("เพิ่มยา");
-        super("Animal-Waiting", false, true, false, true);
+        super("Animal-Waiting", false, false, false, true);
         pa1 = new JPanel();
         pa1.setLayout(null);
         pa1.setBackground(new Color(0xFFEEE3));
@@ -121,6 +121,7 @@ Lmedorcapsule, Ltime, Lmedorcapsule2, Lbaht;
         pa1.add(Lrecommend);
         
         submit = new JButton("submit");
+        submit.addActionListener(this);
         submit.setBounds(350, 560, 100, 25);
         pa1.add(submit);
         submit.setFont(new Font("Jost", Font.PLAIN, 15));
@@ -303,6 +304,8 @@ Lmedorcapsule, Ltime, Lmedorcapsule2, Lbaht;
                 setTable("SELECT * FROM Med");
             } catch (SQLException ex) {
             }
+        }else if (e.getSource().equals(submit)){
+            this.dispose();
         }
     }
 

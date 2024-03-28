@@ -128,7 +128,12 @@ public class Medicinehome extends JInternalFrame{
     private void openInternalFrame(JInternalFrame internalFrame) {
         internalFrame.addInternalFrameListener(new InternalFrameAdapter() {
         @Override
-        public void internalFrameClosing(InternalFrameEvent e) {
+        public void internalFrameClosed(InternalFrameEvent e) {
+            try {
+                setTable("SELECT * FROM Med");
+            } catch (SQLException ex) {
+                Logger.getLogger(Medicinehome.class.getName()).log(Level.SEVERE, null, ex);
+            }
             addmed.setEnabled(true);
             }
         });
