@@ -1,7 +1,7 @@
 
 
 
-public class Customer {
+public class Customer extends Account{
     private Account acct;
     private String first_name;
     private String last_name;
@@ -102,5 +102,9 @@ public class Customer {
 //        catch(Exception e){
 //            e.printStackTrace();
 //        }
+    }
+    public static void main(String[] args) {
+        Account man = new Customer();
+        System.out.println(((Customer)man).getSex());
     }
 }

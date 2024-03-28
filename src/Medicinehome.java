@@ -6,6 +6,7 @@ import javax.swing.table.*;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.event.*;
 public class Medicinehome extends JInternalFrame{
 //    private JFrame fr;
     private JButton addmed;
@@ -83,8 +84,8 @@ public class Medicinehome extends JInternalFrame{
 //        fr.add(des); 
         
         getContentPane().add(pa1);
-        setSize(980, 700); // Initial size
-//        setLocationRelativeTo(null); // Center the frame on the screen
+        setSize(980, 700);
+        setLocation(700, 200);
         setVisible(true);
         
         
@@ -125,7 +126,12 @@ public class Medicinehome extends JInternalFrame{
         });
     }
     private void openInternalFrame(JInternalFrame internalFrame) {
-        internalFrame.setVisible(true);
+        internalFrame.addInternalFrameListener(new InternalFrameAdapter() {
+        @Override
+        public void internalFrameClosing(InternalFrameEvent e) {
+            addmed.setEnabled(true);
+            }
+        });
         getParent().add(internalFrame);
     }
 }

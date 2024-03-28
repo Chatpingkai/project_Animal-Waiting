@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import com.toedter.calendar.JCalendar;
+import javax.swing.event.*;
 
 public class main_admin extends JInternalFrame{
     private JPanel panel_left, panel_right, panel_left1, panel_calendar, 
@@ -53,6 +54,14 @@ panel_right_button;
             @Override
             public void actionPerformed(ActionEvent e) {
                 openInternalFrame(new Medicinehome());
+                button_medicine.setEnabled(false);
+            }
+        });
+
+        button_history.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                openInternalFrame(new Patient_history());
                 button_medicine.setEnabled(false);
             }
         });
@@ -127,7 +136,9 @@ panel_right_button;
 
         getContentPane().add(panel_left, BorderLayout.WEST);
         getContentPane().add(panel_right, BorderLayout.CENTER);
-        setBounds(50, 50, 1000, 550);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(1000, 550);
+        setLocation(470, 200);
         setVisible(true);
     }
 
@@ -135,7 +146,14 @@ panel_right_button;
         new main_admin();
     }
     private void openInternalFrame(JInternalFrame internalFrame) {
+        internalFrame.addInternalFrameListener(new InternalFrameAdapter() {
+        @Override
+        public void internalFrameClosing(InternalFrameEvent e) {
+            button_medicine.setEnabled(true);
+            }
+        });
         internalFrame.setVisible(true);
         getParent().add(internalFrame);
+        
     }
 }
