@@ -1,5 +1,8 @@
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -7,7 +10,7 @@ import javax.swing.table.DefaultTableModel;
 import org.jdatepicker.JDatePicker;
 import org.jdatepicker.UtilDateModel;
 
-public class details_admin_popup{
+public class details_admin_popup implements ActionListener{
     private JFrame fr;
     private JPanel panel_main, panel_history, panel_his_north, panel_his_center, panel_his1, panel_his2, 
 panel_his3, panel_his4, panel_his5, panel_his6, panel_his7, panel_date, panel_txt_date, 
@@ -65,6 +68,10 @@ box_opinion, box_note;
         button_minus = new JButton("-");
         button_plus = new JButton("+");
         button_next = new JButton("Next");
+
+        button_minus.addActionListener(this);
+        button_plus.addActionListener(this);
+        button_next.addActionListener(this);
 
         JTable table = new JTable();
         Object[] columns = {"ชื่อยา", "จำนวน", "ราคา"};
@@ -382,5 +389,12 @@ box_opinion, box_note;
             SwingUtilities.invokeLater(() -> { 
                 details_admin_popup frame = new details_admin_popup();
             });
+    }
+    @Override
+    public void actionPerformed(ActionEvent e){
+        if (e.getSource() == button_next){
+            fr.dispose();
+            new doctor_popup();
+        }
     }
 }

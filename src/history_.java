@@ -11,7 +11,7 @@ public class history_  extends JInternalFrame{
     private JScrollPane meddi, symp, descrip, cure, opi, scrollPane;
     private JTable table;
     public history_(){
-        super("Animal-Waiting", false, true, true, true);
+        super("Animal-Waiting", false, true,false, true);
 //        frhis = new JFrame("ประวัติ");
         pa1 = new JPanel(null);
         pa1.setBackground(new Color(0xFFEEE3));
@@ -221,7 +221,7 @@ public class history_  extends JInternalFrame{
         
         getContentPane().add(scrollPane);
 //        frhis.add(scrollPane);
-        setSize(760, 600);
+        setSize(820, 700);
         setResizable(false);
 //        frhis.setLocationRelativeTo(null); // Center the frame on the screen
         setVisible(true);

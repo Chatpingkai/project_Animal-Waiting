@@ -14,7 +14,7 @@ public class Usage_history extends JInternalFrame implements MouseListener{
     private Connec_table con_table;
     private ArrayList<String> data;
     public Usage_history(){
-        super("Animal-Waiting", false, true, true, true);
+        super("Animal-Waiting", false, true, false, true);
         data = new ArrayList<String>();
 //        frused = new JFrame("ประวัติการใช้บริการ");
         pa1 = new JPanel();

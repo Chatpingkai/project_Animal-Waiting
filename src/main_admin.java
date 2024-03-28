@@ -1,9 +1,12 @@
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import com.toedter.calendar.JCalendar;
 
-public class main_admin extends JInternalFrame {
+public class main_admin extends JInternalFrame{
     private JPanel panel_left, panel_right, panel_left1, panel_calendar, 
 panel_left2, panel_left3, panel_left4, panel_left5, panel_left6, 
 panel_right1, panel_right2, panel_right3,
@@ -13,6 +16,7 @@ panel_right_button;
     private JLabel photo;
     private JCalendar calendar;
     private ImageIcon profile;
+    private Main_MDI main;
 
     public main_admin() {
         super("Animal-Waiting", false, true, false, true);
@@ -44,6 +48,14 @@ panel_right_button;
         button_medicine = new JButton("คลังยา");
         button_history = new JButton("เวชระเบียน");
         button_logout = new JButton("Logout");
+
+        button_medicine.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                openInternalFrame(new Medicinehome());
+                button_medicine.setEnabled(false);
+            }
+        });
 
         calendar = new JCalendar();
 
@@ -121,5 +133,9 @@ panel_right_button;
 
     public static void main(String[] args) {
         new main_admin();
+    }
+    private void openInternalFrame(JInternalFrame internalFrame) {
+        internalFrame.setVisible(true);
+        getParent().add(internalFrame);
     }
 }

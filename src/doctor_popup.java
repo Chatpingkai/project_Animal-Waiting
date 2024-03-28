@@ -4,8 +4,10 @@ import java.awt.*;
 
 public class doctor_popup{
     private JFrame frame_Hospital_Medical_Expenses;
-    private JLabel service, Medical_Supplies, Medical_Service, Home_Medication, medication_expenses, Physician_Evaluation, amount, pronounce;
-    private JTextField box_Medical_Supplies, box_Medical_Service, box_Home_Medication, box_medication_expenses, box_Physician_Evaluation, box_amount, box_pronounce;
+    private JLabel service, Medical_Supplies, Medical_Service, Home_Medication, 
+medication_expenses, Physician_Evaluation, amount, pronounce;
+    private JTextField box_Medical_Supplies, box_Medical_Service, box_Home_Medication, 
+box_medication_expenses, box_Physician_Evaluation, box_amount, box_pronounce;
     private JPanel fr_service, fr_button, space_west, space_east, fr_main, space;
     private JButton button_sub;
     public doctor_popup(){
@@ -13,23 +15,23 @@ public class doctor_popup{
         frame_Hospital_Medical_Expenses.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame_Hospital_Medical_Expenses.setLayout(new BorderLayout());
 
-        service = new JLabel("  Service Charge");
-        Medical_Supplies = new JLabel("            Medical Supplies");
-        Medical_Service = new JLabel("            Medical Service");
-        Home_Medication = new JLabel("            Home Medication");
-        medication_expenses = new JLabel("            Medication Expenses");
-        Physician_Evaluation = new JLabel("            Physician Evaluation");
-        amount = new JLabel("            Amount");
-        pronounce = new JLabel("            Amount (pronounce)");
+        service = new JLabel("  ค่าบริการ");
+        Medical_Supplies = new JLabel("            ค่าอุปกรณ์ทางการแพทย์");
+        Medical_Service = new JLabel("            ค่าบริการพยาบาล");
+        Home_Medication = new JLabel("            ค่ายานำกลับบ้าน");
+        medication_expenses = new JLabel("            ค่ายารักษาโรค");
+        Physician_Evaluation = new JLabel("            ค่าตรวจรักษา");
+        amount = new JLabel("            ยอดสุทธิ");
+        pronounce = new JLabel("            ยอดสุทธิ(คำอ่าน)");
 
-        service.setFont(new Font("Jost", Font.BOLD, 25));
-        Medical_Supplies.setFont(new Font("Jost", Font.PLAIN, 15));
-        Medical_Service.setFont(new Font("Jost", Font.PLAIN, 15));
-        Home_Medication.setFont(new Font("Jost", Font.PLAIN, 15));
-        medication_expenses.setFont(new Font("Jost", Font.PLAIN, 15));
-        Physician_Evaluation.setFont(new Font("Jost", Font.PLAIN, 15));
-        amount.setFont(new Font("Jost", Font.PLAIN, 15));
-        pronounce.setFont(new Font("Jost", Font.PLAIN, 15));
+        service.setFont(new Font("Tahoma", Font.BOLD, 25));
+        Medical_Supplies.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        Medical_Service.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        Home_Medication.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        medication_expenses.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        Physician_Evaluation.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        amount.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        pronounce.setFont(new Font("Tahoma", Font.PLAIN, 15));
 
         box_Medical_Supplies = new JTextField();
         box_Medical_Service = new JTextField();
@@ -74,6 +76,14 @@ public class doctor_popup{
         fr_main.add(box_amount);
         fr_main.add(pronounce);
         fr_main.add(box_pronounce);
+
+        box_Medical_Supplies.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        box_Medical_Service.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        box_Home_Medication.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        box_medication_expenses.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        box_Physician_Evaluation.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        box_amount.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        box_pronounce.setFont(new Font("Tahoma", Font.PLAIN, 13));
 
         fr_button.setBackground(new Color(0xFFEEE3));
         fr_main.setBackground(new Color(0xFFEEE3));

@@ -6,7 +6,7 @@ import javax.swing.table.*;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-public class Medicinehome extends JInternalFrame implements ActionListener {
+public class Medicinehome extends JInternalFrame{
 //    private JFrame fr;
     private JButton addmed;
 //    private JDesktopPane des;
@@ -17,12 +17,18 @@ public class Medicinehome extends JInternalFrame implements ActionListener {
     private DefaultTableModel model;
 
     public Medicinehome() {
-        super("Animal-Waiting", false, true, true, true);
+        super("Animal-Waiting", false, true, false, true);
 //        fr = new JFrame("คลังยา");
         pa1 = new JPanel(null);
         addmed = new JButton("เพิ่มยา");
-        addmed.setBounds(1140, 30, 100, 30); 
-        addmed.addActionListener(this);
+        addmed.setBounds(820, 30, 100, 30);
+        addmed.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                openInternalFrame(new AddMedicine());
+                addmed.setEnabled(false);
+            }
+        });
 //        addmed.repaint();
         Font defaultFont = addmed.getFont();
         Font font1 = defaultFont.deriveFont(defaultFont.getSize() + 2f); 
@@ -31,7 +37,7 @@ public class Medicinehome extends JInternalFrame implements ActionListener {
         pa1.add(addmed);
 
         scroll = new JScrollPane();
-        scroll.setBounds(40, 80, 1200, 550);
+        scroll.setBounds(40, 80, 880, 550);
         getContentPane().add(scroll);
         
         
@@ -77,7 +83,7 @@ public class Medicinehome extends JInternalFrame implements ActionListener {
 //        fr.add(des); 
         
         getContentPane().add(pa1);
-        setSize(800, 600); // Initial size
+        setSize(980, 700); // Initial size
 //        setLocationRelativeTo(null); // Center the frame on the screen
         setVisible(true);
         
@@ -118,12 +124,10 @@ public class Medicinehome extends JInternalFrame implements ActionListener {
             Medicinehome frame = new Medicinehome();
         });
     }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == addmed) {
-        AddMedicine addMedicineFrame = new AddMedicine();
+    private void openInternalFrame(JInternalFrame internalFrame) {
+        internalFrame.setVisible(true);
+        getParent().add(internalFrame);
     }
 }
-}
+
 

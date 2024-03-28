@@ -1,14 +1,19 @@
 
-import javax.swing.*;
-//import javax.swing.border.LineBorder;
 import java.awt.*;
+import javax.swing.*;
 
 public class grooming_popup{
     private JFrame frame_grooming;
-    private JTextField box_name_owner, box_name_pet, box_type, box_breed, box_age, box_sex, box_Chronic_illness, box_date, box_cutting, box_shower, box_amount, box_pronounce;
-    private JLabel pet_history, name_owner, name_pet, type, breed, age, sex, Chronic_illness, date, treatment, cutting, bathing, amount, pronounce;
+    private JTextField box_name_owner, box_name_pet, box_type, box_breed, box_age, 
+box_sex, box_Chronic_illness, box_date, box_cutting, box_shower, box_amount, 
+box_pronounce;
+    private JLabel pet_history, name_owner, name_pet, type, breed, age, sex, 
+Chronic_illness, date, treatment, cutting, bathing, amount, pronounce;
     private JButton button_submit;
-    private JPanel p1, space1, space2, space3, space4, space5, space6, space7, space8, space9, space10, space11, space12, space13, space14, space15, space16, space17, space18, space19, space20, space21, space22, space23, space24, space25, space26, space27, space28, space29, space30, space31, space32;
+    private JPanel p1, space1, space2, space3, space4, space5, space6, space9, 
+space10, space11, space12, space13, space14, space15, space16, space17, space18, 
+space19, space20, space21, space22, space23, space24, space25, space26, space27, 
+space28, space29, space30, space31, space32, space33;
     public grooming_popup(){
         frame_grooming = new JFrame("Other Service Charge");
         frame_grooming.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -22,8 +27,6 @@ public class grooming_popup{
         space4 = new JPanel();
         space5 = new JPanel();
         space6 = new JPanel();
-        space7 = new JPanel();
-        space8 = new JPanel();
         space9 = new JPanel();
         space10 = new JPanel();
         space11 = new JPanel();
@@ -48,35 +51,36 @@ public class grooming_popup{
         space30 = new JPanel();
         space31 = new JPanel();
         space32 = new JPanel();
+        space33 = new JPanel();
 
-        pet_history = new JLabel("  Pet History");
-        pet_history.setFont(new Font("Jost", Font.BOLD, 25));
-        name_owner = new JLabel("           Customer Name :");
-        name_owner.setFont(new Font("Jost", Font.PLAIN, 15));
-        name_pet = new JLabel("           Pet Name : ");
-        name_pet.setFont(new Font("Jost", Font.PLAIN, 15));
-        type = new JLabel("           Type of pet : ");
-        type.setFont(new Font("Jost", Font.PLAIN, 15));
-        breed = new JLabel("    Breed : ");
-        breed.setFont(new Font("Jost", Font.PLAIN, 15));
-        age = new JLabel("           Age of the pet : ");
-        age.setFont(new Font("Jost", Font.PLAIN, 15));
-        sex = new JLabel("  Gender : ");
-        sex.setFont(new Font("Jost", Font.PLAIN, 15));
-        Chronic_illness = new JLabel("           Chronic illness : ");
-        Chronic_illness.setFont(new Font("Jost", Font.PLAIN, 15));
-        date = new JLabel("  Date");
-        date.setFont(new Font("Jost", Font.BOLD, 25));
-        treatment = new JLabel("  Treatment");
-        treatment.setFont(new Font("Jost", Font.BOLD, 25));
-        cutting = new JLabel("Cutting");
-        cutting.setFont(new Font("Jost", Font.PLAIN, 15));
-        bathing = new JLabel("Bathing");
-        bathing.setFont(new Font("Jost", Font.PLAIN, 15));
-        amount = new JLabel("Amount");
-        amount.setFont(new Font("Jost", Font.PLAIN, 15));
-        pronounce = new JLabel("Amount (pronounce)");
-        pronounce.setFont(new Font("Jost", Font.PLAIN, 15));
+        pet_history = new JLabel("  ประวัติสัตว์เลี้ยง");
+        pet_history.setFont(new Font("Tahoma", Font.BOLD, 25));
+        name_owner = new JLabel("ชื่อลุกค้า :");
+        name_owner.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        name_pet = new JLabel("ชื่อสัตวืเลี้ยง : ");
+        name_pet.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        type = new JLabel("ประเภทของสัตว์เลี้ยง : ");
+        type.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        breed = new JLabel("สายพันธุ์ : ");
+        breed.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        age = new JLabel("  อายุของสัตว์เลี้ยง : ");
+        age.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        sex = new JLabel("  เพศ : ");
+        sex.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        Chronic_illness = new JLabel("โรคประจำตัว : ");
+        Chronic_illness.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        date = new JLabel("  วันที่");
+        date.setFont(new Font("Tahoma", Font.BOLD, 25));
+        treatment = new JLabel("  การบริการ");
+        treatment.setFont(new Font("Tahoma", Font.BOLD, 25));
+        cutting = new JLabel("ตัดขน");
+        cutting.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        bathing = new JLabel("อาบน้ำ");
+        bathing.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        amount = new JLabel("ยอดสุทธิ");
+        amount.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        pronounce = new JLabel("ยอดสุทธิ(คำอ่าน)");
+        pronounce.setFont(new Font("Tahoma", Font.PLAIN, 15));
 
         box_name_owner = new JTextField();
         box_name_pet = new JTextField();
@@ -108,14 +112,13 @@ public class grooming_popup{
         p1.add(space6);
         p1.add(type);
         p1.add(box_type);
-        p1.add(breed);
-        p1.add(box_breed);
-        p1.add(space7);
-        p1.add(space8);
-        p1.add(age);
-        p1.add(box_age);
         p1.add(sex);
         p1.add(box_sex);
+        p1.add(space33);
+        p1.add(breed);
+        p1.add(box_breed);
+        p1.add(age);
+        p1.add(box_age);
         p1.add(space9);
         p1.add(space10);
         p1.add(Chronic_illness);
@@ -164,8 +167,6 @@ public class grooming_popup{
         space4.setBackground(new Color(0xFFEEE3));
         space5.setBackground(new Color(0xFFEEE3));
         space6.setBackground(new Color(0xFFEEE3));
-        space7.setBackground(new Color(0xFFEEE3));
-        space8.setBackground(new Color(0xFFEEE3));
         space9.setBackground(new Color(0xFFEEE3));
         space10.setBackground(new Color(0xFFEEE3));
         space11.setBackground(new Color(0xFFEEE3));
@@ -190,38 +191,23 @@ public class grooming_popup{
         space30.setBackground(new Color(0xFFEEE3));
         space31.setBackground(new Color(0xFFEEE3));
         space32.setBackground(new Color(0xFFEEE3));
+        space33.setBackground(new Color(0xFFEEE3));
 
-        //box_name_owner.setBorder(new LineBorder(Color.BLACK, 1));
-        //box_name_pet.setBorder(new LineBorder(Color.BLACK, 1));
-        //box_type.setBorder(new LineBorder(Color.BLACK, 1));
-        //box_breed.setBorder(new LineBorder(Color.BLACK, 1));
-        //box_age.setBorder(new LineBorder(Color.BLACK, 1));
-        //box_sex.setBorder(new LineBorder(Color.BLACK, 1));
-        //box_Chronic_illness.setBorder(new LineBorder(Color.BLACK, 1));
-        //box_date.setBorder(new LineBorder(Color.BLACK, 1));
-        //box_cutting.setBorder(new LineBorder(Color.BLACK, 1));
-        //box_shower.setBorder(new LineBorder(Color.BLACK, 1));
-        //box_amount.setBorder(new LineBorder(Color.BLACK, 1));
-        //box_pronounce.setBorder(new LineBorder(Color.BLACK, 1));
-        //button_submit.setBorder(new LineBorder(Color.BLACK, 1));
-
-        space1.setPreferredSize(new Dimension(200, 10));
-        space2.setPreferredSize(new Dimension(30, 10));
-        space3.setPreferredSize(new Dimension(10, 10));
-        space4.setPreferredSize(new Dimension(30, 10));
-        space5.setPreferredSize(new Dimension(50, 10));
-        space6.setPreferredSize(new Dimension(30, 10));
-        space7.setPreferredSize(new Dimension(5, 10));
-        space8.setPreferredSize(new Dimension(10, 10));
-        space9.setPreferredSize(new Dimension(5, 10));
-        space10.setPreferredSize(new Dimension(30, 10));
+        space1.setPreferredSize(new Dimension(270, 10));
+        space2.setPreferredSize(new Dimension(50, 10));
+        space3.setPreferredSize(new Dimension(100, 10));
+        space4.setPreferredSize(new Dimension(50, 10));
+        space5.setPreferredSize(new Dimension(75, 10));
+        space6.setPreferredSize(new Dimension(50, 10));
+        space9.setPreferredSize(new Dimension(30, 10));
+        space10.setPreferredSize(new Dimension(50, 10));
         space11.setPreferredSize(new Dimension(10, 10));
         space12.setPreferredSize(new Dimension(400, 10));
         space13.setPreferredSize(new Dimension(10, 10));
         space14.setPreferredSize(new Dimension(200, 10));
         space15.setPreferredSize(new Dimension(300, 10));
         space16.setPreferredSize(new Dimension(50, 10));
-        space17.setPreferredSize(new Dimension(320, 10));
+        space17.setPreferredSize(new Dimension(380, 10));
         space18.setPreferredSize(new Dimension(50, 10));
         space19.setPreferredSize(new Dimension(20, 10));
         space20.setPreferredSize(new Dimension(50, 10));
@@ -237,20 +223,21 @@ public class grooming_popup{
         space30.setPreferredSize(new Dimension(50, 10));
         space31.setPreferredSize(new Dimension(200, 10));
         space32.setPreferredSize(new Dimension(318, 10));
+        space33.setPreferredSize(new Dimension(50, 10));
 
         box_name_owner.setPreferredSize(new Dimension(250, 20));
         box_name_pet.setPreferredSize(new Dimension(250, 20));
         box_type.setPreferredSize(new Dimension(120, 20));
         box_breed.setPreferredSize(new Dimension(120, 20));
-        box_age.setPreferredSize(new Dimension(100, 20));
-        box_sex.setPreferredSize(new Dimension(100, 20));
+        box_age.setPreferredSize(new Dimension(50, 20));
+        box_sex.setPreferredSize(new Dimension(70, 20));
         box_Chronic_illness.setPreferredSize(new Dimension(280, 20));
         box_date.setPreferredSize(new Dimension(200, 20));
         box_cutting.setPreferredSize(new Dimension(370, 20));
         box_shower.setPreferredSize(new Dimension(370, 20));
         box_amount.setPreferredSize(new Dimension(370, 20));
         box_pronounce.setPreferredSize(new Dimension(370, 20));
-        button_submit.setPreferredSize(new Dimension(100, 35));
+        button_submit.setPreferredSize(new Dimension(100, 40));
 
         frame_grooming.setSize(500, 600);
         frame_grooming.setVisible(true);

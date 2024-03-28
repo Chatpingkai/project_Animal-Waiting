@@ -8,13 +8,13 @@ public class Patient_history extends JInternalFrame{
     private JTable table;
     private JPanel pa1;
     public Patient_history(){
-        super("Animal-Waiting", false, true, true, true);
+        super("Animal-Waiting", false, true, false, true);
 //        frpatient = new JFrame("เวชระเบียนคนไข้");
         pa1 = new JPanel();
         pa1.setLayout(null);
         scroll = new JScrollPane();
         
-        scroll.setBounds(40, 30, 1200, 590);
+        scroll.setBounds(40, 30, 870, 590);
         pa1.add(scroll);
 //        frpatient.add(pa1);
         
@@ -56,7 +56,7 @@ public class Patient_history extends JInternalFrame{
         pa1.setBackground(backgroundColor);
  
         getContentPane().add(pa1);
-        setSize(800, 600); // Initial size
+        setSize(980, 700); // Initial size
 //        frpatient.setLocationRelativeTo(null); // Center the frame on the screen
         setVisible(true);
     }

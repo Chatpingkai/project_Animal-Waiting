@@ -23,7 +23,7 @@ public class AddMedicine extends JInternalFrame implements ActionListener, Mouse
     public AddMedicine(){
         //pop up//
 //        fraddmed = new JFrame("เพิ่มยา");
-        super("Animal-Waiting", false, true, true, true);
+        super("Animal-Waiting", false, true, false, true);
         pa1 = new JPanel();
         pa1.setLayout(null);
         pa1.setBackground(new Color(0xFFEEE3));
