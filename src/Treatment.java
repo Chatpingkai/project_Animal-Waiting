@@ -243,8 +243,10 @@ public class Treatment{
 
         frame.add(panel1, BorderLayout.CENTER);
         frame.setVisible(true);
+        frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.setSize(650, 650);
+        frame.setSize(650, 550);
+        frame.setLocationRelativeTo(null);
     }
 }
 
