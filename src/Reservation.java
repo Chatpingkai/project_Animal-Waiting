@@ -5,8 +5,8 @@ import java.util.concurrent.Flow;
 import javax.swing.*;
 import org.jdatepicker.JDatePicker;
 import org.jdatepicker.UtilDateModel;
-
-public class Reservation {
+import java.awt.event.*;
+public class Reservation implements ActionListener{
     private JFrame frame_reservation;
     private JPanel panel_main, panel_north, panel_center1, panel_south, panel_box1, 
 panel_box2, panel_box3, panel_space1, panel_space2, panel_box4, panel_box5, 
@@ -47,7 +47,7 @@ panel_center_main, panel_center2, panel_box6, panel_box7;
         scroll = new JScrollPane(box_details);
 
         button_sub = new JButton("ยืนยัน");
-
+        button_sub.addActionListener(this);
         panel_main = new JPanel(new BorderLayout());
         panel_north = new JPanel(new FlowLayout(FlowLayout.CENTER));
         panel_center1 = new JPanel(new GridLayout(3, 1));
@@ -151,4 +151,11 @@ panel_center_main, panel_center2, panel_box6, panel_box7;
                 Reservation frame = new Reservation();
             });
     }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        System.out.println(box_date.getModel().getYear()+"-"+box_date.getModel().getMonth()+"-"+box_date.getModel().getDay());
+        
+    }
+    
 }

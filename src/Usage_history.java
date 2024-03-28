@@ -13,8 +13,33 @@ public class Usage_history extends JInternalFrame implements MouseListener{
     private JPanel pa1;
     private Connec_table con_table;
     private ArrayList<String> data;
+    private int id;
     public Usage_history(){
         super("Animal-Waiting", false, true, false, true);
+        this.id = 0;
+        data = new ArrayList<String>();
+//        frused = new JFrame("ประวัติการใช้บริการ");
+        pa1 = new JPanel();
+        pa1.setLayout(null);
+        scroll = new JScrollPane();
+        
+        scroll.setBounds(40, 30, 1200, 590);
+        pa1.add(scroll);
+//        frused.add(pa1);
+        setTable();
+        
+        Color backgroundColor = new Color(0xFFEEE3);
+        pa1.setBackground(backgroundColor);
+ 
+        getContentPane().add(pa1);
+        setSize(1300, 700);
+        setLocation(200, 200);
+        setVisible(true);
+        setResizable(false);
+    }
+    public Usage_history(int id){
+        super("Animal-Waiting", false, true, false, true);
+        this.id = id;
         data = new ArrayList<String>();
 //        frused = new JFrame("ประวัติการใช้บริการ");
         pa1 = new JPanel();
@@ -86,7 +111,7 @@ public class Usage_history extends JInternalFrame implements MouseListener{
         
         //number of colum//
         con_table = new Connec_table();
-        String sql = String.format("select * from History where id = '%d'",1);
+        String sql = String.format("select * from History where id = '%d'",id);
         ResultSet rs = con_table.getData(sql);
         try {
             while (rs.next()) {
