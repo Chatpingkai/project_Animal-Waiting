@@ -10,8 +10,11 @@ import javax.swing.*;
 import javax.swing.table.*;
 public class AddMedicine extends JInternalFrame implements ActionListener, MouseListener {
 //    private JFrame fraddmed;
-    private JTextField Tcommon_name, Ttrade_name, Ttypandsize, Thowtoeat, Tnum_date, Tall_capsule, Tprice, Thowtouse, Trecommend ;
-    private JLabel Lcommon_name, Ltrade_name, Ltypandsize, Lhowtoeat, Lnum_date, Lall_capsule, Lprice, Lhowtouse, Lrecommend, Lmedorcapsule, Ltime, Lmedorcapsule2, Lbaht;
+    private JTextField Tcommon_name, Ttrade_name, Ttypandsize, 
+Thowtoeat, Tnum_date, Tall_capsule, Tprice, Thowtouse, Trecommend;
+    private JLabel Lcommon_name, Ltrade_name, Ltypandsize, 
+Lhowtoeat, Lnum_date, Lall_capsule, Lprice, Lhowtouse, Lrecommend, 
+Lmedorcapsule, Ltime, Lmedorcapsule2, Lbaht;
     private JButton submit, update, delete, add;
     private JPanel pa1;
     private JScrollPane scroll;
@@ -29,15 +32,15 @@ public class AddMedicine extends JInternalFrame implements ActionListener, Mouse
         pa1.setBackground(new Color(0xFFEEE3));
         
         Tcommon_name = new JTextField();
-        Tcommon_name.setBounds(130, 30, 300, 20);
+        Tcommon_name.setBounds(150, 30, 300, 23);
         pa1.add(Tcommon_name);
        
         Ttrade_name = new JTextField();
-        Ttrade_name.setBounds(130, 60, 300, 20);
+        Ttrade_name.setBounds(150, 60, 300, 23);
         pa1.add(Ttrade_name);
         
         Ttypandsize = new JTextField();
-        Ttypandsize.setBounds(130, 90, 300, 40);
+        Ttypandsize.setBounds(150, 90, 300, 40);
         pa1.add(Ttypandsize);
         
 //        Thowtoeat = new JTextField();
@@ -49,7 +52,7 @@ public class AddMedicine extends JInternalFrame implements ActionListener, Mouse
 //        pa1.add(Tnum_date);
         
         Tall_capsule = new JTextField();
-        Tall_capsule.setBounds(130, 140, 70, 20);
+        Tall_capsule.setBounds(90, 140, 70, 20);
         pa1.add(Tall_capsule);
         
         Tprice = new JTextField();
@@ -64,16 +67,13 @@ public class AddMedicine extends JInternalFrame implements ActionListener, Mouse
         Trecommend.setBounds(60, 275, 370, 40);
         pa1.add(Trecommend);
         
-        
-        
-        
         Lcommon_name = new JLabel("ชื่อสามัญทางยา:");
         pa1.add(Lcommon_name);
         Lcommon_name.setBounds(40, 30, 200, 20);
 //        Lcommon_name.setFont(Lcommon_name.getFont().deriveFont(Lcommon_name.getFont().getSize() + 2.5f));
         
         Ltrade_name = new JLabel("ชื่อทางการค้า:");
-        Ltrade_name.setBounds(40, 60, 200, 20);
+        Ltrade_name.setBounds(40, 63, 200, 20);
         pa1.add(Ltrade_name);
         
         Ltypandsize = new JLabel("รูปแบบและขนาด:");
@@ -101,7 +101,7 @@ public class AddMedicine extends JInternalFrame implements ActionListener, Mouse
         pa1.add(Lall_capsule);
         
         Lmedorcapsule2 = new JLabel("เม็ด/แคปซูล");
-        Lmedorcapsule2.setBounds(210, 140, 200, 20);
+        Lmedorcapsule2.setBounds(170, 140, 200, 20);
         pa1.add(Lmedorcapsule2);
         
         Lprice = new JLabel("ราคา:");
@@ -141,6 +141,23 @@ public class AddMedicine extends JInternalFrame implements ActionListener, Mouse
         pa1.add(add);
         add.setFont(new Font("Jost", Font.PLAIN, 15));
         
+        Tcommon_name.setFont(new Font("Tahoma", Font.PLAIN, 13));;
+        Ttrade_name.setFont(new Font("Tahoma", Font.PLAIN, 13));;
+        Ttypandsize.setFont(new Font("Tahoma", Font.PLAIN, 13));;
+        Tall_capsule.setFont(new Font("Tahoma", Font.PLAIN, 13));;
+        Tprice.setFont(new Font("Tahoma", Font.PLAIN, 13));;
+        Thowtouse.setFont(new Font("Tahoma", Font.PLAIN, 13));;
+        Trecommend.setFont(new Font("Tahoma", Font.PLAIN, 13));;
+
+        Lcommon_name.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        Ltrade_name.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        Ltypandsize.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        Lall_capsule.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        Lprice.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        Lhowtouse.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        Lrecommend.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        Lmedorcapsule2.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        Lbaht.setFont(new Font("Tahoma", Font.PLAIN, 15));
         
         table = new JTable();
         String sql = "SELECT * FROM Med";
