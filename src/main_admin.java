@@ -58,6 +58,14 @@ panel_right_button;
             }
         });
 
+        button_history.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                openInternalFrame(new Patient_history());
+                button_medicine.setEnabled(false);
+            }
+        });
+
         calendar = new JCalendar();
 
         //profile = new ImageIcon(getClass().getResource("koala.png"));
@@ -129,7 +137,8 @@ panel_right_button;
         getContentPane().add(panel_left, BorderLayout.WEST);
         getContentPane().add(panel_right, BorderLayout.CENTER);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(50, 50, 1000, 550);
+        setSize(1000, 550);
+        setLocation(470, 200);
         setVisible(true);
     }
 

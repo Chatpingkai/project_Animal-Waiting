@@ -183,10 +183,9 @@ public class AddMedicine extends JInternalFrame implements ActionListener, Mouse
         
         getContentPane().add(pa1);
 //        fraddmed.add(pa1);
-        setSize(500, 650); // Initial size
+        setSize(500, 650);
+        setLocation(250, 198);
         setResizable(false);
-//        setLocation(500, 500);
-//        setLocationRelativeTo(null); // Center the frame on the screen
         setVisible(true);
     }
     public void setTable(String sql) throws SQLException{

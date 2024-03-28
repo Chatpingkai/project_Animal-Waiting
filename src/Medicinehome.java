@@ -84,8 +84,8 @@ public class Medicinehome extends JInternalFrame{
 //        fr.add(des); 
         
         getContentPane().add(pa1);
-        setSize(980, 700); // Initial size
-//        setLocationRelativeTo(null); // Center the frame on the screen
+        setSize(980, 700);
+        setLocation(700, 200);
         setVisible(true);
         
         

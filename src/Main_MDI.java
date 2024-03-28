@@ -31,9 +31,9 @@ public class Main_MDI{
 
         internal_Medicinehome.setVisible(false);
         internal_AddMedicine.setVisible(false);
-        internal_Patient_history.setVisible(false);
-        internal_history.setVisible(false);
-        internal_Usage_history.setVisible(false);
+        internal_Patient_history.setVisible(true);
+        internal_history.setVisible(true);
+        internal_Usage_history.setVisible(true);
 
         desktopPane.setBackground(new Color(0xFFF5F5));
 

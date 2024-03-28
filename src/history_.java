@@ -222,6 +222,7 @@ public class history_  extends JInternalFrame{
         getContentPane().add(scrollPane);
 //        frhis.add(scrollPane);
         setSize(820, 700);
+        setLocation(400, 200);
         setResizable(false);
 //        frhis.setLocationRelativeTo(null); // Center the frame on the screen
         setVisible(true);

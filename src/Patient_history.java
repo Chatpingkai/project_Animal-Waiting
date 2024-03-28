@@ -56,8 +56,8 @@ public class Patient_history extends JInternalFrame{
         pa1.setBackground(backgroundColor);
  
         getContentPane().add(pa1);
-        setSize(980, 700); // Initial size
-//        frpatient.setLocationRelativeTo(null); // Center the frame on the screen
+        setSize(980, 700);
+        setLocation(700, 200);
         setVisible(true);
     }
     public static void main(String[] args) {
