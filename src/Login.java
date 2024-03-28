@@ -7,9 +7,11 @@ import java.awt.image.BufferedImage;
 public class Login implements ActionListener {
 
     private JFrame fr;
-    private JPanel main, haedPanel, usernamePanel, passwordPanel, donthaveaccPanel, loginPanel;
-    private JLabel head, donthaveacc, imagLabel, usernameLabel, passwordLabel, imagelogoLabel;
-    private JButton login, register;
+    private JPanel panel_left, panel_right, panel_right_main, panel_box1, panel_box2, panel_box3, panel_box4
+, panel_box5, panel_box6, panel_right_north, panel_space1, panel_space2, panel_space3, 
+panel_space4, panel_space5, panel_space6, panel_space7, panel_space8, panel_space9;
+    private JLabel head, donthaveacc, imagLabel, username, password, imagelogoLabel;
+    private JButton button_login, register;
     private JTextField usernameField;
     private JPasswordField passwordField;
     private ImageIcon imagepage, imagelogo, resizedImageIcon, roundedIcon;
@@ -19,8 +21,6 @@ public class Login implements ActionListener {
         //Main Page
         fr = new JFrame("Login");
         fr.setLayout(new BorderLayout());
-        main = new JPanel(new FlowLayout());
-        main.setBackground(new Color(255, 238, 227));
 
         //BorderLayout.WEST
         imagepage = new ImageIcon(System.getProperty("user.dir")+"/src/test.jpg");
@@ -29,92 +29,141 @@ public class Login implements ActionListener {
 
         //Head Line
         imagelogo = new ImageIcon(System.getProperty("user.dir")+"/src/test.jpg");
-        resizedImageIcon = resizeImageIcon(imagelogo, 150, 150);
+        resizedImageIcon = resizeImageIcon(imagelogo, 100, 100);
         roundedIcon = getRoundedImageIcon(resizedImageIcon);
         imagelogoLabel = new JLabel(roundedIcon);
-        
-        
-        head = new JLabel("Animal-Waiting", SwingConstants.LEADING);
-        head.setFont(new Font("Inter", Font.BOLD, 50));
 
-        haedPanel = new JPanel(new FlowLayout(FlowLayout.LEADING, 30, 70));
-        haedPanel.setBackground(new Color(255, 238, 227));
-        haedPanel.add(imagelogoLabel);
-        haedPanel.add(head);
+        panel_left = new JPanel(new GridLayout(1, 1));
+        panel_right = new JPanel(new BorderLayout());
+        panel_right_main = new JPanel(new BorderLayout());
+        panel_right_north = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        panel_box1 = new JPanel(new GridLayout(2, 1));
+        panel_box2 = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        panel_box3 = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        panel_box4 = new JPanel();
+        panel_box5 = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        panel_box6 = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        panel_space1 = new JPanel();
+        panel_space2 = new JPanel();
+        panel_space3 = new JPanel();
+        panel_space4 = new JPanel();
+        panel_space5 = new JPanel();
+        panel_space6 = new JPanel();
+        panel_space7 = new JPanel();
+        panel_space8 = new JPanel();
+        panel_space9 = new JPanel();
 
-        //Username Line
-        usernamePanel = new JPanel(new FlowLayout(FlowLayout.LEADING, 30, 50));
-        usernamePanel.setBackground(new Color(255, 238, 227));
-        
-        usernameLabel = new JLabel("Username", SwingConstants.LEADING);
-        usernameLabel.setFont(new Font("Inter", Font.BOLD, 30));
+        head = new JLabel("    Animal-Waiting");
+        donthaveacc = new JLabel("Don't have an account?");
+        username = new JLabel("Username");
+        password = new JLabel("Password");
+
+        button_login = new JButton("Login");
+        register = new JButton("Register Here");
+
+        register.setBorderPainted(false);
 
         usernameField = new JTextField();
-        usernameField.setPreferredSize(new Dimension(400, 60));
-        usernameField.setBorder(BorderFactory.createLineBorder(Color.black, 2));
-        usernameField.setFont(new Font("Inter", Font.PLAIN, 20));
-        usernamePanel.add(usernameLabel);
-        usernamePanel.add(usernameField);
-
-        //Password Line
-        passwordPanel = new JPanel(new FlowLayout(FlowLayout.LEADING, 30, 50));
-        passwordPanel.setBackground(new Color(255, 238, 227));
-
-        passwordLabel = new JLabel("Password", SwingConstants.LEADING);
-        passwordLabel.setFont(new Font("Inter", Font.BOLD, 30));
-
         passwordField = new JPasswordField();
-        passwordField.setPreferredSize(new Dimension(400, 60));
-        passwordField.setBorder(BorderFactory.createLineBorder(Color.black, 2));
-        passwordField.setFont(new Font("Inter", Font.PLAIN, 20));
-        passwordPanel.add(passwordLabel);
-        passwordPanel.add(passwordField);
 
-        //Don't have account Line
-        donthaveaccPanel = new JPanel(new FlowLayout(FlowLayout.LEADING, 20, 50));
-        donthaveaccPanel.setBackground(new Color(255, 238, 227));
+        fr.add(panel_left, BorderLayout.WEST);
+        fr.add(panel_right, BorderLayout.CENTER);
 
-        donthaveacc = new JLabel("Don't have an account?", SwingConstants.LEADING);
-        donthaveacc.setFont(new Font("Inter", Font.PLAIN, 23));
-        donthaveacc.setForeground(Color.GRAY);
-
-        register = new JButton("Register Here");
-        register.setFont(new Font("Inter", Font.PLAIN, 20));
-        register.setFocusPainted(false);
-        register.setBackground(new Color(255, 238, 227));
-        register.setBorder(BorderFactory.createLineBorder((new Color(255, 238, 227))));
-
-        donthaveaccPanel.add(donthaveacc);
-        donthaveaccPanel.add(register);
+        panel_left.add(imagLabel);
         
-        //login Line
-        loginPanel = new JPanel(new FlowLayout(FlowLayout.TRAILING, 70, 15));
-        loginPanel.setBackground(new Color(255, 238, 227));
+        panel_right.add(panel_right_north, BorderLayout.NORTH);
+        panel_right.add(panel_right_main, BorderLayout.CENTER);
+        panel_right.add(panel_box5, BorderLayout.SOUTH);
 
-        login = new JButton("Login");
-        login.setBackground(Color.WHITE);
-        login.setFocusPainted(false);
-        login.setBorder(BorderFactory.createLineBorder(Color.black, 2));
-        login.setFont(new Font("Inter", Font.PLAIN, 30));
-        login.setPreferredSize(new Dimension(200, 60));
-        loginPanel.add(login);
+        panel_right_north.add(panel_space5);
+        panel_right_north.add(panel_space1);
+        panel_right_north.add(imagelogoLabel);
+        panel_right_north.add(head);
 
-        //Add in JFrameBorderLayout.CENTER
-        main.add(haedPanel);
-        main.add(usernamePanel);
-        main.add(passwordPanel);
-        main.add(donthaveaccPanel);
-        main.add(loginPanel);
+        panel_right_main.add(panel_box1, BorderLayout.CENTER);
+        panel_right_main.add(panel_box6, BorderLayout.SOUTH);
+
+        panel_box1.add(panel_box2);
+        panel_box1.add(panel_box3);
+
+        panel_box2.add(panel_space2);
+        panel_box2.add(username);
+        panel_box2.add(panel_space6);
+        panel_box2.add(panel_space7);
+        panel_box2.add(usernameField);
+
+        panel_box3.add(panel_space3);
+        panel_box3.add(password);
+        panel_box3.add(panel_space8);
+        panel_box3.add(panel_space9);
+        panel_box3.add(passwordField);
+
+        panel_box6.add(panel_space4);
+        panel_box6.add(donthaveacc);
+        panel_box6.add(register);
+
+        panel_box5.add(button_login);
+        panel_box5.add(panel_box4);
+
+        head.setFont(new Font("Josefin Sans", Font.BOLD, 30));
+        username.setFont(new Font("Jost", Font.BOLD, 20));
+        password.setFont(new Font("Jost", Font.BOLD, 20));
+        donthaveacc.setFont(new Font("Inter", Font.PLAIN, 15));
+        register.setFont(new Font("Jost", Font.PLAIN, 20));
+        button_login.setFont(new Font("Jost", Font.PLAIN, 20));
+        usernameField.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        passwordField.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        usernameField.setMargin(new Insets(5, 10, 5, 5));
+        passwordField.setMargin(new Insets(5, 10, 5, 5));
+
+        panel_right_north.setPreferredSize(new Dimension(80, 150));
+        panel_box4.setPreferredSize(new Dimension(80, 10));
+        panel_box5.setPreferredSize(new Dimension(200, 150));
+        panel_box6.setPreferredSize(new Dimension(200, 150));
+        usernameField.setPreferredSize(new Dimension(400, 40));
+        passwordField.setPreferredSize(new Dimension(400, 40));
+        panel_space1.setPreferredSize(new Dimension(30, 30));
+        panel_space2.setPreferredSize(new Dimension(30, 30));
+        panel_space3.setPreferredSize(new Dimension(30, 30));
+        panel_space4.setPreferredSize(new Dimension(30, 30));
+        panel_space5.setPreferredSize(new Dimension(700, 40));
+        button_login.setPreferredSize(new Dimension(120, 40));
+        panel_space6.setPreferredSize(new Dimension(530, 10));
+        panel_space7.setPreferredSize(new Dimension(30, 10));
+        panel_space8.setPreferredSize(new Dimension(530, 10));
+        panel_space9.setPreferredSize(new Dimension(30, 10));
+
+        donthaveacc.setForeground(new Color(0x7C7979));
+        panel_left.setBackground(new Color(0xFFEEE3));
+        panel_right.setBackground(new Color(0xFFEEE3));
+        panel_right_main.setBackground(new Color(0xFFEEE3));
+        panel_right_north.setBackground(new Color(0xFFEEE3));
+        panel_box1.setBackground(new Color(0xFFEEE3));
+        panel_box2.setBackground(new Color(0xFFEEE3));
+        panel_box3.setBackground(new Color(0xFFEEE3));
+        panel_box4.setBackground(new Color(0xFFEEE3));
+        panel_box5.setBackground(new Color(0xFFEEE3));
+        panel_box6.setBackground(new Color(0xFFEEE3));
+        panel_space1.setBackground(new Color(0xFFEEE3));
+        panel_space2.setBackground(new Color(0xFFEEE3));
+        panel_space3.setBackground(new Color(0xFFEEE3));
+        panel_space4.setBackground(new Color(0xFFEEE3));
+        panel_space5.setBackground(new Color(0xFFEEE3));
+        panel_space6.setBackground(new Color(0xFFEEE3));
+        panel_space7.setBackground(new Color(0xFFEEE3));
+        panel_space8.setBackground(new Color(0xFFEEE3));
+        panel_space9.setBackground(new Color(0xFFEEE3));
+        register.setBackground(new Color(0xFFEEE3));
+        register.setForeground(new Color(0xFF0000));
 
         //JFrame Setting
-        fr.add(imagLabel, BorderLayout.WEST);
-        fr.add(main, BorderLayout.CENTER);
         fr.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        fr.setSize(1280, 980);
+        fr.setSize(1000, 700);
+        fr.setResizable(false);
         fr.setVisible(true);
 
         register.addActionListener(this);
-        login.addActionListener(this);
+        button_login.addActionListener(this);
     }
 
     private ImageIcon resizeImageIcon(ImageIcon originalIcon, int width, int height) {
@@ -138,7 +187,7 @@ public class Login implements ActionListener {
     
     @Override
     public void actionPerformed(ActionEvent ev) {
-        if (ev.getSource() == login) {
+        if (ev.getSource() == button_login) {
             if (usernameField.getText().equals("admin")) {
                 new main_admin();
             }
