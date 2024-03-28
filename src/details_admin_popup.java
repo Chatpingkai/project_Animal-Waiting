@@ -17,33 +17,35 @@ panel_his3, panel_his4, panel_his5, panel_his6, panel_his7, panel_date, panel_tx
 panel_box_date, panel_treatment, panel_treat_north, panel_treat_center, panel_treat_south, 
 panel_cen1, panel_cen2, panel_cen3, panel_cen4, panel_center, panel_help1, panel_help2, 
 panel_help3, panel_help4, panel_help5, panel_help6, panel_button, panel_cen5, panel_help7, 
-panel_help8, panel_help9, panel_help10, panel_help11, panel_button_jingjing;
+panel_help8, panel_help9, panel_help10, panel_help11, panel_button_jingjing, panel_for_combo ,panel_for_med,
+panel_for_combo2 ,panel_for_med2 , panel_em1, panel_em2, panel_but1, panel_but2;
     private JScrollPane scroll_table, scroll_main;
     private JLabel txt_history_pet, txt_name, txt_name_pet, txt_type, txt_breed, txt_age, txt_gender, 
 txt_disease, txt_date, txt_treatment, txt_name_docter, txt_symptom, txt_diagnose, txt_trestment_method, 
-txt_opinion, txt_note;
+txt_opinion, txt_note, txt_med , txt_plus, txt_but1,txt_but2, txt;
     private JTextField box_name, box_name_pet, box_type, box_breed, box_age, box_gender, 
 box_disease, box_name_docter, box_symptom, box_diagnose, box_trestment_method, 
-box_opinion, box_note;
+box_opinion, box_note ,box_plus;
     private JButton button_plus, button_minus, button_next;
     private JDatePicker box_date;
     private UtilDateModel models;
+    private JComboBox cbmed;
 
     public details_admin_popup(){
         fr = new JFrame("การรักษา");
         fr.setLayout(new GridLayout(1, 1));
         fr.setDefaultCloseOperation(fr.EXIT_ON_CLOSE);
 
-        txt_history_pet = new JLabel("ประวัติสัตว์เลี้ยง");
-        txt_name = new JLabel("        ชื่อลูกค้า ");
+        txt_history_pet = new JLabel("   ประวัติสัตว์เลี้ยง");
+        txt_name = new JLabel("         ชื่อลูกค้า ");
         txt_name_pet = new JLabel("ชื่อสัตว์เลี้ยง ");
-        txt_type = new JLabel("        ประเภทของสัตว์เลี้ยง ");
+        txt_type = new JLabel("         ประเภทของสัตว์เลี้ยง ");
         txt_breed = new JLabel("สายพันธุ์");
-        txt_age = new JLabel("       อายุของสัตว์เลี้ยง ");
+        txt_age = new JLabel("         อายุของสัตว์เลี้ยง ");
         txt_gender = new JLabel("เพศ ");
-        txt_disease = new JLabel("       โรคประจำตัว ");
-        txt_date = new JLabel("วันที่ ");
-        txt_treatment = new JLabel("รายละเอียดการรักษา");
+        txt_disease = new JLabel("         โรคประจำตัว ");
+        txt_date = new JLabel("  วันที่ ");
+        txt_treatment = new JLabel("   รายละเอียดการรักษา");
         txt_name_docter = new JLabel("ชื่อแพทย์ ");
         txt_symptom = new JLabel("อาการ ");
         txt_diagnose = new JLabel("การวินิจฉัย");
@@ -64,9 +66,75 @@ box_opinion, box_note;
         box_trestment_method = new JTextField();
         box_opinion = new JTextField();
         box_note = new JTextField();
+        
+        //sea
+        txt_med = new JLabel("ยา");
+        txt_plus = new JLabel("จำนวน");
+//        txt_but1 = new JLabel("but");
+//        txt_but2 = new JLabel("but");
+        txt_plus.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        txt_med.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        txt = new JLabel("    ");
 
+        
+        panel_for_combo = new JPanel(new GridLayout(1,1));
+        panel_for_med = new JPanel(new GridLayout(1,1));
+        panel_for_med.setBackground(new Color(0xFFEEE3));
+        panel_for_combo2 = new JPanel(new FlowLayout((FlowLayout.LEFT)));
+        panel_for_combo2.setBackground(new Color(0xFFEEE3));
+        panel_for_med2 = new JPanel(new FlowLayout((FlowLayout.LEFT)));
+        panel_for_med2.setBackground(new Color(0xFFEEE3));
+        panel_em1 = new JPanel(null);
+        panel_em2 = new JPanel(new FlowLayout((FlowLayout.LEFT)));
+        panel_em1.setBackground(new Color(0xFFEEE3));
+        panel_em2.setBackground(new Color(0xFFEEE3));
+        panel_but1 = new JPanel(new FlowLayout((FlowLayout.LEFT)));
+        panel_but1.setBackground(new Color(0xFFEEE3));
+        panel_but2 = new JPanel(new FlowLayout((FlowLayout.LEFT)));
+        panel_but2.setBackground(new Color(0xFFEEE3));
+        
+        cbmed = new JComboBox();
+        cbmed.addItem("1");
+        cbmed.addItem("2");
+        cbmed.addItem("3");
+        cbmed.addItem("4");
+        cbmed.setSelectedItem("1");
+        cbmed.setPreferredSize(new Dimension(220, 25));
+        
+        box_plus = new JTextField();
+        box_plus.setPreferredSize(new Dimension(90, 20));
+        
         button_minus = new JButton("-");
+        button_minus.setPreferredSize(new Dimension(50, 22));
         button_plus = new JButton("+");
+        button_plus.setPreferredSize(new Dimension(50, 22));
+        panel_but1.add(button_plus);
+        panel_but2.add(button_minus);
+        
+        panel_for_combo.add(txt_med); panel_for_combo2.add(cbmed);
+        panel_for_med.add(txt_plus); panel_for_med2.add(box_plus);
+        panel_for_combo.setBounds(10, 20, 100, 20);
+        panel_for_med.setBounds(350, 20, 100,20 );
+
+        panel_em1.add(panel_for_combo);  
+        
+//        panel_em1.add(txt_but1);  
+        panel_em1.add(panel_for_med); 
+//        panel_em1.add(txt_but2);
+        panel_em2.add(panel_for_combo2);
+        panel_em2.add(txt);
+        panel_em2.add(panel_but1);
+        panel_em2.add(panel_for_med2);
+        panel_em2.add(panel_but2); 
+        
+         
+        
+         
+        
+
+        
+        
+        
         button_next = new JButton("Next");
 
         button_minus.addActionListener(this);
@@ -161,7 +229,7 @@ box_opinion, box_note;
         panel_box_date.setLayout(new FlowLayout(FlowLayout.LEFT));
         panel_treatment.setLayout(new BorderLayout());
         panel_treat_north.setLayout(new FlowLayout(FlowLayout.LEFT));
-        panel_treat_center.setLayout(new GridLayout(6, 1));
+        panel_treat_center.setLayout(new GridLayout(8, 1));
         panel_treat_south.setLayout(new BorderLayout());
         panel_center.setLayout(new BorderLayout());
         panel_help1.setLayout(new GridLayout(2, 1));
@@ -236,6 +304,10 @@ box_opinion, box_note;
         panel_treat_center.add(panel_help4);
         panel_treat_center.add(panel_help5);
         panel_treat_center.add(panel_help6);
+        //sea
+          panel_treat_center.add(panel_em1);
+          panel_treat_center.add(panel_em2);
+        
 
         panel_help1.add(txt_name_docter);
         panel_help1.add(box_name_docter);
@@ -266,11 +338,11 @@ box_opinion, box_note;
         panel_button_jingjing.add(panel_help10, BorderLayout.WEST);
         panel_button_jingjing.add(panel_help11, BorderLayout.EAST);
         
-        panel_button.add(panel_help7);
+//        panel_button.add(panel_help7);
         panel_button.add(panel_help8);
 
-        panel_help7.add(button_plus);
-        panel_help7.add(button_minus);
+//        panel_help7.add(button_plus);
+//        panel_help7.add(button_minus);
 
         panel_help8.add(button_next);
 
@@ -289,11 +361,11 @@ box_opinion, box_note;
         box_disease.setPreferredSize(new Dimension(180, 25));
         box_date.setPreferredSize(new Dimension(150, 25));
 
-        button_plus.setPreferredSize(new Dimension(100, 40));
-        button_minus.setPreferredSize(new Dimension(100, 40));
-        button_next.setPreferredSize(new Dimension(100, 40));
+//        button_plus.setPreferredSize(new Dimension(100, 40));
+//        button_minus.setPreferredSize(new Dimension(100, 40));
+        button_next.setPreferredSize(new Dimension(100, 30));
 
-        button_plus.setFont(new Font("Jost", Font.BOLD, 15));
+        button_plus.setFont(new Font("Jost", Font.BOLD, 14));
         button_minus.setFont(new Font("Jost", Font.BOLD, 15));
         button_next.setFont(new Font("Jost", Font.BOLD, 15));
 
@@ -367,6 +439,7 @@ box_opinion, box_note;
         panel_help4.setBackground(new Color(0xFFEEE3));
         panel_help5.setBackground(new Color(0xFFEEE3));
         panel_help6.setBackground(new Color(0xFFEEE3));
+        panel_for_combo.setBackground(new Color(0xFFEEE3));
         panel_button.setBackground(new Color(0xFFEEE3));
         panel_cen5.setBackground(new Color(0xFFEEE3));
         panel_help7.setBackground(new Color(0xFFEEE3));
@@ -376,7 +449,7 @@ box_opinion, box_note;
         panel_help11.setBackground(new Color(0xFFEEE3));
         panel_button_jingjing.setBackground(new Color(0xFFEEE3));
 
-        fr.setSize(650, 750);
+        fr.setSize(650, 700);
         fr.setVisible(true);
         fr.setResizable(false);
     }
