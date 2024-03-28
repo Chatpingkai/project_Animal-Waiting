@@ -128,6 +128,7 @@ panel_right_button;
 
         getContentPane().add(panel_left, BorderLayout.WEST);
         getContentPane().add(panel_right, BorderLayout.CENTER);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(50, 50, 1000, 550);
         setVisible(true);
     }
