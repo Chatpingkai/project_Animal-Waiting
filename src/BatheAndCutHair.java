@@ -59,10 +59,11 @@ public class BatheAndCutHair implements ActionListener{
         //Jbutton
         panelbutton = new JPanel(new FlowLayout(FlowLayout.LEFT));
         panelbutton.setBackground(new Color(0xFFEEE3));
-        Treatment = new JButton("ค่ารักษา");
+        Treatment = new JButton("ค่าใช้จ่าย");
         JLabel empty1 = new JLabel("                 ");
-//        Treatment.setPreferredSize(new Dimension(100, 30));
-        Treatment.setBounds(420, 120, 100, 30);
+        Treatment.setPreferredSize(new Dimension(100, 30));
+        Treatment.setFont(new Font("Tahoma", Font.PLAIN, 15));
+//        Treatment.setBounds(420, 120, 100, 40);
         panelbutton.add(empty1);
         panelbutton.add(Treatment);
         
@@ -180,10 +181,11 @@ public class BatheAndCutHair implements ActionListener{
         textcutHair.setPreferredSize(new Dimension(200, 20));
         
         tdescrip = new JTextArea();
+        tdescrip.setFont(new Font("Tahoma", Font.PLAIN, 15));
         scroll = new JScrollPane(tdescrip);
 //        scroll.setViewportView(tdescrip);
         tdescrip.setLineWrap(true);
-        scroll.setPreferredSize(new Dimension(200, 40));
+        scroll.setPreferredSize(new Dimension(400, 60));
         scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
        
         
@@ -215,6 +217,7 @@ public class BatheAndCutHair implements ActionListener{
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(650, 550);
+        frame.setLocationRelativeTo(null);
         Treatment.addActionListener(this);
 
     }
