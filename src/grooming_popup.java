@@ -5,15 +5,17 @@ import javax.swing.*;
 public class grooming_popup{
     private JFrame frame_grooming;
     private JTextField box_name_owner, box_name_pet, box_type, box_breed, box_age, 
-box_sex, box_Chronic_illness, box_date, box_cutting, box_shower, box_amount, 
-box_pronounce;
+box_sex, box_Chronic_illness, box_date, box_cutting, box_shower, box_amount;
     private JLabel pet_history, name_owner, name_pet, type, breed, age, sex, 
-Chronic_illness, date, treatment, cutting, bathing, amount, pronounce;
+Chronic_illness, date, treatment, cutting, bathing, amount, details;
     private JButton button_submit;
     private JPanel p1, space1, space2, space3, space4, space5, space6, space9, 
 space10, space11, space12, space13, space14, space15, space16, space17, space18, 
 space19, space20, space21, space22, space23, space24, space25, space26, space27, 
 space28, space29, space30, space31, space32, space33;
+    private JTextArea box_details;
+    private JScrollPane scroll;
+
     public grooming_popup(){
         frame_grooming = new JFrame("Other Service Charge");
         frame_grooming.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -79,8 +81,8 @@ space28, space29, space30, space31, space32, space33;
         bathing.setFont(new Font("Tahoma", Font.PLAIN, 15));
         amount = new JLabel("ยอดสุทธิ");
         amount.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        pronounce = new JLabel("ยอดสุทธิ(คำอ่าน)");
-        pronounce.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        details = new JLabel("รายละเอียด");
+        details.setFont(new Font("Tahoma", Font.PLAIN, 15));
 
         box_name_owner = new JTextField();
         box_name_pet = new JTextField();
@@ -93,7 +95,14 @@ space28, space29, space30, space31, space32, space33;
         box_cutting = new JTextField();
         box_shower = new JTextField();
         box_amount = new JTextField();
-        box_pronounce = new JTextField();
+
+        box_details = new JTextArea();
+        box_details.setWrapStyleWord(true);
+        box_details.setLineWrap(true);
+
+        scroll = new JScrollPane(box_details);
+        scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
         button_submit = new JButton("Submit");
         button_submit.setBackground(Color.WHITE);
@@ -150,10 +159,10 @@ space28, space29, space30, space31, space32, space33;
         p1.add(box_amount);
         p1.add(space27);
         p1.add(space28);
-        p1.add(pronounce);
+        p1.add(details);
         p1.add(space29);
         p1.add(space30);
-        p1.add(box_pronounce);
+        p1.add(scroll);
         p1.add(space31);
         p1.add(space32);
         p1.add(button_submit);
@@ -219,10 +228,10 @@ space28, space29, space30, space31, space32, space33;
         space26.setPreferredSize(new Dimension(50, 10));
         space27.setPreferredSize(new Dimension(10, 10));
         space28.setPreferredSize(new Dimension(50, 10));
-        space29.setPreferredSize(new Dimension(270, 10));
+        space29.setPreferredSize(new Dimension(330, 10));
         space30.setPreferredSize(new Dimension(50, 10));
         space31.setPreferredSize(new Dimension(200, 10));
-        space32.setPreferredSize(new Dimension(318, 10));
+        space32.setPreferredSize(new Dimension(340, 10));
         space33.setPreferredSize(new Dimension(50, 10));
 
         box_name_owner.setPreferredSize(new Dimension(250, 20));
@@ -236,10 +245,10 @@ space28, space29, space30, space31, space32, space33;
         box_cutting.setPreferredSize(new Dimension(370, 20));
         box_shower.setPreferredSize(new Dimension(370, 20));
         box_amount.setPreferredSize(new Dimension(370, 20));
-        box_pronounce.setPreferredSize(new Dimension(370, 20));
+        box_details.setPreferredSize(new Dimension(370, 80));
         button_submit.setPreferredSize(new Dimension(100, 40));
 
-        frame_grooming.setSize(500, 600);
+        frame_grooming.setSize(500, 650);
         frame_grooming.setVisible(true);
         frame_grooming.setResizable(false);
     }

@@ -96,7 +96,7 @@ box_opinion, box_note ,box_plus;
         cbmed.addItem("2");
         cbmed.addItem("3");
         cbmed.addItem("4");
-        cbmed.setSelectedItem("1");
+        cbmed.setSelectedItem(null);
         cbmed.setPreferredSize(new Dimension(220, 25));
         
         box_plus = new JTextField();
@@ -121,15 +121,7 @@ box_opinion, box_note ,box_plus;
         panel_em2.add(panel_for_med2);
         panel_em2.add(panel_but1);
         panel_em2.add(panel_but2); 
-        
-         
-        
-         
-        
 
-        
-        
-        
         button_next = new JButton("Next");
 
         button_minus.addActionListener(this);

@@ -75,19 +75,17 @@ public class Patient_history extends JInternalFrame implements MouseListener{
     }
     private void setTable(){
         table_db = new Connec_table();
-        String sql = String.format("select * from Pet");
+        String sql = String.format("select * from User_Profile");
         ResultSet rs = table_db.getData(sql);
-        ResultSet rs2;
         try {
             while (rs.next()) {
                 int id = rs.getInt("ID");
                 id_list.add(id);
-                String name = rs.getString("Name");
-                String type = rs.getString("Type");
-                String spicies = rs.getString("Spicies");
-                sql = String.format("select Name from User_Profile Where ID = '%d'", id);
-                rs2 = table_db.getData(sql);
-                String author_name = rs.getString("Name");
+                Customer customer = new Customer(id);
+                String name = customer.getPet().getName();
+                String type = customer.getPet().getType();
+                String spicies = customer.getPet().getSpicies();
+                String author_name = customer.getFirstName();
                 String[] row = {name, author_name, type, spicies};
                 model.addRow(row);
             }
