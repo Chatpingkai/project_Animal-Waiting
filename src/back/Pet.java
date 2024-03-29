@@ -1,5 +1,7 @@
 package back;
-
+import java.security.*;
+import java.sql.*;
+import java.util.*;
 
 public class Pet {
     private String name;
@@ -12,6 +14,7 @@ public class Pet {
     private double weight;
     private String treat;
     private String place;
+    private Connec_table db;
     public Pet(){
         name = "";
         type = "";
@@ -23,6 +26,29 @@ public class Pet {
         weight = 0;
         treat = "";
         place = "";
+    }
+    public Pet(int id_){
+        db = new Connec_table();
+        String sql = String.format("SELECT * FROM Pet WHERE ID = '%d'", id_);
+        ResultSet rs = db.getData(sql);
+        try {
+            if(rs.next()){
+                try {
+                    this.name = rs.getString("Name");
+                    this.type = rs.getString("Type");
+                    this.spicies = rs.getString("Spicies");
+                    this.birth = rs.getString("Birth");
+                    this.sex = rs.getString("Sex");
+                    this.age = rs.getInt("Age");
+                    this.weight = rs.getInt("Weight");
+                    this.treat = rs.getString("Treat");
+                    this.place = rs.getString("Place");
+                    
+                } catch (SQLException ex) {
+                }
+            }
+        } catch (SQLException ex) {
+        }
     }
     public String getName(){
         return name;

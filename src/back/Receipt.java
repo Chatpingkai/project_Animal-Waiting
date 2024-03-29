@@ -6,7 +6,7 @@ package back;
  * @author ENdDoWn
  */
 public abstract class Receipt {
-    private Customer customer; //<-- what type of this attribute ?
+    private Customer customer;
     protected double allprice;
     public Receipt(Customer customer){
         this.customer = customer;
