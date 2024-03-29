@@ -9,11 +9,11 @@ import java.util.*;
 public class Main_user implements ActionListener {
 
     private JFrame fr;
-    private JPanel info, pn, main, line1, line2, line3, line4, colorL, colorR, ex1, buttonPanel, bordercalen, empty, namePanel,
-            petnamePanel,
+    private JPanel info, pn, main, line1, line2, line3, colorL, colorR, ex1, buttonPanel, bordercalen, empty, namePanel,
+            petnamePanel, line4,
             typePanel, breedPanel, datePanel, sexPanel, agePanel, weightPanel, callPanel, mailPanel, addressPanel,
-            emptyline, something, reservePanel,
-            infotop, infobottom, empty1, empty2, empty3, empty4;
+            emptyline, something, reservePanel, cancelPanel, allreservePanel,
+            infotop, infobottom, empty1, empty2, empty3, empty4, empty5;
     private JLabel imagelogoLabel, nameLabel, petnameLabel, typeLabel, breedLabel, dateLabel,
             sexLabel, ageLabel, weightLabel, callLabel, mailLabel, addressLabel;
     private JButton edit, history, logout, reserve, cancel;
@@ -29,11 +29,11 @@ public class Main_user implements ActionListener {
         line1 = new JPanel(new FlowLayout());
         line2 = new JPanel(new FlowLayout());
         line3 = new JPanel(new FlowLayout());
-        line4 = new JPanel(new FlowLayout());
+        line4 = new JPanel(new BorderLayout());
         colorL = new JPanel(new BorderLayout());
-        colorR = new JPanel(new FlowLayout());
+        colorR = new JPanel(new BorderLayout());
         ex1 = new JPanel(new FlowLayout());
-        buttonPanel = new JPanel(new GridLayout(5, 1));
+        buttonPanel = new JPanel(new GridLayout(4, 1));
         bordercalen = new JPanel(new FlowLayout());
         empty = new JPanel(new BorderLayout());
         namePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -51,12 +51,15 @@ public class Main_user implements ActionListener {
         info = new JPanel(new BorderLayout());
         something = new JPanel(new BorderLayout());
         reservePanel = new JPanel();
+        cancelPanel = new JPanel();
+        allreservePanel = new JPanel(new GridLayout(2,1));
         infotop = new JPanel(new GridLayout(11, 1));
         infobottom = new JPanel(new FlowLayout(FlowLayout.LEFT));
         empty1 = new JPanel();
         empty2 = new JPanel();
         empty3 = new JPanel();
         empty4 = new JPanel();
+        empty5 = new JPanel();
         // JLabel
         nameLabel = new JLabel("ชื่อ-นามสกุล :");
         petnameLabel = new JLabel("ชื่อสัตว์เลี้ยง :");
@@ -81,6 +84,7 @@ public class Main_user implements ActionListener {
         resizedImageIcon = resizeImageIcon(imagelogo, 150, 150);
         roundedIcon = getRoundedImageIcon(resizedImageIcon);
         imagelogoLabel = new JLabel(roundedIcon);
+
         colorL.setBackground(new Color(0xFFE3A8));
         colorR.setBackground(new Color(255, 238, 227));
         colorL.setPreferredSize(new Dimension(350, 1000));
@@ -103,24 +107,16 @@ public class Main_user implements ActionListener {
         logout.setBorder(BorderFactory.createLineBorder(Color.black, 2));
         logout.setPreferredSize(new Dimension(120, 40));
 
-        cancel.setBackground(Color.WHITE);
-        cancel.setFocusPainted(false);
-        cancel.setBorder(BorderFactory.createLineBorder(Color.black, 2));
-        cancel.setPreferredSize(new Dimension(120, 40));
-
         emptyline.setBackground(new Color(0xFEE3A8));
         line1.add(edit);
         line2.add(history);
         line3.add(logout);
-        line4.add(cancel);
         line1.setBackground(new Color(0xFEE3A8));
         line2.setBackground(new Color(0xFEE3A8));
         line3.setBackground(new Color(0xFEE3A8));
-        line4.setBackground(new Color(0xFEE3A8));
         buttonPanel.add(line1);
         buttonPanel.add(line2);
         buttonPanel.add(line3);
-        buttonPanel.add(line4);
         buttonPanel.add(emptyline);
 
         // Infomation
@@ -175,18 +171,35 @@ public class Main_user implements ActionListener {
         infotop.add(mailPanel);
 
         // Main
+        line4.setBackground(new Color(255, 238, 227));
+        empty5.setBackground(new Color(255, 238, 227));
         reserve.setBackground(Color.WHITE);
         reserve.setFocusPainted(false);
         reserve.setBorder(BorderFactory.createLineBorder(Color.black, 2));
         reserve.setPreferredSize(new Dimension(120, 40));
 
+        cancel.setBackground(Color.WHITE);
+        cancel.setFocusPainted(false);
+        cancel.setBorder(BorderFactory.createLineBorder(Color.black, 2));
+        cancel.setPreferredSize(new Dimension(120, 40));
+
         reservePanel.setBackground(new Color(255, 238, 227));
         reservePanel.add(reserve);
 
-        bordercalen.setBackground(new Color(0xFEE3A8));
+        cancelPanel.setBackground(new Color(255, 238, 227));
+        cancelPanel.add(cancel);
+
+        allreservePanel.setBackground(new Color(255,238, 227));
+        allreservePanel.add(reservePanel);
+        allreservePanel.add(cancelPanel);
+
+        line4.add(allreservePanel, BorderLayout.EAST);
+        line4.add(empty5, BorderLayout.CENTER);
+
+        bordercalen.setBackground(new Color(255,238, 227));
 
         empty.add(bordercalen, BorderLayout.CENTER);
-        empty.add(reservePanel, BorderLayout.SOUTH);
+        empty.add(line4, BorderLayout.SOUTH);
         empty.setBackground(new Color(0xFEEE3A8));
 
      // setting and addcomponent
@@ -198,7 +211,7 @@ public class Main_user implements ActionListener {
         colorL.add(ex1, BorderLayout.NORTH); 
         colorL.add(pn, BorderLayout.CENTER);
         //right
-        colorR.add(empty);
+        colorR.add(empty, BorderLayout.CENTER);
 
         main.setSize(1000, 850);
         main.add(colorL, BorderLayout.WEST);
