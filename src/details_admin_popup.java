@@ -22,7 +22,7 @@ panel_for_combo2 ,panel_for_med2 , panel_em1, panel_em2, panel_but1, panel_but2;
     private JScrollPane scroll_table, scroll_main;
     private JLabel txt_history_pet, txt_name, txt_name_pet, txt_type, txt_breed, txt_age, txt_gender, 
 txt_disease, txt_date, txt_treatment, txt_name_docter, txt_symptom, txt_diagnose, txt_trestment_method, 
-txt_opinion, txt_note, txt_med , txt_plus, txt_but1,txt_but2, txt;
+txt_opinion, txt_note, txt_med , txt_plus, txt;
     private JTextField box_name, box_name_pet, box_type, box_breed, box_age, box_gender, 
 box_disease, box_name_docter, box_symptom, box_diagnose, box_trestment_method, 
 box_opinion, box_note ,box_plus;
@@ -70,8 +70,6 @@ box_opinion, box_note ,box_plus;
         //sea
         txt_med = new JLabel("ยา");
         txt_plus = new JLabel("จำนวน");
-//        txt_but1 = new JLabel("but");
-//        txt_but2 = new JLabel("but");
         txt_plus.setFont(new Font("Tahoma", Font.PLAIN, 15));
         txt_med.setFont(new Font("Tahoma", Font.PLAIN, 15));
         txt = new JLabel("    ");
@@ -98,7 +96,7 @@ box_opinion, box_note ,box_plus;
         cbmed.addItem("2");
         cbmed.addItem("3");
         cbmed.addItem("4");
-        cbmed.setSelectedItem("1");
+        cbmed.setSelectedItem(null);
         cbmed.setPreferredSize(new Dimension(220, 25));
         
         box_plus = new JTextField();
@@ -114,27 +112,16 @@ box_opinion, box_note ,box_plus;
         panel_for_combo.add(txt_med); panel_for_combo2.add(cbmed);
         panel_for_med.add(txt_plus); panel_for_med2.add(box_plus);
         panel_for_combo.setBounds(10, 20, 100, 20);
-        panel_for_med.setBounds(350, 20, 100,20 );
+        panel_for_med.setBounds(285, 20, 100,20 );
 
         panel_em1.add(panel_for_combo);  
-        
-//        panel_em1.add(txt_but1);  
         panel_em1.add(panel_for_med); 
-//        panel_em1.add(txt_but2);
         panel_em2.add(panel_for_combo2);
         panel_em2.add(txt);
-        panel_em2.add(panel_but1);
         panel_em2.add(panel_for_med2);
+        panel_em2.add(panel_but1);
         panel_em2.add(panel_but2); 
-        
-         
-        
-         
-        
 
-        
-        
-        
         button_next = new JButton("Next");
 
         button_minus.addActionListener(this);

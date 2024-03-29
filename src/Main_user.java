@@ -1,36 +1,41 @@
+
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
+import java.util.*;
 
 public class Main_user implements ActionListener {
 
     private JFrame fr;
-    private JPanel info, pn, main, line1, line2, line3, colorL, colorR, ex1, buttonPanel, bordercalen, empty, namePanel, petnamePanel,
-     typePanel, breedPanel, datePanel, sexPanel, agePanel, weightPanel, callPanel, mailPanel, addressPanel, emptyline, something, 
-     infotop, infobottom, empty1, empty2, empty3, empty4;
-    private JLabel imagelogoLabel, nameLabel, petnameLabel, typeLabel, breedLabel, dateLabel, 
-        sexLabel, ageLabel, weightLabel, callLabel, mailLabel, addressLabel;
-    private JButton edit, history, logout, reserve;
+    private JPanel info, pn, main, line1, line2, line3, line4, colorL, colorR, ex1, buttonPanel, bordercalen, empty, namePanel,
+            petnamePanel,
+            typePanel, breedPanel, datePanel, sexPanel, agePanel, weightPanel, callPanel, mailPanel, addressPanel,
+            emptyline, something, reservePanel,
+            infotop, infobottom, empty1, empty2, empty3, empty4;
+    private JLabel imagelogoLabel, nameLabel, petnameLabel, typeLabel, breedLabel, dateLabel,
+            sexLabel, ageLabel, weightLabel, callLabel, mailLabel, addressLabel;
+    private JButton edit, history, logout, reserve, cancel;
     private ImageIcon imagelogo, resizedImageIcon, roundedIcon;
 
     public Main_user() {
 
-        //JFrame
+        // JFrame
         fr = new JFrame("Main");
-        //JPanel
+        // JPanel
         pn = new JPanel(new BorderLayout());
         main = new JPanel(new BorderLayout());
         line1 = new JPanel(new FlowLayout());
         line2 = new JPanel(new FlowLayout());
         line3 = new JPanel(new FlowLayout());
+        line4 = new JPanel(new FlowLayout());
         colorL = new JPanel(new BorderLayout());
         colorR = new JPanel(new FlowLayout());
         ex1 = new JPanel(new FlowLayout());
-        buttonPanel = new JPanel(new GridLayout(4, 1));
+        buttonPanel = new JPanel(new GridLayout(5, 1));
         bordercalen = new JPanel(new FlowLayout());
-        empty = new JPanel(new FlowLayout());
+        empty = new JPanel(new BorderLayout());
         namePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         petnamePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         typePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -45,13 +50,14 @@ public class Main_user implements ActionListener {
         emptyline = new JPanel();
         info = new JPanel(new BorderLayout());
         something = new JPanel(new BorderLayout());
-        infotop = new JPanel(new GridLayout(10,1));
+        reservePanel = new JPanel();
+        infotop = new JPanel(new GridLayout(11, 1));
         infobottom = new JPanel(new FlowLayout(FlowLayout.LEFT));
         empty1 = new JPanel();
         empty2 = new JPanel();
         empty3 = new JPanel();
         empty4 = new JPanel();
-        //JLabel
+        // JLabel
         nameLabel = new JLabel("ชื่อ-นามสกุล :");
         petnameLabel = new JLabel("ชื่อสัตว์เลี้ยง :");
         typeLabel = new JLabel("ชนิด :");
@@ -63,13 +69,14 @@ public class Main_user implements ActionListener {
         callLabel = new JLabel("เบอร์โทรศัพท์ :");
         mailLabel = new JLabel("E-mail :");
         addressLabel = new JLabel("ที่อยู่ : ");
-        //JButton
+        // JButton
         edit = new JButton("แก้ไขข้อมูล");
         history = new JButton("ประวัติการรักษา");
         logout = new JButton("Logout");
         reserve = new JButton("จองคิว");
+        cancel = new JButton("ยกเลิกการจอง");
 
-        //panel northwest
+        // panel northwest
         imagelogo = new ImageIcon(System.getProperty("user.dir") + "/src/test.jpg");
         resizedImageIcon = resizeImageIcon(imagelogo, 150, 150);
         roundedIcon = getRoundedImageIcon(resizedImageIcon);
@@ -80,9 +87,7 @@ public class Main_user implements ActionListener {
         ex1.setBackground(new Color(0xFEE3A8));
         ex1.add(imagelogoLabel);
 
-        
-
-        //button southwest
+        // button southwest
         edit.setBackground(Color.WHITE);
         edit.setFocusPainted(false);
         edit.setBorder(BorderFactory.createLineBorder(Color.black, 2));
@@ -98,19 +103,27 @@ public class Main_user implements ActionListener {
         logout.setBorder(BorderFactory.createLineBorder(Color.black, 2));
         logout.setPreferredSize(new Dimension(120, 40));
 
+        cancel.setBackground(Color.WHITE);
+        cancel.setFocusPainted(false);
+        cancel.setBorder(BorderFactory.createLineBorder(Color.black, 2));
+        cancel.setPreferredSize(new Dimension(120, 40));
+
         emptyline.setBackground(new Color(0xFEE3A8));
         line1.add(edit);
         line2.add(history);
         line3.add(logout);
+        line4.add(cancel);
         line1.setBackground(new Color(0xFEE3A8));
         line2.setBackground(new Color(0xFEE3A8));
         line3.setBackground(new Color(0xFEE3A8));
+        line4.setBackground(new Color(0xFEE3A8));
         buttonPanel.add(line1);
         buttonPanel.add(line2);
         buttonPanel.add(line3);
+        buttonPanel.add(line4);
         buttonPanel.add(emptyline);
 
-        //Infomation
+        // Infomation
         something.setBackground(new Color(0xFEE3A8));
         something.add(info, BorderLayout.CENTER);
         something.add(empty1, BorderLayout.NORTH);
@@ -124,7 +137,6 @@ public class Main_user implements ActionListener {
         info.setBackground(new Color(0xFDFAE5));
         info.setBorder(BorderFactory.createLineBorder(Color.black, 2));
         info.add(infotop, BorderLayout.CENTER);
-        info.add(infobottom, BorderLayout.SOUTH);
         infobottom.setBackground(new Color(0xFDFAE5));
         infobottom.add(addressPanel);
         infotop.setBackground(new Color(0xFDFAE5));
@@ -158,26 +170,35 @@ public class Main_user implements ActionListener {
         infotop.add(sexPanel);
         infotop.add(agePanel);
         infotop.add(weightPanel);
+        infotop.add(addressPanel);
         infotop.add(callPanel);
         infotop.add(mailPanel);
 
-        //Main
-        bordercalen.setSize(100,1000);
+        // Main
+        reserve.setBackground(Color.WHITE);
+        reserve.setFocusPainted(false);
+        reserve.setBorder(BorderFactory.createLineBorder(Color.black, 2));
+        reserve.setPreferredSize(new Dimension(120, 40));
+
+        reservePanel.setBackground(new Color(255, 238, 227));
+        reservePanel.add(reserve);
+
         bordercalen.setBackground(new Color(0xFEE3A8));
 
-        empty.add(bordercalen);
+        empty.add(bordercalen, BorderLayout.CENTER);
+        empty.add(reservePanel, BorderLayout.SOUTH);
         empty.setBackground(new Color(0xFEEE3A8));
-        empty.setBounds(200,220,1000,1000);
 
-        //setting and addcomponent
-        pn.add(something);
+     // setting and addcomponent
+        // Left
+        pn.add(something, BorderLayout.CENTER);
         pn.add(buttonPanel, BorderLayout.SOUTH);
         pn.setBackground(new Color(0xFEE3A8));
 
-        colorL.add(ex1, BorderLayout.NORTH);
+        colorL.add(ex1, BorderLayout.NORTH); 
         colorL.add(pn, BorderLayout.CENTER);
-
-        colorR.add(empty);//เดี๋ยวแก้
+        //right
+        colorR.add(empty);
 
         main.setSize(1000, 850);
         main.add(colorL, BorderLayout.WEST);
@@ -189,7 +210,7 @@ public class Main_user implements ActionListener {
         fr.setSize(1200, 950);
         fr.setVisible(true);
 
-        //AddListener
+        // AddListener
         edit.addActionListener(this);
         history.addActionListener(this);
         logout.addActionListener(this);
@@ -221,11 +242,9 @@ public class Main_user implements ActionListener {
         if (e.getSource().equals(edit)) {
             fr.dispose();
             new edit_register();
-        }
-        else if(e.getSource().equals(history)){
-            new history_();
-        }
-        else if(e.getSource().equals(logout)){
+        } else if (e.getSource().equals(history)) {
+
+        } else if (e.getSource().equals(logout)) {
 
         }
     }

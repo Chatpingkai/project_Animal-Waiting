@@ -96,13 +96,13 @@ public class Treatment_BAC {
         descriptionData = new JTextArea("");
         descriptionData.setEditable(false);
         descriptionData.setFont(new Font("Angsana New", Font.PLAIN, 16));
-        descriptionData.setPreferredSize(new Dimension(350, 200));
+        descriptionData.setPreferredSize(new Dimension(300, 200));
         amount = new JLabel("จำนวนเงิน (Amount)");
 
         amountData = new JTextArea("");
         amountData.setEditable(false);
         amountData.setFont(new Font("Angsana New", Font.PLAIN, 16));
-        amountData.setPreferredSize(new Dimension(170, 200));
+        amountData.setPreferredSize(new Dimension(155, 200));
         amountData.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
         paneldescription.setBorder(BorderFactory.createCompoundBorder(
             BorderFactory.createEmptyBorder(-1, -1, -1, 1),
@@ -151,7 +151,7 @@ public class Treatment_BAC {
             BorderFactory.createEmptyBorder(-1, -1, -1, 1),
             BorderFactory.createLineBorder(Color.BLACK, 1)
         ));
-        pureAmount = new JLabel("                                                                      ยอดเงินบริสุทธิ์");
+        pureAmount = new JLabel("                                                           ยอดเงินบริสุทธิ");
         //
         //เงินรวม
         //
@@ -189,7 +189,7 @@ public class Treatment_BAC {
         a1.setEditable(false); a2.setEditable(false);
         panelpayee.setBackground(white); panelsignature.setBackground(white);
         payee = new JLabel("        ผู้รับเงิน :");
-        signature = new JLabel("                               ลายเว็นผู้รับเงิน : ..................");
+        signature = new JLabel("                      ลายเซ็นผู้รับเงิน : ..................");
         thePayee = new JLabel("");
         panelpayee.add(payee); panelpayee.add(thePayee);
         panelsignature.add(signature);
@@ -210,7 +210,7 @@ public class Treatment_BAC {
         ppanelthereceipt = new JPanel(new FlowLayout(FlowLayout.LEFT));
         ppanelthereceipt.setBackground(white);
         thereceipt.append("วันที่ออกใบเสร็จ (Date): ").append(dateFormat.format(date)).append("\n");
-        JLabel receipt = new JLabel("                                                                                                                        "+thereceipt.toString());
+        JLabel receipt = new JLabel("                                                                                                       "+thereceipt.toString());
         receipt.setFont(new Font(receipt.getFont().getName(), Font.PLAIN, 9));
         ppanelthereceipt.add(receipt);
         panelreceipt.add(empty); panelreceipt.add(ppanelthereceipt);
@@ -244,6 +244,7 @@ public class Treatment_BAC {
         frame.add(panel1, BorderLayout.CENTER);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.setSize(650, 650);
+        frame.setSize(600, 525);
+        frame.setLocationRelativeTo(null);
     }
 }
