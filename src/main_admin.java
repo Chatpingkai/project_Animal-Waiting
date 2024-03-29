@@ -7,14 +7,15 @@ import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
 import java.awt.event.ActionListener;
 import com.toedter.calendar.JCalendar;
+import java.awt.event.MouseEvent;
 
 import java.sql.*;
 import java.util.*;
-import javax.swing.event.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.event.*;
 
-public class main_admin extends JInternalFrame{
+public class main_admin extends JInternalFrame implements MouseInputListener{
     private JPanel panel_left, panel_right, panel_left1, panel_calendar, 
 panel_left2, panel_left3, panel_left4, panel_left5, panel_left6, panel_space1, 
 panel_right1, panel_right2, panel_right3, panel_right_button, panel_space, 
@@ -27,16 +28,19 @@ panel_space2;
     private Main_MDI main;
     private Connec_table tabledb;
     private String today;
-    private Map<String, String> queue=new HashMap<>();
+    private Map<String, String> queue;
+    private Map<String, String[]> datahistory;
+    private String[] work = {"10:00-11:00", "11:00-12:00", "12:00-13:00", "13:00-14:00", "14:00-15:00", "15:00-16:00", "16:00-17:00", "17:00-18:00", "18:00-19:00", "19:00-20:00"};
+    private int introw;
+    private Ranmdom wordcode = new Ranmdom();
+    private ResultSet rs;
     public main_admin() {
         super("Animal-Waiting", false, true, false, true);
-        //today = String.format("%d-%02d-%02d", Datetoday.date.getYear()+543,Datetoday.date.getMonthValue(),Datetoday.date.getDayOfMonth());
-        //try {
-        //    setQueue(today);
-        //} catch (SQLException ex) {
-        //    Logger.getLogger(main_admin.class.getName()).log(Level.SEVERE, null, ex);
-        //}
-        //System.out.println(today);
+        today = String.format("%d-%02d-%02d", Datetoday.date.getYear()+543,Datetoday.date.getMonthValue(),Datetoday.date.getDayOfMonth());
+        try {
+            setQueue(today);
+        } catch (SQLException ex) {
+        }
         setLayout(new BorderLayout());
 
         panel_left = new JPanel();
@@ -118,17 +122,18 @@ panel_space2;
         panel_calendar.add(calendar);
 
         // สร้างตาราง
-        String[][] data = {{"10:00 - 11:00", queue.get("10.00-11.00")}, {"11:00 - 12:00", queue.get("11.00-12.00")}, 
-{"12:00 - 13:00", queue.get("12.00-13.00")}, {"13:00 - 14:00", "พัก"}, {"14:00 - 15:00", queue.get("14.00-15.00")},       
-{"15:00 - 16:00", queue.get("15.00-16.00")}, {"16:00 - 17:00", queue.get("16.00-17.00")}, {"17:00 - 18:00", queue.get("17.00-18.00")}, 
-{"18:00 - 19:00", queue.get("18.00-19.00")}, {"19:00 - 20:00", queue.get("19.00-20.00")}};
+        String[][] data = {{"10:00 - 11:00", queue.get("10:00-11:00")}, {"11:00 - 12:00", queue.get("11:00-12:00")}, 
+{"12:00 - 13:00", queue.get("12:00-13:00")}, {"13:00 - 14:00", "พัก"}, {"14:00 - 15:00", queue.get("14:00-15:00")},       
+{"15:00 - 16:00", queue.get("15:00-16:00")}, {"16:00 - 17:00", queue.get("16:00-17:00")}, {"17:00 - 18:00", queue.get("17:00-18:00")}, 
+{"18:00 - 19:00", queue.get("18:00-19:00")}, {"19:00 - 20:00", queue.get("19:00-20:00")}};
         String[] columnNames = {"เวลา", "รายละเอียด"};
         table = new JTable(data, columnNames);
         table.setRowHeight(30);
         table.getColumnModel().getColumn(0).setPreferredWidth(50);
         table.getColumnModel().getColumn(1).setPreferredWidth(300);
         table.setIntercellSpacing(new Dimension(5, 5));
-
+        table.addMouseListener(this);
+        
         panel_right_button.add(button_logout);
 
         panel_right.setLayout(new BorderLayout());
@@ -208,24 +213,65 @@ panel_space2;
         
     }
     public void setQueue(String today) throws SQLException{
-        System.out.println("fdffdsffsdfsdf");
         queue = new HashMap<String, String>();
+        datahistory = new HashMap<String, String[]>();
         tabledb = new Connec_table();
         String sql = String.format("SELECT * FROM Reserve where date = '2567-03-28' ORDER BY Time ASC");
-        System.out.println(sql);
-        ResultSet rs = tabledb.getData(sql);
+        rs = tabledb.getData(sql);
         while (rs.next()) {
+            String[] s = {rs.getString("Details"),rs.getString("ID"),rs.getString("Type")};
+            datahistory.put(rs.getString("Time"), s);
             queue.put(rs.getString("Time"), rs.getString("Details"));
         }
-//        for (int i = 0; i < 9; i++) {
-//            if(rs.next()){
-//                System.out.println(rs.getString("Time"));
-//                queue.add(rs.getString("Details"));
-//            }
-//            else{
-//                queue.add("");
-//            }
-//        }
         tabledb.Discon();
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        introw = table.rowAtPoint(e.getPoint());
+        tabledb = new Connec_table();
+        String sql = String.format("SELECT * FROM History where id = '%s' and time = '%s'and date = '2567-03-28'",datahistory.get(work[introw])[1],work[introw]);
+        rs = tabledb.getData(sql);
+        try {
+            if(rs.next()){
+                System.out.println(rs.getString("Type_Code")); 
+                tabledb.Discon();
+            }else{
+                tabledb.Discon();
+                sql = String.format("INSERT INTO History (ID, Detail, Type, Time, Type_Code, Date) VALUES('%s', '%s', '%s', '%s', '%s', '%s')",
+                   datahistory.get(work[introw])[1],datahistory.get(work[introw])[0],datahistory.get(work[introw])[2],work[introw],datahistory.get(work[introw])[2]+"_"+datahistory.get(work[introw])[1]+wordcode.rcode()
+                ,"2567-03-28");
+                System.out.println(sql);
+                tabledb = new Connec_table();
+                tabledb.UpdateData(sql);
+                tabledb.Discon();
+            }
+        } catch (SQLException ex) {
+        }
+        
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
     }
 }
