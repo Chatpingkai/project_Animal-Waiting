@@ -1,39 +1,41 @@
 import  back.*;
-import javax.swing.*;
 import java.awt.*;
+import javax.swing.*;
+import java.awt.geom.Ellipse2D;
 import java.awt.event.ActionEvent;
+import java.awt.image.BufferedImage;
 import java.awt.event.ActionListener;
-
 import com.toedter.calendar.JCalendar;
+
 import java.sql.*;
 import java.util.*;
+import javax.swing.event.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.event.*;
 
 public class main_admin extends JInternalFrame{
     private JPanel panel_left, panel_right, panel_left1, panel_calendar, 
-panel_left2, panel_left3, panel_left4, panel_left5, panel_left6, 
-panel_right1, panel_right2, panel_right3,
-panel_right_button;
+panel_left2, panel_left3, panel_left4, panel_left5, panel_left6, panel_space1, 
+panel_right1, panel_right2, panel_right3, panel_right_button, panel_space, 
+panel_space2;
     private JButton button_medicine, button_history, button_logout;
     private JTable table;
     private JLabel photo;
     private JCalendar calendar;
-    private ImageIcon profile;
+    private ImageIcon profile, resizedImageIcon, roundedIcon;
     private Main_MDI main;
     private Connec_table tabledb;
     private String today;
-    private Map<String, String> queue;
+    private Map<String, String> queue=new HashMap<>();
     public main_admin() {
         super("Animal-Waiting", false, true, false, true);
-        today = String.format("%d-%02d-%02d", Datetoday.date.getYear()+543,Datetoday.date.getMonthValue(),Datetoday.date.getDayOfMonth());
-        try {
-            setQueue(today);
-        } catch (SQLException ex) {
-            Logger.getLogger(main_admin.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        System.out.println(today);
+        //today = String.format("%d-%02d-%02d", Datetoday.date.getYear()+543,Datetoday.date.getMonthValue(),Datetoday.date.getDayOfMonth());
+        //try {
+        //    setQueue(today);
+        //} catch (SQLException ex) {
+        //    Logger.getLogger(main_admin.class.getName()).log(Level.SEVERE, null, ex);
+        //}
+        //System.out.println(today);
         setLayout(new BorderLayout());
 
         panel_left = new JPanel();
@@ -49,6 +51,9 @@ panel_right_button;
         panel_right1 = new JPanel();
         panel_right2 = new JPanel();
         panel_right3 = new JPanel();
+        panel_space = new JPanel();
+        panel_space1 = new JPanel();
+        panel_space2 = new JPanel();
 
         panel_left.setLayout(new BorderLayout());
         panel_left1.setLayout(new BorderLayout());
@@ -79,15 +84,21 @@ panel_right_button;
             }
         });
 
+        button_medicine.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        button_history.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        button_logout.setFont(new Font("Tahoma", Font.BOLD, 15));
+
         calendar = new JCalendar();
 
-        //profile = new ImageIcon(getClass().getResource("koala.png"));
+        profile = new ImageIcon(System.getProperty("user.dir")+"/src/admin_profile.jpg");
+        resizedImageIcon = resizeImageIcon(profile, 100, 100);
+        roundedIcon = getRoundedImageIcon(resizedImageIcon);
+        photo = new JLabel(roundedIcon);
 
-        photo = new JLabel();
-        //photo.setIcon(profile);
-        //photo.setSize(100, 50);
-        //panel_left5.add(photo);
-        panel_left5.setBackground(Color.RED);
+        panel_left5.add(panel_space);
+        panel_left5.add(photo);
+        panel_left5.add(panel_space2);
+        panel_left5.add(panel_space1);
 
         panel_left.add(panel_left5, BorderLayout.NORTH);
         panel_left.add(panel_left1, BorderLayout.CENTER);
@@ -133,6 +144,9 @@ panel_right_button;
         panel_left5.setPreferredSize(new Dimension(200, 150));
         panel_left6.setPreferredSize(new Dimension(200, 50));
         panel_right3.setPreferredSize(new Dimension(200, 133));
+        panel_space.setPreferredSize(new Dimension(200, 10));
+        panel_space1.setPreferredSize(new Dimension(200, 3));
+        panel_space2.setPreferredSize(new Dimension(200, 10));
 
         panel_left.setBackground(new Color(0xFFE3A8));
         panel_left1.setBackground(new Color(0xFFE3A8));
@@ -141,11 +155,15 @@ panel_right_button;
         panel_left4.setBackground(new Color(0xFFE3A8));
         panel_left6.setBackground(new Color(0xFFE3A8));
         panel_calendar.setBackground(new Color(0xFFE3A8));
+        panel_space.setBackground(new Color(0xFFE3A8));
+        panel_left5.setBackground(new Color(0xFFE3A8));
+        panel_space2.setBackground(new Color(0xFFE3A8));
         panel_right_button.setBackground(new Color(0xFFEEE3));
         panel_right.setBackground(new Color(0xFFEEE3));
         panel_right1.setBackground(new Color(0xFFEEE3));
         panel_right2.setBackground(new Color(0xFFEEE3));
         panel_right3.setBackground(new Color(0xFFEEE3));
+        panel_space1.setBackground(Color.WHITE);
 
         getContentPane().add(panel_left, BorderLayout.WEST);
         getContentPane().add(panel_right, BorderLayout.CENTER);
@@ -158,6 +176,25 @@ panel_right_button;
     public static void main(String[] args) {
         new main_admin();
     }
+    private ImageIcon resizeImageIcon(ImageIcon originalIcon, int width, int height) {
+        Image img = originalIcon.getImage();
+        Image resizedImg = img.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+        return new ImageIcon(resizedImg);
+    }
+
+    private ImageIcon getRoundedImageIcon(ImageIcon originalIcon) {
+        int diameter = Math.min(originalIcon.getIconWidth(), originalIcon.getIconHeight());
+        BufferedImage image = new BufferedImage(diameter, diameter, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2 = image.createGraphics();
+
+        Ellipse2D.Double ellipse = new Ellipse2D.Double(0, 0, diameter, diameter);
+        g2.setClip(ellipse);
+        originalIcon.paintIcon(null, g2, 0, 0);
+
+        g2.dispose();
+        return new ImageIcon(image);
+    }
+
     private void openInternalFrame(JInternalFrame internalFrame) {
         internalFrame.addInternalFrameListener(new InternalFrameAdapter() {
         @Override
