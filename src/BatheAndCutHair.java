@@ -6,13 +6,16 @@ import static java.awt.Color.*;
 import javax.swing.*;
 
 public class BatheAndCutHair implements ActionListener{
-    private JFrame frame;
+    private JFrame frame ;
     private JPanel panelAll, panelAllHistory, panelHistory_t, panelHistory, panelHistory1, panelHistory2, panelAllExpenses, panelExpenses_t, panelExpenses,
     panelNameOw, panelNameAn, panelTypeA, panelSpecies, panelAgeA, panelGenderA, panelChronicDisease, panelnameOW_A, panelTS, panelAG, panelShower, panelCutHair,
-    panelbutton, paneladdButton;
-    private JLabel historyA_t, nameOw, nameAn, typeA, species, ageA, genderA, chronicDisease, expenses, shower, cutHair;
+    panelbutton, paneladdButton, paneldescrip1, paneldescrip2, paneldescrip;
+    private JLabel historyA_t, nameOw, nameAn, typeA, species, ageA, genderA, chronicDisease, expenses, shower, cutHair, descrip, descripempty;
     private JTextField textNameOw, textNameAn, textTypeA, textSpecies, textAgeA, textGenderA, textChronicDisease, textshower, textcutHair;
+    private JTextArea tdescrip;
+    private JScrollPane scroll;
     private JButton Treatment;
+
     public static void main(String[] args) {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -29,7 +32,7 @@ public class BatheAndCutHair implements ActionListener{
         frame = new JFrame("สรุป");
         panelAll = new JPanel(new BorderLayout());
         panelAllHistory = new JPanel(new BorderLayout());
-        panelHistory_t = new JPanel(new FlowLayout((FlowLayout.LEFT)));
+        panelHistory_t = new JPanel(new FlowLayout(FlowLayout.LEFT));
         panelHistory = new JPanel(new BorderLayout());
         panelHistory1 = new JPanel(new GridLayout(3,1));
         panelHistory2 = new JPanel(new FlowLayout((FlowLayout.LEFT)));
@@ -57,7 +60,10 @@ public class BatheAndCutHair implements ActionListener{
         panelbutton = new JPanel(new FlowLayout(FlowLayout.LEFT));
         panelbutton.setBackground(new Color(0xFFEEE3));
         Treatment = new JButton("ค่ารักษา");
-        Treatment.setPreferredSize(new Dimension(100, 30));
+        JLabel empty1 = new JLabel("                 ");
+//        Treatment.setPreferredSize(new Dimension(100, 30));
+        Treatment.setBounds(420, 120, 100, 30);
+        panelbutton.add(empty1);
         panelbutton.add(Treatment);
         
         historyA_t = new JLabel("      ประวัติสัตว์เลี้ยง");
@@ -66,21 +72,43 @@ public class BatheAndCutHair implements ActionListener{
             BorderFactory.createEmptyBorder(25, -1, -1, -1), 
             BorderFactory.createLineBorder(Color.BLACK, -1) 
         ));
-        historyA_t.setFont(new Font(historyA_t.getFont().getName(), Font.PLAIN, 15));
+        historyA_t.setFont(new Font(historyA_t.getFont().getName(), Font.PLAIN, 20));
         nameOw = new JLabel("           ชื่อเจ้าของ  ");
-        nameAn = new JLabel("        ชื่อสัตว์เลี้ยง  ");
+        nameAn = new JLabel("    ชื่อสัตว์เลี้ยง  ");
         typeA = new JLabel("           ประเภทสัตว์เลี้ยง  ");
-        species = new JLabel("                  สายพันธุ์  ");
+        species = new JLabel("                 สายพันธุ์  ");
         ageA = new JLabel("           อายุสัตว์เลี้ยง  ");
-        genderA = new JLabel("                                เพศ  ");
+        genderA = new JLabel("                           เพศ  ");
         chronicDisease = new JLabel("           โรคประจำตัว  ");
-        textNameOw = new JTextField("", 20);
+        nameOw.setFont(new Font(historyA_t.getFont().getName(), Font.PLAIN, 16));
+        nameAn .setFont(new Font(historyA_t.getFont().getName(), Font.PLAIN, 16));
+        typeA.setFont(new Font(historyA_t.getFont().getName(), Font.PLAIN, 16));
+        species.setFont(new Font(historyA_t.getFont().getName(), Font.PLAIN, 16));
+        ageA.setFont(new Font(historyA_t.getFont().getName(), Font.PLAIN, 16));
+        genderA.setFont(new Font(historyA_t.getFont().getName(), Font.PLAIN, 16));
+        chronicDisease.setFont(new Font(historyA_t.getFont().getName(), Font.PLAIN, 16));
+        
+        textNameOw = new JTextField("",25);
+        textNameOw.setPreferredSize(new Dimension(200, 20));
+        
         textNameAn = new JTextField("", 12);
+        textNameAn.setPreferredSize(new Dimension(200, 20));
+        
         textTypeA = new JTextField("", 13);
+        textTypeA.setPreferredSize(new Dimension(200, 20));
+        
         textSpecies = new JTextField("", 13);
+        textSpecies.setPreferredSize(new Dimension(200, 20));
+        
         textAgeA = new JTextField("", 10);
+        textAgeA.setPreferredSize(new Dimension(200, 20));
+        
         textGenderA = new JTextField("", 8);
+        textGenderA.setPreferredSize(new Dimension(200, 20));
+        
         textChronicDisease = new JTextField("", 31);
+        textChronicDisease.setPreferredSize(new Dimension(200, 20));
+        
         textNameOw.setBackground(white);
         textNameAn.setBackground(white);
         textTypeA.setBackground(white);
@@ -125,24 +153,57 @@ public class BatheAndCutHair implements ActionListener{
         panelExpenses_t.setBackground(new Color(0xFFEEE3));
         panelExpenses.setBackground(new Color(0xFFEEE3));
         expenses = new JLabel("      ค่าใช้จ่าย");
-        expenses.setFont(new Font(expenses.getFont().getName(), Font.PLAIN, 15));
+        expenses.setFont(new Font(expenses.getFont().getName(), Font.PLAIN, 20));
         panelShower = new JPanel(new FlowLayout((FlowLayout.LEFT)));
         panelShower.setBackground(new Color(0xFFEEE3));
         panelCutHair = new JPanel(new FlowLayout(FlowLayout.LEFT));
         panelCutHair.setBackground(new Color(0xFFEEE3));
+        paneldescrip1 = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        paneldescrip1.setBackground(new Color(0xFFEEE3));
+        paneldescrip2 = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        paneldescrip2.setBackground(new Color(0xFFEEE3));
+        paneldescrip = new JPanel(new BorderLayout());
+        paneldescrip.setBackground(new Color(0xFFEEE3));
+        
         shower = new JLabel("            อาบน้ำ   ");
         cutHair = new JLabel("            ตัดขน    ");
-        textshower = new JTextField("", 30);
-        textcutHair = new JTextField("", 30);
+        descrip = new JLabel("            รายละเอียด");
+        shower.setFont(new Font(expenses.getFont().getName(), Font.PLAIN, 16));
+        cutHair.setFont(new Font(expenses.getFont().getName(), Font.PLAIN, 16));
+        descrip.setFont(new Font(expenses.getFont().getName(), Font.PLAIN, 16));
+        descripempty = new JLabel("                  ");
+        
+        textshower = new JTextField("", 20);
+        textshower.setPreferredSize(new Dimension(200, 20));
+        
+        textcutHair = new JTextField("", 20);
+        textcutHair.setPreferredSize(new Dimension(200, 20));
+        
+        tdescrip = new JTextArea();
+        scroll = new JScrollPane(tdescrip);
+//        scroll.setViewportView(tdescrip);
+        tdescrip.setLineWrap(true);
+        scroll.setPreferredSize(new Dimension(200, 40));
+        scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+       
+        
         textshower.setBackground(white);
         textshower.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         textshower.setBackground(white);
         textcutHair.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        scroll.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         panelExpenses_t.add(expenses);
         panelShower.add(shower); panelShower.add(textshower);
         panelCutHair.add(cutHair); panelCutHair.add(textcutHair);
+        paneldescrip1.add(descrip);  paneldescrip2.add(descripempty); paneldescrip2.add(scroll);
+        paneldescrip.add(paneldescrip1, BorderLayout.NORTH); paneldescrip.add(paneldescrip2, BorderLayout.CENTER);
         panelExpenses.add(panelShower, BorderLayout.NORTH); panelExpenses.add(panelCutHair, BorderLayout.CENTER);
+        panelExpenses.add(paneldescrip, BorderLayout.SOUTH);
         panelAllExpenses.add(panelExpenses_t, BorderLayout.NORTH); panelAllExpenses.add(panelExpenses, BorderLayout.CENTER);
+        
+// 
+        
+        
 
         paneladdButton = new JPanel(new BorderLayout());
         paneladdButton.add(panelAllExpenses, BorderLayout.NORTH); paneladdButton.add(panelbutton, BorderLayout.CENTER);
@@ -153,14 +214,14 @@ public class BatheAndCutHair implements ActionListener{
         frame.add(panelAll);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(650, 650);
+        frame.setSize(650, 550);
         Treatment.addActionListener(this);
 
     }
     @Override
     public void actionPerformed(ActionEvent ev) {
         if (ev.getSource().equals(Treatment)) {
-            new Treatment();
+            new Treatment_BAC();
         }
     }
 

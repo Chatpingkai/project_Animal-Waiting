@@ -2,18 +2,18 @@ package back;
 
 
 public class Account {
-    private int id;
-    private String username;
-    private String password;
+    protected int id;
+    protected String username;
+    protected String password;
     public Account(){
         id = 0;
         username = "";
         password = "";
     }
-    public Account(int id, String username, String password){
+    public Account(int id){
         this.id = id;
-        this.username = username;
-        this.password = password;
+        username = "";
+        password = "";
     }
     public int getId(){
         return id;

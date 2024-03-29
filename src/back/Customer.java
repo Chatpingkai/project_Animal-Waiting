@@ -1,8 +1,9 @@
 package back;
-
+import java.security.*;
+import java.sql.*;
+import java.util.*;
 
 public class Customer extends Account{
-    private Account acct;
     private String first_name;
     private String last_name;
     private String b_name;
@@ -10,10 +11,14 @@ public class Customer extends Account{
     private String nation;
     private String ethnicity;
     private String religion;
+    private String address;
+    private String phoneNumber;
+    private String email;
+    private String other;
     private Pet pet;
-//    private Connec db;
+    private Connec_table db;
     public Customer(){
-        acct = null;
+        super();
         first_name = "";
         last_name = "";
         sex = "";
@@ -22,11 +27,46 @@ public class Customer extends Account{
         religion = "";
         pet = null;
     }
-    public Account getAccount(){
-        return acct;
-    }
-    public void setAccount(Account acct){
-        this.acct = acct;
+    public Customer(int id_){
+        super(id_);
+        db = new Connec_table();
+        String sql = String.format("SELECT * FROM User_id WHERE ID = '%d'", id);
+        ResultSet rs = db.getData(sql);
+        try {
+            if(rs.next()){
+                try {
+                    String user = rs.getString("username");
+                    String pass = rs.getString("password");
+                    this.username = user;
+                    this.password = pass;
+                } catch (SQLException ex) {
+                }
+            }
+        } catch (SQLException ex) {
+        }
+        sql = String.format("SELECT * FROM User_Profile WHERE ID = '%d'", id);
+        rs = db.getData(sql);
+        try {
+            if(rs.next()){
+                try {
+                    this.first_name = rs.getString("Name");
+                    this.last_name = rs.getString("Last");
+                    this.b_name = rs.getString("B_name");
+                    this.sex = rs.getString("Sex");
+                    this.nation = rs.getString("Nation");
+                    this.ethnicity = rs.getString("Ethnicity");
+                    this.religion = rs.getString("Religion");
+                    this.address = rs.getString("Contact");
+                    this.phoneNumber = rs.getString("Phone");
+                    this.email = rs.getString("Email");
+                    this.other = rs.getString("Other");
+                } catch (SQLException ex) {
+                }
+            }
+        } catch (SQLException ex) {
+        }
+        this.pet = new Pet(id_);
+        db.Discon();
     }
     public String getFirstName(){
         return first_name;
@@ -76,10 +116,39 @@ public class Customer extends Account{
     public void setPet(Pet pet){
         this.pet = pet;
     }
+    
+    public String getAddress() {
+        return address;
+    }
 
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
     
-    
-    
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getOther() {
+        return other;
+    }
+
+    public void setOther(String other) {
+        this.other = other;
+    }
+
     
     public void reserve(String date, String time, String type){
 //        try{
@@ -104,7 +173,19 @@ public class Customer extends Account{
 //        }
     }
     public static void main(String[] args) {
-        Account man = new Customer();
-        System.out.println(((Customer)man).getSex());
+        try {
+            String p = "mmmmmmm";
+            MessageDigest md;
+            md = MessageDigest.getInstance("SHA-256");
+            md.update(p.getBytes());
+            byte[] bytes = md.digest();
+            StringBuilder sb = new StringBuilder();
+            for (byte b : bytes) {
+                sb.append(Integer.toString((b & 0xff) + 0x100, 16).substring(1)); 
+            }  
+        } catch (NoSuchAlgorithmException ex) {
+        }
+        Account acct = new Customer(1);
+        System.out.println(((Customer) acct).getPet().getAge());
     }
 }
