@@ -39,6 +39,7 @@ public class Pet {
                     this.spicies = rs.getString("Spicies");
                     this.birth = rs.getString("Birth");
                     this.sex = rs.getString("Sex");
+                    this.disease = rs.getString("Disease");
                     this.age = rs.getInt("Age");
                     this.weight = rs.getInt("Weight");
                     this.treat = rs.getString("Treat");

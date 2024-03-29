@@ -5,7 +5,8 @@ import javax.swing.table.*;
 import back.*;
 import java.sql.*;
 import java.util.*;
-
+import javax.swing.event.InternalFrameAdapter;
+import javax.swing.event.InternalFrameEvent;
 public class Usage_history extends JInternalFrame implements MouseListener{
 //    private JFrame frused;
     private JScrollPane scroll;
@@ -13,11 +14,14 @@ public class Usage_history extends JInternalFrame implements MouseListener{
     private JPanel pa1;
     private Connec_table con_table;
     private ArrayList<String> data;
+    private ArrayList<String> date_data;
     private int id;
+    private int introw;
     public Usage_history(){
         super("Animal-Waiting", false, true, false, true);
         this.id = 0;
         data = new ArrayList<String>();
+        date_data = new ArrayList<String>();
 //        frused = new JFrame("ประวัติการใช้บริการ");
         pa1 = new JPanel();
         pa1.setLayout(null);
@@ -41,6 +45,7 @@ public class Usage_history extends JInternalFrame implements MouseListener{
         super("Animal-Waiting", false, true, false, true);
         this.id = id;
         data = new ArrayList<String>();
+        date_data = new ArrayList<String>();
 //        frused = new JFrame("ประวัติการใช้บริการ");
         pa1 = new JPanel();
         pa1.setLayout(null);
@@ -120,6 +125,7 @@ public class Usage_history extends JInternalFrame implements MouseListener{
                 String type = rs.getString("Type");
                 String[] row = {date, type ,detail};
                 data.add(rs.getString("Type_Code"));
+                date_data.add(date);
                 model.addRow(row);
             }
         } catch (SQLException ex) {
@@ -128,11 +134,21 @@ public class Usage_history extends JInternalFrame implements MouseListener{
         table.setDefaultEditor(Object.class, null);//un edit row//}
         table.addMouseListener(this);
     }
-
+    private void openInternalFrame(JInternalFrame internalFrame) {
+        internalFrame.addInternalFrameListener(new InternalFrameAdapter() {
+        @Override
+        public void internalFrameClosing(InternalFrameEvent e) {
+            }
+        });
+        getParent().add(internalFrame);
+    }
     @Override
     public void mouseClicked(MouseEvent e) {
-        int introw = table.rowAtPoint(e.getPoint());
-        System.out.println(data.get(introw));
+        if (e.getClickCount() == 2) {
+            introw = table.rowAtPoint(e.getPoint());
+            Customer customer = new Customer(id);
+            openInternalFrame(new history_(customer, data.get(introw), date_data.get(introw)));
+        }
 }
 
     @Override
