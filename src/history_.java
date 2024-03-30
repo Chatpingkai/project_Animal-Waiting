@@ -3,6 +3,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
@@ -20,6 +21,8 @@ public class history_  extends JInternalFrame{
     private String type_code;
     private Customer customer;
     private String date;
+    private CureReipt curereipt;
+    private String[] med_codelist;
     public history_() {
         super("Animal-Waiting", false, true,false, true);
         this.type_code = "";
@@ -287,7 +290,6 @@ public class history_  extends JInternalFrame{
         table_db = new Connec_table();
         String sql = String.format("select * from Cure Where Type_Code = '%s'", type_code);
         ResultSet rs = table_db.getData(sql);
-//        txtamedi
         try {
             while (rs.next()) {
                 tsymptom.setText(rs.getString("Symptom"));
@@ -300,31 +302,50 @@ public class history_  extends JInternalFrame{
         }
         tdate.setText(date);
     }
+    private void setMed_CodeList(){
+        table_db = new Connec_table();
+        String sql = String.format("select Med_Code from Cure where type_code = '%s'", type_code);
+        ResultSet rs = table_db.getData(sql);
+        try {
+            while (rs.next()) {
+                String med_code = rs.getString("Med_Code");
+                med_codelist = med_code.split("0");
+            }
+        } catch (SQLException ex) {
+        }
+    }
     private void setTable(){
+        setMed_CodeList();
         Object[] columns = {"","ชื่อยา","จำนวน","ข้อบ่งใช้"};
         model = new DefaultTableModel();
         model.setColumnIdentifiers(columns);
         table.setModel(model);
-//        table_db = new Connec_table();
-//        String sql = String.format("select * from Cure where Type_Code = '%s'", type_code);
-//        ResultSet rs = table_db.getData(sql);
-//        try {
-//            while(rs.next()){
-//                String full_name = rs.getString("Full_Name");
-//                String name = rs.getString("Name");
-//                String type = rs.getString("Type");
-//                String amount = rs.getString("Amount");
-//                String price = rs.getString("price");
-//                String how = rs.getString("How");
-//                String recom = rs.getString("Recom");
-//                String[] row = {full_name, name, type, price, amount, how, recom};
-//                model.addRow(row);
-//            }   } catch (SQLException ex) {
-//            Logger.getLogger(history_.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+        table_db = new Connec_table();
+        String sql;
+        ResultSet rs;
+        String med_code="";
+        for (String med_cod : med_codelist) {
+            med_code = med_code+"'"+med_cod+"'";
+            if (!med_cod.equals(med_codelist[med_codelist.length-1])) {
+                med_code = med_code+", ";
+            }
+        }
+        sql = String.format("select * from Med_Code where Med_Code in (%s)", med_code);
+        System.out.println(sql);
+        rs = table_db.getData(sql);
+            try {
+                while (rs.next()) {
+                    String name = rs.getString("Name");
+                    String amount = rs.getString("Amount");
+                    String how = rs.getString("How");
+                    String[] row = {"", name, amount, how};
+                    model.addRow(row);
+                }
+            } catch (SQLException ex) {
+            }
         model.setColumnIdentifiers(columns);
         table.setModel(model);
-//        table_db.Discon();
+        table_db.Discon();
     }
     public static void main(String[] args) {
         try {

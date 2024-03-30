@@ -31,7 +31,7 @@ public class Main_MDI{
 
         internal_Medicinehome.setVisible(false);
         internal_AddMedicine.setVisible(false);
-        internal_Patient_history.setVisible(false);
+        internal_Patient_history.setVisible(true);
         internal_history.setVisible(false);
         internal_Usage_history.setVisible(false);
 

@@ -50,6 +50,7 @@ public class Pet {
             }
         } catch (SQLException ex) {
         }
+        db.Discon();
     }
     public String getName(){
         return name;
