@@ -15,7 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.event.*;
 
-public class main_admin extends JInternalFrame implements MouseInputListener{
+public class main_admin extends JInternalFrame implements MouseInputListener, ActionListener{
     private JPanel panel_left, panel_right, panel_left1, panel_calendar, 
 panel_left2, panel_left3, panel_left4, panel_left5, panel_left6, panel_space1, 
 panel_right1, panel_right2, panel_right3, panel_right_button, panel_space, 
@@ -38,7 +38,7 @@ panel_space2;
     private Customer customer;
     private CureReipt cure_r;
     public main_admin() {
-        super("Animal-Waiting", false, true, false, true);
+        super("Animal-Waiting", false, false, false, true);
         today = String.format("%d-%02d-%02d", Datetoday.date.getYear()+543,Datetoday.date.getMonthValue(),Datetoday.date.getDayOfMonth());
         try {
             setQueue(today);
@@ -76,21 +76,8 @@ panel_space2;
         button_history = new JButton("เวชระเบียน");
         button_logout = new JButton("Logout");
 
-        button_medicine.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                openInternalFrame(new Medicinehome());
-                button_medicine.setEnabled(false);
-            }
-        });
-
-        button_history.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                openInternalFrame(new Patient_history());
-                button_medicine.setEnabled(false);
-            }
-        });
+        button_medicine.addActionListener(this);
+        button_history.addActionListener(this);
 
         button_medicine.setFont(new Font("Tahoma", Font.PLAIN, 15));
         button_history.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -176,7 +163,6 @@ panel_space2;
 
         getContentPane().add(panel_left, BorderLayout.WEST);
         getContentPane().add(panel_right, BorderLayout.CENTER);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1000, 550);
         setLocation(470, 200);
         setVisible(true);
@@ -185,6 +171,7 @@ panel_space2;
     public static void main(String[] args) {
         new main_admin();
     }
+
     private ImageIcon resizeImageIcon(ImageIcon originalIcon, int width, int height) {
         Image img = originalIcon.getImage();
         Image resizedImg = img.getScaledInstance(width, height, Image.SCALE_SMOOTH);
@@ -202,6 +189,17 @@ panel_space2;
 
         g2.dispose();
         return new ImageIcon(image);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == button_medicine){
+            openInternalFrame(new Medicinehome());
+            button_medicine.setEnabled(false);
+        }else if (e.getSource() == button_history){
+            openInternalFrame(new Patient_history());
+            button_history.setEnabled(false);
+        }
     }
 
     private void openInternalFrame(JInternalFrame internalFrame) {

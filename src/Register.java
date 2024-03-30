@@ -774,6 +774,7 @@ circle_pet_female, circle_idk;
         panel_main.setBackground(new Color(0xFFEEE3));
         fr_register.setSize(1000, 950);
         fr_register.setVisible(true);
+        fr_register.setLocationRelativeTo(null);
         fr_register.setResizable(false);
     }
     public static void main(String[] args){

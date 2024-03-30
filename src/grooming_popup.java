@@ -96,13 +96,10 @@ space28, space29, space30, space31, space32, space33;
         box_shower = new JTextField();
         box_amount = new JTextField();
 
-        box_details = new JTextArea();
+        box_details = new JTextArea(null, 5, 46);
         box_details.setWrapStyleWord(true);
         box_details.setLineWrap(true);
-
         scroll = new JScrollPane(box_details);
-        scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
         button_submit = new JButton("Submit");
         button_submit.setBackground(Color.WHITE);
@@ -242,14 +239,14 @@ space28, space29, space30, space31, space32, space33;
         box_sex.setPreferredSize(new Dimension(70, 20));
         box_Chronic_illness.setPreferredSize(new Dimension(280, 20));
         box_date.setPreferredSize(new Dimension(200, 20));
-        box_cutting.setPreferredSize(new Dimension(370, 20));
-        box_shower.setPreferredSize(new Dimension(370, 20));
-        box_amount.setPreferredSize(new Dimension(370, 20));
-        box_details.setPreferredSize(new Dimension(370, 80));
+        box_cutting.setPreferredSize(new Dimension(375, 20));
+        box_shower.setPreferredSize(new Dimension(375, 20));
+        box_amount.setPreferredSize(new Dimension(375, 20));
         button_submit.setPreferredSize(new Dimension(100, 40));
 
         frame_grooming.setSize(500, 650);
         frame_grooming.setVisible(true);
+        frame_grooming.setLocationRelativeTo(null);
         frame_grooming.setResizable(false);
     }
     public static void main(String[] args){

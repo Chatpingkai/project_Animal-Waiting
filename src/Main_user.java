@@ -200,12 +200,12 @@ public class Main_user implements ActionListener {
         border.setBackground(new Color(255,238, 227));
         line4.setBackground(new Color(255, 238, 227));
         empty5.setBackground(new Color(255, 238, 227));
-        reserve.setBackground(Color.white);
         reserve.setFocusPainted(false);
         reserve.setBorder(BorderFactory.createLineBorder(Color.black, 2));
         reserve.setPreferredSize(new Dimension(120, 40));
 
         cancel.setBackground(Color.white);
+        cancel.setForeground(Color.RED);
         cancel.setFocusPainted(false);
         cancel.setBorder(BorderFactory.createLineBorder(Color.black, 2));
         cancel.setPreferredSize(new Dimension(120, 40));
@@ -303,11 +303,30 @@ public class Main_user implements ActionListener {
         main.add(colorL, BorderLayout.WEST);
         main.add(colorR, BorderLayout.CENTER);
 
+        nameLabel.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        petnameLabel.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        typeLabel.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        breedLabel.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        dateLabel.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        sexLabel.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        ageLabel.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        weightLabel.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        callLabel.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        mailLabel.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        addressLabel.setFont(new Font("Tahoma", Font.PLAIN, 13));
+
+        edit.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        history.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        logout.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        reserve.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        cancel.setFont(new Font("Tahoma", Font.PLAIN, 15));
+
         fr.add(main);
         fr.setResizable(false);
         fr.setDefaultCloseOperation(fr.EXIT_ON_CLOSE);
         fr.setSize(1200, 950);
         fr.setVisible(true);
+        fr.setLocationRelativeTo(null);
 
         // AddListener
         edit.addActionListener(this);
@@ -405,9 +424,11 @@ public class Main_user implements ActionListener {
         if (e.getSource().equals(edit)) {
             fr.dispose();
             new edit_register();
-        } else if (e.getSource().equals(history)) {
+        }else if (e.getSource().equals(reserve)) {
+            new Reservation();
+        }else if (e.getSource().equals(history)) {
 
-        } else if (e.getSource().equals(logout)) {
+        }else if (e.getSource().equals(logout)) {
 
         }
     }

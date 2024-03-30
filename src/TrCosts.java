@@ -271,6 +271,7 @@ public class TrCosts implements ActionListener {
         frhis.setLocationRelativeTo(null); // Center the frame on the screen
         frhis.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frhis.setVisible(true);
+        frhis.setLocationRelativeTo(null);
     }
 
     @Override
