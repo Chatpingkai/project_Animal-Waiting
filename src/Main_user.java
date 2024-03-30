@@ -12,15 +12,14 @@ public class Main_user implements ActionListener {
 
     private JFrame fr;
     private JPanel info, pn, main, line1, line2, line3, colorL, colorR, ex1, buttonPanel, bordercalen, empty, namePanel,
-            petnamePanel, line4,
+            petnamePanel, line4,pl1, pl2, pl3, space, space1, space2, space3, space4, space5,
             typePanel, breedPanel, datePanel, sexPanel, agePanel, weightPanel, callPanel, mailPanel, addressPanel,
             emptyline, something, reservePanel, cancelPanel, allreservePanel,border1, border2,border3,border4,
-            infotop, infobottom, empty1, empty2, empty3, empty4, empty5;
+            infotop, infobottom, empty1, empty2, empty3, empty4, empty5, empty6, border, edit1, edit2, edit3, edit4, edit5;
     private JLabel imagelogoLabel, nameLabel, petnameLabel, typeLabel, breedLabel, dateLabel,
             sexLabel, ageLabel, weightLabel, callLabel, mailLabel, addressLabel;
     private JButton edit, history, logout, reserve, cancel;
     private ImageIcon imagelogo, resizedImageIcon, roundedIcon;
-    private JPanel pl1, pl2, pl3, space, space1, space2, space3, space4, space5;
     private JTextField[] boxes = new JTextField[42];
     private JLabel[] dayLabels = new JLabel[7];
     private JTextArea addressarea;
@@ -58,7 +57,7 @@ public class Main_user implements ActionListener {
         something = new JPanel(new BorderLayout());
         reservePanel = new JPanel();
         cancelPanel = new JPanel();
-        allreservePanel = new JPanel(new GridLayout(2,1));
+        allreservePanel = new JPanel(new GridLayout(3,1));
         infotop = new JPanel(new GridLayout(11, 1));
         infobottom = new JPanel(new FlowLayout(FlowLayout.LEFT));
         empty1 = new JPanel();
@@ -66,10 +65,17 @@ public class Main_user implements ActionListener {
         empty3 = new JPanel();
         empty4 = new JPanel();
         empty5 = new JPanel();
+        empty6 = new JPanel();
+        border = new JPanel(new BorderLayout());
         border1 = new JPanel();
         border2 = new JPanel();
         border3 = new JPanel();
         border4 = new JPanel();
+        edit1 = new JPanel(new BorderLayout());
+        edit2 = new JPanel();
+        edit3 = new JPanel();
+        edit4 = new JPanel();
+        edit5 = new JPanel();
         // JLabel
         nameLabel = new JLabel("ชื่อ-นามสกุล :");
         petnameLabel = new JLabel("ชื่อสัตว์เลี้ยง :");
@@ -105,17 +111,17 @@ public class Main_user implements ActionListener {
         ex1.add(imagelogoLabel);
 
         // button southwest
-        edit.setBackground(Color.WHITE);
+        edit.setBackground(Color.white);
         edit.setFocusPainted(false);
         edit.setBorder(BorderFactory.createLineBorder(Color.black, 2));
         edit.setPreferredSize(new Dimension(120, 40));
 
-        history.setBackground(Color.WHITE);
+        history.setBackground(Color.white);
         history.setFocusPainted(false);
         history.setBorder(BorderFactory.createLineBorder(Color.black, 2));
         history.setPreferredSize(new Dimension(120, 40));
 
-        logout.setBackground(Color.WHITE);
+        logout.setBackground(Color.white);
         logout.setFocusPainted(false);
         logout.setBorder(BorderFactory.createLineBorder(Color.black, 2));
         logout.setPreferredSize(new Dimension(120, 40));
@@ -184,15 +190,22 @@ public class Main_user implements ActionListener {
         infotop.add(callPanel);
         infotop.add(mailPanel);
 
-        // Main
+        // Main 
+        edit1.setBackground(new Color(255, 238, 227));
+        edit2.setBackground(new Color(255, 238, 227));
+        edit3.setBackground(new Color(255, 238, 227));
+        edit4.setBackground(new Color(255, 238, 227));
+        edit5.setBackground(new Color(255, 238, 227));
+        empty6.setBackground(new Color(255, 238, 227));
+        border.setBackground(new Color(255,238, 227));
         line4.setBackground(new Color(255, 238, 227));
         empty5.setBackground(new Color(255, 238, 227));
-        reserve.setBackground(Color.WHITE);
         reserve.setFocusPainted(false);
         reserve.setBorder(BorderFactory.createLineBorder(Color.black, 2));
         reserve.setPreferredSize(new Dimension(120, 40));
 
-        cancel.setBackground(Color.WHITE);
+        cancel.setBackground(Color.white);
+        cancel.setForeground(Color.RED);
         cancel.setFocusPainted(false);
         cancel.setBorder(BorderFactory.createLineBorder(Color.black, 2));
         cancel.setPreferredSize(new Dimension(120, 40));
@@ -204,6 +217,7 @@ public class Main_user implements ActionListener {
         cancelPanel.add(cancel);
 
         allreservePanel.setBackground(new Color(255,238, 227));
+        allreservePanel.add(empty6);
         allreservePanel.add(reservePanel);
         allreservePanel.add(cancelPanel);
 
@@ -212,19 +226,30 @@ public class Main_user implements ActionListener {
 
         bordercalen.setBackground(new Color(255,238, 227));
 
-        empty.add(bordercalen, BorderLayout.CENTER);
+        empty.add(border, BorderLayout.CENTER);
         empty.add(line4, BorderLayout.SOUTH);
         empty.setBackground(new Color(0xFEEE3A8));
 
-        border1.setBackground(new Color(255,238, 227));
-        border2.setBackground(new Color(255,238, 227));
-        border3.setBackground(new Color(255,238, 227));
-        border4.setBackground(new Color(255,238, 227));
+        edit1.add(empty, BorderLayout.CENTER);
+        edit1.add(edit2, BorderLayout.NORTH);
+        edit1.add(edit3, BorderLayout.EAST);
+        edit1.add(edit4, BorderLayout.SOUTH);
+        edit1.add(edit5, BorderLayout.WEST);
 
-        border1.setPreferredSize(new Dimension(200,200));
-        border2.setPreferredSize(new Dimension(70,200));
-        border3.setPreferredSize(new Dimension(200,200));
-        border4.setPreferredSize(new Dimension(70,200));
+        edit2.setPreferredSize(new Dimension(200,150));
+        edit3.setPreferredSize(new Dimension(50,200));
+        edit4.setPreferredSize(new Dimension(200,200));
+        edit5.setPreferredSize(new Dimension(50,150));
+
+        border1.setBackground(new Color(0xFEE3A8));
+        border2.setBackground(new Color(0xFEE3A8));
+        border3.setBackground(new Color(0xFEE3A8));
+        border4.setBackground(new Color(0xFEE3A8));
+
+        border1.setPreferredSize(new Dimension(20,20));
+        border2.setPreferredSize(new Dimension(20,20));
+        border3.setPreferredSize(new Dimension(20,20));
+        border4.setPreferredSize(new Dimension(20,20));
 
         pl1 = new JPanel(new BorderLayout());
         pl2 = new JPanel(new GridLayout(1, 7));
@@ -244,6 +269,8 @@ public class Main_user implements ActionListener {
         space5.setBackground(Color.white);
         pl2.setBackground(Color.white);
 
+        border.add(bordercalen);
+        border.setPreferredSize(new Dimension(700,700));
         bordercalen.add(pl1, BorderLayout.CENTER);
         bordercalen.add(border1, BorderLayout.NORTH);
         bordercalen.add(border2, BorderLayout.EAST);
@@ -271,17 +298,35 @@ public class Main_user implements ActionListener {
         colorL.add(ex1, BorderLayout.NORTH); 
         colorL.add(pn, BorderLayout.CENTER);
         //right
-        colorR.add(empty, BorderLayout.CENTER);
+        colorR.add(edit1, BorderLayout.CENTER);
 
-        main.setSize(1000, 850);
         main.add(colorL, BorderLayout.WEST);
         main.add(colorR, BorderLayout.CENTER);
+
+        nameLabel.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        petnameLabel.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        typeLabel.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        breedLabel.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        dateLabel.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        sexLabel.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        ageLabel.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        weightLabel.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        callLabel.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        mailLabel.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        addressLabel.setFont(new Font("Tahoma", Font.PLAIN, 13));
+
+        edit.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        history.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        logout.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        reserve.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        cancel.setFont(new Font("Tahoma", Font.PLAIN, 15));
 
         fr.add(main);
         fr.setResizable(false);
         fr.setDefaultCloseOperation(fr.EXIT_ON_CLOSE);
         fr.setSize(1200, 950);
         fr.setVisible(true);
+        fr.setLocationRelativeTo(null);
 
         // AddListener
         edit.addActionListener(this);
@@ -324,6 +369,7 @@ public class Main_user implements ActionListener {
             if (cal.get(Calendar.MONTH) == month) {
                 boxes[i].setText(String.valueOf(dayOfMonth));
                 dayOfMonth++;
+                
             }
             else {
                 boxes[i].setText("");
@@ -345,18 +391,22 @@ public class Main_user implements ActionListener {
             int dayOfMonth = cal.get(Calendar.DAY_OF_MONTH);
             JTextField textField = new JTextField(String.valueOf(dayOfMonth));
             textField.setEditable(false);
+
             
             if (cal.get(Calendar.MONTH) != currentMonth) {
                 textField.setBackground(Color.LIGHT_GRAY);
             } else {
                 if (dayOfMonth == Calendar.getInstance().get(Calendar.DAY_OF_MONTH)) {
                     textField.setBackground(Color.RED);
+                }else {
+                    textField.setBackground(Color.white);
                 }
             }
     
             boxes[i] = textField;
             pl3.add(boxes[i]);
             cal.add(Calendar.DAY_OF_MONTH, 1);
+            
         }
     
         String[] dayNames = {"SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"};
@@ -374,9 +424,11 @@ public class Main_user implements ActionListener {
         if (e.getSource().equals(edit)) {
             fr.dispose();
             new edit_register();
-        } else if (e.getSource().equals(history)) {
+        }else if (e.getSource().equals(reserve)) {
+            new Reservation();
+        }else if (e.getSource().equals(history)) {
 
-        } else if (e.getSource().equals(logout)) {
+        }else if (e.getSource().equals(logout)) {
 
         }
     }

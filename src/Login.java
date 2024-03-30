@@ -161,6 +161,7 @@ panel_space4, panel_space5, panel_space6, panel_space7, panel_space8, panel_spac
         fr.setSize(1000, 700);
         fr.setResizable(false);
         fr.setVisible(true);
+        fr.setLocationRelativeTo(null);
 
         register.addActionListener(this);
         button_login.addActionListener(this);

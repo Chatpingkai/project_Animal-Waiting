@@ -56,14 +56,13 @@ public class BatheAndCutHair implements ActionListener{
         panelGenderA.setBackground(new Color(0xFFEEE3));
         panelChronicDisease.setBackground(new Color(0xFFEEE3));
 
-        //Jbutton
         panelbutton = new JPanel(new FlowLayout(FlowLayout.LEFT));
         panelbutton.setBackground(new Color(0xFFEEE3));
         Treatment = new JButton("ค่าใช้จ่าย");
         JLabel empty1 = new JLabel("                 ");
         Treatment.setPreferredSize(new Dimension(100, 30));
         Treatment.setFont(new Font("Tahoma", Font.PLAIN, 15));
-//        Treatment.setBounds(420, 120, 100, 40);
+
         panelbutton.add(empty1);
         panelbutton.add(Treatment);
         
@@ -90,25 +89,25 @@ public class BatheAndCutHair implements ActionListener{
         chronicDisease.setFont(new Font(historyA_t.getFont().getName(), Font.PLAIN, 16));
         
         textNameOw = new JTextField("",25);
-        textNameOw.setPreferredSize(new Dimension(200, 20));
+        textNameOw.setPreferredSize(new Dimension(200, 25));
         
         textNameAn = new JTextField("", 12);
-        textNameAn.setPreferredSize(new Dimension(200, 20));
+        textNameAn.setPreferredSize(new Dimension(200, 25));
         
         textTypeA = new JTextField("", 13);
-        textTypeA.setPreferredSize(new Dimension(200, 20));
+        textTypeA.setPreferredSize(new Dimension(200, 25));
         
         textSpecies = new JTextField("", 13);
-        textSpecies.setPreferredSize(new Dimension(200, 20));
+        textSpecies.setPreferredSize(new Dimension(200, 25));
         
         textAgeA = new JTextField("", 10);
-        textAgeA.setPreferredSize(new Dimension(200, 20));
+        textAgeA.setPreferredSize(new Dimension(200, 25));
         
         textGenderA = new JTextField("", 8);
-        textGenderA.setPreferredSize(new Dimension(200, 20));
+        textGenderA.setPreferredSize(new Dimension(200, 25));
         
         textChronicDisease = new JTextField("", 31);
-        textChronicDisease.setPreferredSize(new Dimension(200, 20));
+        textChronicDisease.setPreferredSize(new Dimension(200, 25));
         
         textNameOw.setBackground(white);
         textNameAn.setBackground(white);
@@ -175,20 +174,18 @@ public class BatheAndCutHair implements ActionListener{
         descripempty = new JLabel("                  ");
         
         textshower = new JTextField("", 20);
-        textshower.setPreferredSize(new Dimension(200, 20));
+        textshower.setPreferredSize(new Dimension(200, 25));
         
         textcutHair = new JTextField("", 20);
-        textcutHair.setPreferredSize(new Dimension(200, 20));
+        textcutHair.setPreferredSize(new Dimension(200, 25));
         
         tdescrip = new JTextArea();
         tdescrip.setFont(new Font("Tahoma", Font.PLAIN, 15));
         scroll = new JScrollPane(tdescrip);
-//        scroll.setViewportView(tdescrip);
         tdescrip.setLineWrap(true);
         scroll.setPreferredSize(new Dimension(400, 60));
         scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-       
-        
+
         textshower.setBackground(white);
         textshower.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         textshower.setBackground(white);
@@ -202,15 +199,9 @@ public class BatheAndCutHair implements ActionListener{
         panelExpenses.add(panelShower, BorderLayout.NORTH); panelExpenses.add(panelCutHair, BorderLayout.CENTER);
         panelExpenses.add(paneldescrip, BorderLayout.SOUTH);
         panelAllExpenses.add(panelExpenses_t, BorderLayout.NORTH); panelAllExpenses.add(panelExpenses, BorderLayout.CENTER);
-        
-// 
-        
-        
 
         paneladdButton = new JPanel(new BorderLayout());
         paneladdButton.add(panelAllExpenses, BorderLayout.NORTH); paneladdButton.add(panelbutton, BorderLayout.CENTER);
-
-        
 
         panelAll.add(panelAllHistory, BorderLayout.NORTH); panelAll.add(paneladdButton, BorderLayout.CENTER);
         frame.add(panelAll);
@@ -219,8 +210,8 @@ public class BatheAndCutHair implements ActionListener{
         frame.setSize(650, 550);
         frame.setLocationRelativeTo(null);
         Treatment.addActionListener(this);
-
     }
+
     @Override
     public void actionPerformed(ActionEvent ev) {
         if (ev.getSource().equals(Treatment)) {

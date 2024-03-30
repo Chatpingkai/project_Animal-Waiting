@@ -5,6 +5,8 @@ import java.awt.event.*;
 import java.util.Properties;
 import org.jdatepicker.JDatePicker;
 import org.jdatepicker.UtilDateModel;
+import back.RegisterBackend;
+import back.Connec_table;
 
 public class Register implements ActionListener{
     private JFrame fr_register;
@@ -772,6 +774,7 @@ circle_pet_female, circle_idk;
         panel_main.setBackground(new Color(0xFFEEE3));
         fr_register.setSize(1000, 950);
         fr_register.setVisible(true);
+        fr_register.setLocationRelativeTo(null);
         fr_register.setResizable(false);
     }
     public static void main(String[] args){
@@ -787,8 +790,59 @@ circle_pet_female, circle_idk;
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == button_submit){
-            fr_register.dispose();
-            new Login();
+            String sexP = "other";
+            String sexPet = "don't know";
+            if(this.circle_male.isSelected()) { sexP = "male"; } 
+            else if (this.circle_female.isSelected()) { sexP = "female";}
+            else if (this.circle_other.isSelected()) { sexP = "other"; }
+            else if (this.circle_male_pet.isSelected()) { sexPet = "male"; }
+            else if (this.circle_pet_female.isSelected()) { sexPet = "female"; }
+            else if (this.circle_idk.isSelected()) { sexPet = "don't know"; }
+            char[] passwordChars = box_password.getPassword();
+            String password = new String(passwordChars);
+            char[] confirmChars = box_confirm.getPassword();
+            String confirm = new String(confirmChars);
+            if (password.equals(confirm)) {
+                System.out.println("Yes");
+                RegisterBackend rb = new RegisterBackend(
+                        this.box_title.getSelectedItem()+"",
+                        this.box_name.getText(),
+                        this.box_lastname.getText(),
+                        this.box_ethnicity.getText(),
+                        this.box_nation.getText(),
+                        this.box_religion.getText(),
+                        sexP,
+                        this.box_name_pet.getText(),
+                        this.box_type.getText(),
+                        this.box_species.getText(),
+                        sexPet,
+                        box_birthday.getModel().getYear()+"-"+box_birthday.getModel().getMonth()+"-"+box_birthday.getModel().getDay()+"",
+                        Double.parseDouble(this.box_weight.getText()),
+                        this.box_disease.getText(),
+                        Integer.parseInt(this.box_ageyear.getText()),
+                        Integer.parseInt(this.box_agemonth.getText()),
+                        this.box_raising.getText(),
+                        this.box_place.getText(),
+                        this.box_addres.getText(),
+                        this.box_alley.getText(),
+                        this.box_no.getText(),
+                        this.box_road.getText(),
+                        this.box_Sub_district.getText(),
+                        this.box_District.getText(),
+                        this.box_province.getText(),
+                        this.box_postal.getText(),
+                        this.box_phone.getText(),
+                        this.box_email.getText(),
+                        this.box_note.getText(),
+                        this.box_user.getText(),
+                        password
+                );
+                rb.writeDB();
+                fr_register.dispose();
+                new Login();
+            } else {
+                System.out.println("Password not match!");
+            }
         }
     }
 }

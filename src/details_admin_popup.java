@@ -1,16 +1,18 @@
 
+import back.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.*;;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-
-import org.jdatepicker.JDatePicker;
 import org.jdatepicker.UtilDateModel;
 
-public class details_admin_popup implements ActionListener{
+public class details_admin_popup implements ActionListener, MouseListener{
     private JFrame fr;
     private JPanel panel_main, panel_history, panel_his_north, panel_his_center, panel_his1, panel_his2, 
 panel_his3, panel_his4, panel_his5, panel_his6, panel_his7, panel_date, panel_txt_date, 
@@ -25,16 +27,27 @@ txt_disease, txt_date, txt_treatment, txt_name_docter, txt_symptom, txt_diagnose
 txt_opinion, txt_note, txt_med , txt_plus, txt;
     private JTextField box_name, box_name_pet, box_type, box_breed, box_age, box_gender, 
 box_disease, box_name_docter, box_symptom, box_diagnose, box_trestment_method, 
-box_opinion, box_note ,box_plus;
+box_opinion, box_note ,box_plus, box_date;
     private JButton button_plus, button_minus, button_next;
-    private JDatePicker box_date;
+//    private JDatePicker box_date;
     private UtilDateModel models;
+    private DefaultTableModel model;
     private JComboBox cbmed;
-
-    public details_admin_popup(){
+    private JTable table;
+    private Customer customer;
+    private CureReipt cure_r;
+    private All_Med<Med> all_med;
+    private ArrayList<String[]> select_med;
+    private Map<String, Med> map = new HashMap<String, Med>();
+    private Ranmdom wordcode = new Ranmdom();
+    private int introw;
+    public details_admin_popup(CureReipt cure_r){
+        this.cure_r = cure_r;
+        this.customer = cure_r.getCustomer();
+        select_med = new ArrayList<String[]>();
         fr = new JFrame("การรักษา");
         fr.setLayout(new GridLayout(1, 1));
-        fr.setDefaultCloseOperation(fr.EXIT_ON_CLOSE);
+        fr.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         txt_history_pet = new JLabel("   ประวัติสัตว์เลี้ยง");
         txt_name = new JLabel("         ชื่อลูกค้า ");
@@ -92,10 +105,7 @@ box_opinion, box_note ,box_plus;
         panel_but2.setBackground(new Color(0xFFEEE3));
         
         cbmed = new JComboBox();
-        cbmed.addItem("1");
-        cbmed.addItem("2");
-        cbmed.addItem("3");
-        cbmed.addItem("4");
+        setCombobox();
         cbmed.setSelectedItem(null);
         cbmed.setPreferredSize(new Dimension(220, 25));
         
@@ -128,12 +138,8 @@ box_opinion, box_note ,box_plus;
         button_plus.addActionListener(this);
         button_next.addActionListener(this);
 
-        JTable table = new JTable();
-        Object[] columns = {"ชื่อยา", "จำนวน", "ราคา"};
-        DefaultTableModel model = new DefaultTableModel();
-        model.setColumnIdentifiers(columns);
-        
-        table.setModel(model);
+        table = new JTable();
+        setTable();
         
         scroll_table = new JScrollPane(table);
         scroll_table.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
@@ -151,16 +157,14 @@ box_opinion, box_note ,box_plus;
         DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
         renderer.setBackground(new Color(0xFFE3A8));
         table.setDefaultRenderer(Object.class, renderer);
+        table.addMouseListener(this);
         
-        for(int i=0; i <=20; i++){
-            model.addRow(new Object[4]);
-        }
         
         table.setDefaultEditor(Object.class, null);
         scroll_table.setPreferredSize(new Dimension(50, 200));
 
         models = new UtilDateModel();
-        box_date = new JDatePicker(models);
+        box_date = new JTextField();
 
         panel_main = new JPanel();
         panel_history = new JPanel();
@@ -435,7 +439,7 @@ box_opinion, box_note ,box_plus;
         panel_help10.setBackground(new Color(0xFFEEE3));
         panel_help11.setBackground(new Color(0xFFEEE3));
         panel_button_jingjing.setBackground(new Color(0xFFEEE3));
-
+        setText();
         fr.setSize(650, 700);
         fr.setVisible(true);
         fr.setResizable(false);
@@ -447,14 +451,95 @@ box_opinion, box_note ,box_plus;
             e.printStackTrace();
             }
             SwingUtilities.invokeLater(() -> { 
-                details_admin_popup frame = new details_admin_popup();
+                details_admin_popup frame = new details_admin_popup(new CureReipt(new Customer(1),"Cure_1PCHTU","2567-03-28"));
             });
     }
     @Override
     public void actionPerformed(ActionEvent e){
         if (e.getSource() == button_next){
             fr.dispose();
+//            cure_r.updatedb();
             new doctor_popup();
+        }else if (e.getSource().equals(button_plus)){
+            Med use = map.get(cbmed.getSelectedItem());
+            int want =  Integer.parseInt(box_plus.getText());
+                if (use.getAmount() >= want){
+                    use.setAmount(use.getAmount()-want);
+                    String[] s = {use.getFullName(),want+"",want*use.getPrice()+""};
+                    select_med.add(s);
+                    String code = use.getFullName()+wordcode.rcode();
+                    Med_code med_code = new Med_code(use, code);
+                    cure_r.getCode_med().add(med_code);
+                    box_plus.setText("");
+                    cbmed.setSelectedItem(null);
+                }
+            setTable();
+        }else if(e.getSource().equals(button_minus)){
+            String[] delete = select_med.get(introw);
+            Med del_med = map.get(delete[0]);
+            del_med.setAmount(del_med.getAmount()+Double.parseDouble(delete[1]));
+            select_med.remove(introw);
+            setTable();
         }
+    }
+
+    public void setText() {
+        Pet pet = customer.getPet();
+        box_name.setText(customer.getFirstName());
+        box_name_pet.setText(pet.getName());
+        box_type.setText(pet.getType());
+        box_breed.setText(pet.getSpicies());
+        box_age.setText(pet.getAge()+"");
+        box_gender.setText(pet.getSex());
+        box_disease.setText(pet.getDisease());
+        box_date.setText(cure_r.getDate());
+        box_name.setEditable(false);
+        box_name_pet.setEditable(false);
+        box_type.setEditable(false);
+        box_breed.setEditable(false);
+        box_age.setEditable(false);
+        box_gender.setEditable(false);
+        box_disease.setEditable(false);
+        box_date.setEditable(false);
+        System.out.println(cure_r.getType_code());
+    }
+    
+    public void setCombobox(){
+        all_med = new All_Med<Med>();
+        ArrayList<Med> array_med = all_med.getA_med();
+        for (Med use : array_med) {
+            map.put(use.getFullName(), use);
+            cbmed.addItem(use.getFullName());
+        }
+    }
+    public void setTable(){
+        Object[] columns = {"ชื่อยา", "จำนวน", "ราคา"};
+        model = new DefaultTableModel();
+        model.setColumnIdentifiers(columns);
+        for (String[] selec : select_med) {
+            model.addRow(selec);
+        }
+        table.setModel(model);
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        introw = table.rowAtPoint(e.getPoint());
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
     }
 }

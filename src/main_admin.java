@@ -15,7 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.event.*;
 
-public class main_admin extends JInternalFrame implements MouseInputListener{
+public class main_admin extends JInternalFrame implements MouseInputListener, ActionListener{
     private JPanel panel_left, panel_right, panel_left1, panel_calendar, 
 panel_left2, panel_left3, panel_left4, panel_left5, panel_left6, panel_space1, 
 panel_right1, panel_right2, panel_right3, panel_right_button, panel_space, 
@@ -27,15 +27,18 @@ panel_space2;
     private ImageIcon profile, resizedImageIcon, roundedIcon;
     private Main_MDI main;
     private Connec_table tabledb;
-    private String today;
+    private String today,code;
     private Map<String, String> queue;
     private Map<String, String[]> datahistory;
     private String[] work = {"10:00-11:00", "11:00-12:00", "12:00-13:00", "13:00-14:00", "14:00-15:00", "15:00-16:00", "16:00-17:00", "17:00-18:00", "18:00-19:00", "19:00-20:00"};
     private int introw;
     private Ranmdom wordcode = new Ranmdom();
     private ResultSet rs;
+    private details_admin_popup details;
+    private Customer customer;
+    private CureReipt cure_r;
     public main_admin() {
-        super("Animal-Waiting", false, true, false, true);
+        super("Animal-Waiting", false, false, false, true);
         today = String.format("%d-%02d-%02d", Datetoday.date.getYear()+543,Datetoday.date.getMonthValue(),Datetoday.date.getDayOfMonth());
         try {
             setQueue(today);
@@ -73,21 +76,8 @@ panel_space2;
         button_history = new JButton("เวชระเบียน");
         button_logout = new JButton("Logout");
 
-        button_medicine.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                openInternalFrame(new Medicinehome());
-                button_medicine.setEnabled(false);
-            }
-        });
-
-        button_history.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                openInternalFrame(new Patient_history());
-                button_medicine.setEnabled(false);
-            }
-        });
+        button_medicine.addActionListener(this);
+        button_history.addActionListener(this);
 
         button_medicine.setFont(new Font("Tahoma", Font.PLAIN, 15));
         button_history.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -173,7 +163,6 @@ panel_space2;
 
         getContentPane().add(panel_left, BorderLayout.WEST);
         getContentPane().add(panel_right, BorderLayout.CENTER);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1000, 550);
         setLocation(470, 200);
         setVisible(true);
@@ -182,6 +171,7 @@ panel_space2;
     public static void main(String[] args) {
         new main_admin();
     }
+
     private ImageIcon resizeImageIcon(ImageIcon originalIcon, int width, int height) {
         Image img = originalIcon.getImage();
         Image resizedImg = img.getScaledInstance(width, height, Image.SCALE_SMOOTH);
@@ -199,6 +189,17 @@ panel_space2;
 
         g2.dispose();
         return new ImageIcon(image);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == button_medicine){
+            openInternalFrame(new Medicinehome());
+            button_medicine.setEnabled(false);
+        }else if (e.getSource() == button_history){
+            openInternalFrame(new Patient_history());
+            button_history.setEnabled(false);
+        }
     }
 
     private void openInternalFrame(JInternalFrame internalFrame) {
@@ -234,18 +235,23 @@ panel_space2;
         rs = tabledb.getData(sql);
         try {
             if(rs.next()){
+                code = rs.getString("Type_Code");
                 System.out.println(rs.getString("Type_Code")); 
                 tabledb.Discon();
             }else{
                 tabledb.Discon();
+                code = datahistory.get(work[introw])[2]+"_"+datahistory.get(work[introw])[1]+wordcode.rcode();
                 sql = String.format("INSERT INTO History (ID, Detail, Type, Time, Type_Code, Date) VALUES('%s', '%s', '%s', '%s', '%s', '%s')",
-                   datahistory.get(work[introw])[1],datahistory.get(work[introw])[0],datahistory.get(work[introw])[2],work[introw],datahistory.get(work[introw])[2]+"_"+datahistory.get(work[introw])[1]+wordcode.rcode()
+                   datahistory.get(work[introw])[1],datahistory.get(work[introw])[0],datahistory.get(work[introw])[2],work[introw],code
                 ,"2567-03-28");
                 System.out.println(sql);
                 tabledb = new Connec_table();
                 tabledb.UpdateData(sql);
                 tabledb.Discon();
             }
+            customer = new Customer(Integer.parseInt(datahistory.get(work[introw])[1]));
+            cure_r = new CureReipt(customer, code,"2567-03-28");
+            details = new details_admin_popup(cure_r);
         } catch (SQLException ex) {
         }
         
