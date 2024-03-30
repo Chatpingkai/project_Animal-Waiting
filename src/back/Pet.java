@@ -10,7 +10,7 @@ public class Pet {
     private String birth;
     private String sex;
     private String disease;
-    private int age;
+    private String age;
     private double weight;
     private String treat;
     private String place;
@@ -22,7 +22,7 @@ public class Pet {
         birth = "";
         sex = "";
         disease = "";
-        age = 0;
+        age = "";
         weight = 0;
         treat = "";
         place = "";
@@ -40,7 +40,7 @@ public class Pet {
                     this.birth = rs.getString("Birth");
                     this.sex = rs.getString("Sex");
                     this.disease = rs.getString("Disease");
-                    this.age = rs.getInt("Age");
+                    this.age = rs.getString("Age");
                     this.weight = rs.getInt("Weight");
                     this.treat = rs.getString("Treat");
                     this.place = rs.getString("Place");
@@ -87,10 +87,10 @@ public class Pet {
     public void setdisease(String disease){
         this.disease = disease;
     }
-    public int getAge(){
+    public String getAge(){
         return age;
     }
-    public void setAge(int age){
+    public void setAge(String age){
         this.age = age;
     }
     public double getWeight(){

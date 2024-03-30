@@ -41,6 +41,7 @@ box_opinion, box_note ,box_plus, box_date;
     private Map<String, Med> map = new HashMap<String, Med>();
     private Ranmdom wordcode = new Ranmdom();
     private int introw;
+    private doctor_popup nextpop;
     public details_admin_popup(CureReipt cure_r){
         this.cure_r = cure_r;
         this.customer = cure_r.getCustomer();
@@ -458,8 +459,13 @@ box_opinion, box_note ,box_plus, box_date;
     public void actionPerformed(ActionEvent e){
         if (e.getSource() == button_next){
             fr.dispose();
-//            cure_r.updatedb();
-            new doctor_popup();
+            cure_r.setVeterinary(box_name_docter.getText());
+            cure_r.setSymptom(box_symptom.getText());
+            cure_r.setDiagnose(box_diagnose.getText());
+            cure_r.setCure(box_trestment_method.getText());
+            cure_r.setRecom(box_opinion.getText());
+            cure_r.setOther(box_note.getText());
+            nextpop = new doctor_popup(cure_r);
         }else if (e.getSource().equals(button_plus)){
             Med use = map.get(cbmed.getSelectedItem());
             int want =  Integer.parseInt(box_plus.getText());
@@ -468,8 +474,9 @@ box_opinion, box_note ,box_plus, box_date;
                     String[] s = {use.getFullName(),want+"",want*use.getPrice()+""};
                     select_med.add(s);
                     String code = use.getFullName()+wordcode.rcode();
-                    Med_code med_code = new Med_code(use, code);
+                    Med_code med_code = new Med_code(use, code,want);
                     cure_r.getCode_med().add(med_code);
+                    cure_r.setP_med(cure_r.getP_med()+want*use.getPrice());
                     box_plus.setText("");
                     cbmed.setSelectedItem(null);
                 }
@@ -478,6 +485,8 @@ box_opinion, box_note ,box_plus, box_date;
             String[] delete = select_med.get(introw);
             Med del_med = map.get(delete[0]);
             del_med.setAmount(del_med.getAmount()+Double.parseDouble(delete[1]));
+            cure_r.getCode_med().remove(introw);
+            cure_r.setP_med(cure_r.getP_med()-Double.parseDouble(delete[2]));
             select_med.remove(introw);
             setTable();
         }

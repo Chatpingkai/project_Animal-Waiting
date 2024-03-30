@@ -30,7 +30,7 @@ panel_space2;
     private String today,code;
     private Map<String, String> queue;
     private Map<String, String[]> datahistory;
-    private String[] work = {"10:00-11:00", "11:00-12:00", "12:00-13:00", "13:00-14:00", "14:00-15:00", "15:00-16:00", "16:00-17:00", "17:00-18:00", "18:00-19:00", "19:00-20:00"};
+    private String[] work = {"10:00 - 11:00", "11:00 - 12:00", "12:00 - 13:00", "13:00 - 14:00", "14:00 - 15:00", "15:00 - 16:00", "16:00 - 17:00", "17:00 - 18:00", "18:00 - 19:00", "19:00 - 20:00"};
     private int introw;
     private Ranmdom wordcode = new Ranmdom();
     private ResultSet rs;
@@ -112,10 +112,10 @@ panel_space2;
         panel_calendar.add(calendar);
 
         // สร้างตาราง
-        String[][] data = {{"10:00 - 11:00", queue.get("10:00-11:00")}, {"11:00 - 12:00", queue.get("11:00-12:00")}, 
-{"12:00 - 13:00", queue.get("12:00-13:00")}, {"13:00 - 14:00", "พัก"}, {"14:00 - 15:00", queue.get("14:00-15:00")},       
-{"15:00 - 16:00", queue.get("15:00-16:00")}, {"16:00 - 17:00", queue.get("16:00-17:00")}, {"17:00 - 18:00", queue.get("17:00-18:00")}, 
-{"18:00 - 19:00", queue.get("18:00-19:00")}, {"19:00 - 20:00", queue.get("19:00-20:00")}};
+        String[][] data = {{"10:00 - 11:00", queue.get("10:00 - 11:00")}, {"11:00 - 12:00", queue.get("11:00 - 12:00")}, 
+{"12:00 - 13:00", queue.get("12:00 - 13:00")}, {"13:00 - 14:00", "พัก"}, {"14:00 - 15:00", queue.get("14:00 - 15:00")},       
+{"15:00 - 16:00", queue.get("15:00 - 16:00")}, {"16:00 - 17:00", queue.get("16:00 - 17:00")}, {"17:00 - 18:00", queue.get("17:00 - 18:00")}, 
+{"18:00 - 19:00", queue.get("18:00 - 19:00")}, {"19:00 - 20:00", queue.get("19:00 - 20:00")}};
         String[] columnNames = {"เวลา", "รายละเอียด"};
         table = new JTable(data, columnNames);
         table.setRowHeight(30);
@@ -217,7 +217,7 @@ panel_space2;
         queue = new HashMap<String, String>();
         datahistory = new HashMap<String, String[]>();
         tabledb = new Connec_table();
-        String sql = String.format("SELECT * FROM Reserve where date = '2567-03-28' ORDER BY Time ASC");
+        String sql = String.format("SELECT * FROM Reserve where date = '%s' ORDER BY Time ASC",today);
         rs = tabledb.getData(sql);
         while (rs.next()) {
             String[] s = {rs.getString("Details"),rs.getString("ID"),rs.getString("Type")};
@@ -231,7 +231,7 @@ panel_space2;
     public void mouseClicked(MouseEvent e) {
         introw = table.rowAtPoint(e.getPoint());
         tabledb = new Connec_table();
-        String sql = String.format("SELECT * FROM History where id = '%s' and time = '%s'and date = '2567-03-28'",datahistory.get(work[introw])[1],work[introw]);
+        String sql = String.format("SELECT * FROM History where id = '%s' and time = '%s'and date = '%s'",datahistory.get(work[introw])[1],work[introw],today);
         rs = tabledb.getData(sql);
         try {
             if(rs.next()){
@@ -241,17 +241,18 @@ panel_space2;
             }else{
                 tabledb.Discon();
                 code = datahistory.get(work[introw])[2]+"_"+datahistory.get(work[introw])[1]+wordcode.rcode();
-                sql = String.format("INSERT INTO History (ID, Detail, Type, Time, Type_Code, Date) VALUES('%s', '%s', '%s', '%s', '%s', '%s')",
-                   datahistory.get(work[introw])[1],datahistory.get(work[introw])[0],datahistory.get(work[introw])[2],work[introw],code
-                ,"2567-03-28");
+                sql = String.format("INSERT INTO History (ID, Type_Code, Date, Type, Time, Detail) VALUES('%s', '%s', '%s', '%s', '%s', '%s')",
+                   datahistory.get(work[introw])[1],code,today,datahistory.get(work[introw])[2],work[introw],datahistory.get(work[introw])[0]);
                 System.out.println(sql);
                 tabledb = new Connec_table();
                 tabledb.UpdateData(sql);
                 tabledb.Discon();
             }
             customer = new Customer(Integer.parseInt(datahistory.get(work[introw])[1]));
-            cure_r = new CureReipt(customer, code,"2567-03-28");
-            details = new details_admin_popup(cure_r);
+            if (datahistory.get(work[introw])[2].equals("Cure")){
+                cure_r = new CureReipt(customer, code,today+"");
+                details = new details_admin_popup(cure_r);
+            }
         } catch (SQLException ex) {
         }
         

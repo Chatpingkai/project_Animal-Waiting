@@ -93,7 +93,7 @@ public class Medicinehome extends JInternalFrame{
     public void setTable(String sql) throws SQLException{
         table_db = new Connec_table();
         ResultSet rs = table_db.getData(sql);
-        Object[] columns = {"ชื่อสามัญทางยา","ชื่อทางการค้า","รูปแบบ/ขนาด","ราคา","จำนวน","เหลือ","คำแนะนำ"};
+        Object[] columns = {"ชื่อสามัญทางยา","ชื่อทางการค้า","รูปแบบ/ขนาด","ราคา","จำนวน","ข้อบ่งใช้","คำแนะนำ"};
         model = new DefaultTableModel();
         model.setColumnIdentifiers(columns);
         int i =0;
