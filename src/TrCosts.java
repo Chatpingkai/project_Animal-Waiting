@@ -124,55 +124,55 @@ public class TrCosts implements ActionListener {
         
         tpeoplename = new JTextField();
         tpeoplename.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        tpeoplename.setBounds(190, 65, 200, 20);
+        tpeoplename.setBounds(190, 65, 200, 25);
         pa1.add(tpeoplename);
         
         
         tanimalname = new JTextField();
         tanimalname.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        tanimalname.setBounds(490, 65, 200, 20);
+        tanimalname.setBounds(490, 65, 200, 25);
         pa1.add(tanimalname);
         
         
         tcateanimal = new JTextField();
         tcateanimal.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        tcateanimal.setBounds(190, 95, 200, 20);
+        tcateanimal.setBounds(190, 95, 200, 25);
         pa1.add(tcateanimal);
         
         
         ttypeanimal = new JTextField();
         ttypeanimal.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        ttypeanimal.setBounds(490, 95, 200, 20);
+        ttypeanimal.setBounds(490, 95, 200, 25);
         pa1.add(ttypeanimal);
         
         
         tage = new JTextField();
         tage.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        tage.setBounds(190, 125, 200, 20);
+        tage.setBounds(190, 125, 200, 25);
         pa1.add(tage);
         
         
         tgender = new JTextField();
         tgender.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        tgender.setBounds(490, 125, 200, 20);
+        tgender.setBounds(490, 125, 200, 25);
         pa1.add(tgender);
         
         
         tdisea = new JTextField();
         tdisea.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        tdisea.setBounds(190, 155, 200, 20);
+        tdisea.setBounds(190, 155, 200, 25);
         pa1.add(tdisea);
         
         
         tdate = new JTextField();
         tdate.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        tdate.setBounds(210, 225, 220, 20);
+        tdate.setBounds(210, 225, 220, 25);
         pa1.add(tdate);
         
         
         tdocname = new JTextField();
         tdocname.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        tdocname.setBounds(210, 255, 220, 20);
+        tdocname.setBounds(210, 255, 220, 25);
         pa1.add(tdocname);
         
         
@@ -261,7 +261,7 @@ public class TrCosts implements ActionListener {
 //        frhis.getContentPane().add(meddi);
         
         Treatment = new JButton("ค่ารักษา");
-        Treatment.setBounds(610, 710, 100, 25);
+        Treatment.setBounds(610, 710, 100, 40);
         Treatment.setFont(new Font("Tahoma", Font.PLAIN, 14));
         Treatment.addActionListener(this);
         pa1.add(Treatment);
