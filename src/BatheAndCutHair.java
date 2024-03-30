@@ -1,8 +1,11 @@
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import back.*;
+import java.sql.*;
 import static java.awt.Color.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 
 public class BatheAndCutHair implements ActionListener{
@@ -15,20 +18,15 @@ public class BatheAndCutHair implements ActionListener{
     private JTextArea tdescrip;
     private JScrollPane scroll;
     private JButton Treatment;
-
-    public static void main(String[] args) {
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    private Customer customer;
+    private Pet pet;
+    private String type_code,details;
+    private double p_cut, p_shower;
     
-        SwingUtilities.invokeLater(() -> {
-            new BatheAndCutHair();
-        });
-        
-    }
-    public BatheAndCutHair(){
+    public BatheAndCutHair(Customer customer, String type_code){
+        this.customer = customer;
+        this.type_code = type_code;
+        this.pet = customer.getPet();
         frame = new JFrame("สรุป");
         panelAll = new JPanel(new BorderLayout());
         panelAllHistory = new JPanel(new BorderLayout());
@@ -188,7 +186,6 @@ public class BatheAndCutHair implements ActionListener{
 
         textshower.setBackground(white);
         textshower.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        textshower.setBackground(white);
         textcutHair.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         scroll.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         panelExpenses_t.add(expenses);
@@ -204,14 +201,53 @@ public class BatheAndCutHair implements ActionListener{
         paneladdButton.add(panelAllExpenses, BorderLayout.NORTH); paneladdButton.add(panelbutton, BorderLayout.CENTER);
 
         panelAll.add(panelAllHistory, BorderLayout.NORTH); panelAll.add(paneladdButton, BorderLayout.CENTER);
+        setText();
         frame.add(panelAll);
         frame.setVisible(true);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setSize(650, 550);
         frame.setLocationRelativeTo(null);
         Treatment.addActionListener(this);
     }
-
+    public void getdb(){
+        Connec_table tabledb = new Connec_table();
+        String sql = String.format("select * from Groomer where Type_Code = '%s'", type_code);
+        ResultSet rs = tabledb.getData(sql);
+        try {
+            if (rs.next()) {
+                p_cut = rs.getDouble("Cut");
+                p_shower = rs.getDouble("Shower");
+                details = rs.getString("Recom");
+            }
+        } catch (SQLException ex) {
+        }
+        finally{
+           tabledb.Discon(); 
+        }
+    }
+    public void setText(){
+        textNameOw.setText(customer.getFirstName()+" "+customer.getLastName());
+        textNameOw.setEditable(false);
+        textNameAn.setText(pet.getName());
+        textNameAn.setEditable(false);
+        textTypeA.setText(pet.getType());
+        textTypeA.setEditable(false);
+        textSpecies.setText(pet.getSpicies());
+        textSpecies.setEditable(false);
+        textAgeA.setText(pet.getAge());
+        textAgeA.setEditable(false);
+        textChronicDisease.setText(pet.getDisease());
+        textChronicDisease.setEditable(false);
+        textGenderA.setText(pet.getSex());
+        textGenderA.setEditable(false);
+        getdb();
+        textcutHair.setText(p_cut+"");
+        textcutHair.setEditable(false);
+        textshower.setText(p_shower+"");
+        textshower.setEditable(false);
+        tdescrip.setText(details);
+        tdescrip.setEditable(false);
+    }
     @Override
     public void actionPerformed(ActionEvent ev) {
         if (ev.getSource().equals(Treatment)) {

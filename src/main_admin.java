@@ -209,6 +209,7 @@ panel_space2;
         internalFrame.addInternalFrameListener(new InternalFrameAdapter() {
         @Override
         public void internalFrameClosing(InternalFrameEvent e) {
+            button_history.setEnabled(true);
             button_medicine.setEnabled(true);
             }
         });

@@ -16,7 +16,7 @@ public class Usage_history extends JInternalFrame implements MouseListener{
     private ArrayList<String> data;
     private ArrayList<String> date_data;
     private int id;
-    private int introw;
+    private int introw, intcol;
     public Usage_history(){
         super("Animal-Waiting", false, true, false, true);
         this.id = 0;
@@ -146,8 +146,14 @@ public class Usage_history extends JInternalFrame implements MouseListener{
     public void mouseClicked(MouseEvent e) {
         if (e.getClickCount() == 2) {
             introw = table.rowAtPoint(e.getPoint());
+            intcol = 1;
+            String selectedData = (String) table.getValueAt(introw, intcol);
             Customer customer = new Customer(id);
-            new TrCosts(customer, data.get(introw), date_data.get(introw));
+            if(selectedData.equals("Cure")){
+                new TrCosts(customer, data.get(introw), date_data.get(introw));
+            }else{
+                new BatheAndCutHair(customer,data.get(introw));
+            }
         }
 }
 
