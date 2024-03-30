@@ -99,12 +99,13 @@ public class RegisterBackend {
     }
     
     public void writeDB() {
+        //Table User_id
         hashPass = this.hash(this.password);
         String sql = String.format("INSERT INTO User_id (username, password) VALUES('%s', '%s')",this.username, hashPass);
         String get = String.format("SELECT * FROM User_id WHERE username = '%s'", username);
         Connec_table ct = new Connec_table();
         int id = 0;
-        ct.UpdateData(sql);
+        ct.UpdateData(sql); //===========================================================================================
         try {
             ResultSet rs = ct.getData(get);
             System.out.println(rs.next());
@@ -112,10 +113,27 @@ public class RegisterBackend {
             System.out.println("Yes id = "+id);
         } catch (SQLException ex) {}
         System.out.println(id);
-        String sql2 = String.format("UPDATE User_Profile SET Name = '%s', Last = '%s', B_name = '%s', Sex = '%s', Nation = '%s', Ethnicity = '%s', Religion = '%s', Contact = '%s', Phone = '%s', Email = '%s', Other = '%s' WHERE ID = '%d'",
-                name, lastname, nameTitle, sex, nationality, ethnicity, religion, address, phoneNumber, email, note, id
-        );
-        ct.UpdateData(sql2);
         ct.Discon();
+        
+        //Table User_Profile
+        Connec_table ctPro = new Connec_table();
+        String getID = String.format("SELECT * FROM User_Profile WHERE ID = '%s'", id);
+        try {
+            ResultSet rs = ctPro.getData(getID);
+            System.out.println(rs.next());
+            System.out.println(rs.getString("ID").getClass());
+            String update = String.format(
+                "UPDATE User_Profile SET Name = '%s', Last = '%s', B_name = '%s', Sex = '%s', Nation = '%s', Ethnicity = '%s', Religion = '%s', Contact = '%s', Phone = '%s', Email = '%s', Other = '%s' WHERE ID = '%d'",
+                name, lastname, nameTitle, sex, nationality, ethnicity, religion, address, phoneNumber, email, note, id);
+            ctPro.UpdateData(update);
+            System.out.println("Updated");
+        } catch (SQLException ex) {
+            String insert = String.format(
+                "INSERT INTO User_Profile (Name, Last, B_name, Sex, Nation, Ethnicity, Religion, Contact, Phone, Email, Other, ID) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%d')",
+                name, lastname, nameTitle, sex, nationality, ethnicity, religion, address, phoneNumber, email, note, id);
+            ctPro.UpdateData(insert);
+            System.out.println("Inserted");
+        }
+        ctPro.Discon();
     }
 }
