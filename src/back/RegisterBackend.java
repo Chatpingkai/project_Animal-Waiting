@@ -5,6 +5,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.PreparedStatement;
 
 /**
  *
@@ -100,7 +101,8 @@ public class RegisterBackend {
     
     public void writeDB() {
         //Table User_id
-        hashPass = this.hash(this.password);
+        hash h = new hash();
+        hashPass = h.doHash(this.password);
         String sql = String.format("INSERT INTO User_id (username, password) VALUES('%s', '%s')",this.username, hashPass);
         String get = String.format("SELECT * FROM User_id WHERE username = '%s'", username);
         Connec_table ct = new Connec_table();
@@ -117,7 +119,7 @@ public class RegisterBackend {
         
         //Table User_Profile
         Connec_table ctPro = new Connec_table();
-        String getID = String.format("SELECT * FROM User_Profile WHERE ID = '%s'", id);
+        String getID = String.format("SELECT * FROM User_Profile WHERE ID = '%d'", id);
         try {
             ResultSet rs = ctPro.getData(getID);
             System.out.println(rs.next());
@@ -134,6 +136,18 @@ public class RegisterBackend {
             ctPro.UpdateData(insert);
             System.out.println("Inserted");
         }
-        ctPro.Discon();
+        ct.Discon();
+        
+        //Table Pet
+        Connec_table ctPet = new Connec_table();
+        String age = ageYear+"."+ageMonth;
+        String insertPet = String.format(
+            "INSERT INTO Pet (Name, Type, Spicies, Birth, Sex, Disease, Age, Weight, Treat, Place, ID) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')",
+            petName, petType, breed, petBirthday, petSex, chronicDisease, age, petWeight, animalHusbandry, place, id);
+        ctPet.UpdateData(insertPet);
+        System.out.println("Inserted Pet");
+        
+        //disconnect database
+        ctPro.Discon(); 
     }
 }

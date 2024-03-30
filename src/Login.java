@@ -1,8 +1,12 @@
+import back.Connec_table;
+import back.hash;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class Login implements ActionListener {
 
@@ -23,9 +27,10 @@ panel_space4, panel_space5, panel_space6, panel_space7, panel_space8, panel_spac
         fr.setLayout(new BorderLayout());
 
         //BorderLayout.WEST
-        imagepage = new ImageIcon(System.getProperty("user.dir")+"/src/test.jpg");
+        imagepage = new ImageIcon(System.getProperty("user.dir")+"/src/test6.jpg");
         imagLabel = new JLabel(imagepage);
         imagLabel.setPreferredSize(new Dimension(300, 200));
+        imagLabel.setLocation(10,70);
 
         //Head Line
         imagelogo = new ImageIcon(System.getProperty("user.dir")+"/src/test.jpg");
@@ -188,9 +193,31 @@ panel_space4, panel_space5, panel_space6, panel_space7, panel_space8, panel_spac
     
     @Override
     public void actionPerformed(ActionEvent ev) {
+        String userName, passWord, testUsername, testPassword;
+        Connec_table ct = new Connec_table();
+        ResultSet rs = null;
+        hash h = new hash();
         if (ev.getSource() == button_login) {
-            if (usernameField.getText().equals("admin")) {
-                new main_admin();
+            userName = usernameField.getText();
+            passWord = new String(passwordField.getPassword());
+            passWord = h.doHash(passWord);
+            String get = String.format("SELECT * FROM User_id WHERE username = '%s' and password = '%s'", userName, passWord);
+            try {
+                rs = ct.getData(get);
+                if (rs.next()) {
+                    System.out.println("In");
+                    ct.Discon();
+                    if (userName.equals("")) {
+                        new Main_MDI();
+                    } else {
+                        new Main_user();
+                    }
+                    fr.dispose();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Invaild Username or Password");
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
             }
         }
         if (ev.getSource() == register) {
