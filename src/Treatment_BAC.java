@@ -243,6 +243,7 @@ public class Treatment_BAC {
 
         frame.add(panel1, BorderLayout.CENTER);
         frame.setVisible(true);
+        frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setSize(600, 525);
         frame.setLocationRelativeTo(null);

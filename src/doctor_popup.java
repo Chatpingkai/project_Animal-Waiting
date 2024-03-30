@@ -5,9 +5,9 @@ import java.awt.*;
 public class doctor_popup{
     private JFrame frame_Hospital_Medical_Expenses;
     private JLabel service, Medical_Supplies, Medical_Service, Home_Medication, 
-medication_expenses, Physician_Evaluation, amount, pronounce;
+medication_expenses, Physician_Evaluation, amount;
     private JTextField box_Medical_Supplies, box_Medical_Service, box_Home_Medication, 
-box_medication_expenses, box_Physician_Evaluation, box_amount, box_pronounce;
+box_medication_expenses, box_Physician_Evaluation, box_amount;
     private JPanel fr_service, fr_button, space_west, space_east, fr_main, space;
     private JButton button_sub;
     public doctor_popup(){
@@ -22,7 +22,6 @@ box_medication_expenses, box_Physician_Evaluation, box_amount, box_pronounce;
         medication_expenses = new JLabel("            ค่ายารักษาโรค");
         Physician_Evaluation = new JLabel("            ค่าตรวจรักษา");
         amount = new JLabel("            ยอดสุทธิ");
-        pronounce = new JLabel("            ยอดสุทธิ(คำอ่าน)");
 
         service.setFont(new Font("Tahoma", Font.BOLD, 25));
         Medical_Supplies.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -31,7 +30,6 @@ box_medication_expenses, box_Physician_Evaluation, box_amount, box_pronounce;
         medication_expenses.setFont(new Font("Tahoma", Font.PLAIN, 15));
         Physician_Evaluation.setFont(new Font("Tahoma", Font.PLAIN, 15));
         amount.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        pronounce.setFont(new Font("Tahoma", Font.PLAIN, 15));
 
         box_Medical_Supplies = new JTextField();
         box_Medical_Service = new JTextField();
@@ -39,7 +37,6 @@ box_medication_expenses, box_Physician_Evaluation, box_amount, box_pronounce;
         box_medication_expenses = new JTextField();
         box_Physician_Evaluation = new JTextField();
         box_amount = new JTextField();
-        box_pronounce = new JTextField();
 
         button_sub = new JButton("Submit");
         button_sub.setBackground(Color.WHITE);
@@ -53,7 +50,7 @@ box_medication_expenses, box_Physician_Evaluation, box_amount, box_pronounce;
         space_west = new JPanel();
         space = new JPanel();
 
-        fr_main.setLayout(new GridLayout(7, 2));
+        fr_main.setLayout(new GridLayout(6, 2));
         fr_service.setLayout(new FlowLayout(FlowLayout.LEFT));
         fr_button.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
@@ -74,8 +71,6 @@ box_medication_expenses, box_Physician_Evaluation, box_amount, box_pronounce;
         fr_main.add(box_Physician_Evaluation);
         fr_main.add(amount);
         fr_main.add(box_amount);
-        fr_main.add(pronounce);
-        fr_main.add(box_pronounce);
 
         box_Medical_Supplies.setFont(new Font("Tahoma", Font.PLAIN, 13));
         box_Medical_Service.setFont(new Font("Tahoma", Font.PLAIN, 13));
@@ -83,7 +78,6 @@ box_medication_expenses, box_Physician_Evaluation, box_amount, box_pronounce;
         box_medication_expenses.setFont(new Font("Tahoma", Font.PLAIN, 13));
         box_Physician_Evaluation.setFont(new Font("Tahoma", Font.PLAIN, 13));
         box_amount.setFont(new Font("Tahoma", Font.PLAIN, 13));
-        box_pronounce.setFont(new Font("Tahoma", Font.PLAIN, 13));
 
         fr_button.setBackground(new Color(0xFFEEE3));
         fr_main.setBackground(new Color(0xFFEEE3));
@@ -101,6 +95,7 @@ box_medication_expenses, box_Physician_Evaluation, box_amount, box_pronounce;
         space.setPreferredSize(new Dimension(1, 20));
         frame_Hospital_Medical_Expenses.setSize(500, 400);
         frame_Hospital_Medical_Expenses.setVisible(true);
+        frame_Hospital_Medical_Expenses.setLocationRelativeTo(null);
         frame_Hospital_Medical_Expenses.setResizable(false);
     }
     public static void main(String[] args){

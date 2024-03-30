@@ -332,12 +332,8 @@ box_opinion, box_note ,box_plus;
         panel_button_jingjing.add(panel_help9, BorderLayout.NORTH);
         panel_button_jingjing.add(panel_help10, BorderLayout.WEST);
         panel_button_jingjing.add(panel_help11, BorderLayout.EAST);
-        
-//        panel_button.add(panel_help7);
-        panel_button.add(panel_help8);
 
-//        panel_help7.add(button_plus);
-//        panel_help7.add(button_minus);
+        panel_button.add(panel_help8);
 
         panel_help8.add(button_next);
 
@@ -356,8 +352,6 @@ box_opinion, box_note ,box_plus;
         box_disease.setPreferredSize(new Dimension(180, 25));
         box_date.setPreferredSize(new Dimension(150, 25));
 
-//        button_plus.setPreferredSize(new Dimension(100, 40));
-//        button_minus.setPreferredSize(new Dimension(100, 40));
         button_next.setPreferredSize(new Dimension(100, 30));
 
         button_plus.setFont(new Font("Jost", Font.BOLD, 14));
@@ -446,6 +440,7 @@ box_opinion, box_note ,box_plus;
 
         fr.setSize(650, 700);
         fr.setVisible(true);
+        fr.setLocationRelativeTo(null);
         fr.setResizable(false);
     }
     public static void main(String[] args){
