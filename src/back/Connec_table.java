@@ -31,6 +31,7 @@ public class Connec_table implements Connec{
             stm = con.createStatement();
             stm.executeUpdate(sql);
         } catch (SQLException ex) {
+            ex.printStackTrace();
         }
     }
     @Override
