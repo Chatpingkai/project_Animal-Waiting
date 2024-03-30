@@ -790,18 +790,16 @@ circle_pet_female, circle_idk;
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == button_submit){
-            String sexP = "other";
-            String sexPet = "don't know";
-            if(this.circle_male.isSelected()) { sexP = "male"; } 
-            else if (this.circle_female.isSelected()) { sexP = "female";}
-            else if (this.circle_other.isSelected()) { sexP = "other"; }
-            else if (this.circle_male_pet.isSelected()) { sexPet = "male"; }
-            else if (this.circle_pet_female.isSelected()) { sexPet = "female"; }
-            else if (this.circle_idk.isSelected()) { sexPet = "don't know"; }
-            char[] passwordChars = box_password.getPassword();
-            String password = new String(passwordChars);
-            char[] confirmChars = box_confirm.getPassword();
-            String confirm = new String(confirmChars);
+            String sexP = "อื่นๆ";
+            String sexPet = "ไม่ทราบ";
+            if(this.circle_male.isSelected()) { sexP = "ชาย"; } 
+            else if (this.circle_female.isSelected()) { sexP = "หญิง";}
+            else if (this.circle_other.isSelected()) { sexP = "อื่นๆ"; }
+            if (this.circle_male_pet.isSelected()) { sexPet = "ตัวผู้"; }
+            else if (this.circle_pet_female.isSelected()) { sexPet = "ตัวเมีย"; }
+            else if (this.circle_idk.isSelected()) { sexPet = "ไม่ทราบ"; }
+            String password = new String(box_password.getPassword());
+            String confirm = new String(box_confirm.getPassword());
             if (password.equals(confirm)) {
                 System.out.println("Yes");
                 RegisterBackend rb = new RegisterBackend(
