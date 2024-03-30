@@ -27,13 +27,16 @@ panel_space2;
     private ImageIcon profile, resizedImageIcon, roundedIcon;
     private Main_MDI main;
     private Connec_table tabledb;
-    private String today;
+    private String today,code;
     private Map<String, String> queue;
     private Map<String, String[]> datahistory;
     private String[] work = {"10:00-11:00", "11:00-12:00", "12:00-13:00", "13:00-14:00", "14:00-15:00", "15:00-16:00", "16:00-17:00", "17:00-18:00", "18:00-19:00", "19:00-20:00"};
     private int introw;
     private Ranmdom wordcode = new Ranmdom();
     private ResultSet rs;
+    private details_admin_popup details;
+    private Customer customer;
+    private CureReipt cure_r;
     public main_admin() {
         super("Animal-Waiting", false, true, false, true);
         today = String.format("%d-%02d-%02d", Datetoday.date.getYear()+543,Datetoday.date.getMonthValue(),Datetoday.date.getDayOfMonth());
@@ -234,18 +237,23 @@ panel_space2;
         rs = tabledb.getData(sql);
         try {
             if(rs.next()){
+                code = rs.getString("Type_Code");
                 System.out.println(rs.getString("Type_Code")); 
                 tabledb.Discon();
             }else{
                 tabledb.Discon();
+                code = datahistory.get(work[introw])[2]+"_"+datahistory.get(work[introw])[1]+wordcode.rcode();
                 sql = String.format("INSERT INTO History (ID, Detail, Type, Time, Type_Code, Date) VALUES('%s', '%s', '%s', '%s', '%s', '%s')",
-                   datahistory.get(work[introw])[1],datahistory.get(work[introw])[0],datahistory.get(work[introw])[2],work[introw],datahistory.get(work[introw])[2]+"_"+datahistory.get(work[introw])[1]+wordcode.rcode()
+                   datahistory.get(work[introw])[1],datahistory.get(work[introw])[0],datahistory.get(work[introw])[2],work[introw],code
                 ,"2567-03-28");
                 System.out.println(sql);
                 tabledb = new Connec_table();
                 tabledb.UpdateData(sql);
                 tabledb.Discon();
             }
+            customer = new Customer(Integer.parseInt(datahistory.get(work[introw])[1]));
+            cure_r = new CureReipt(customer, code,"2567-03-28");
+            details = new details_admin_popup(cure_r);
         } catch (SQLException ex) {
         }
         
