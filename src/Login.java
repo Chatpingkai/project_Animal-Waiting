@@ -7,7 +7,6 @@ import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import javax.swing.JOptionPane;
 
 public class Login implements ActionListener {
 
@@ -28,9 +27,10 @@ panel_space4, panel_space5, panel_space6, panel_space7, panel_space8, panel_spac
         fr.setLayout(new BorderLayout());
 
         //BorderLayout.WEST
-        imagepage = new ImageIcon(System.getProperty("user.dir")+"/src/test.jpg");
+        imagepage = new ImageIcon(System.getProperty("user.dir")+"/src/test6.jpg");
         imagLabel = new JLabel(imagepage);
         imagLabel.setPreferredSize(new Dimension(300, 200));
+        imagLabel.setLocation(10,70);
 
         //Head Line
         imagelogo = new ImageIcon(System.getProperty("user.dir")+"/src/test.jpg");
