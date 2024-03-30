@@ -36,7 +36,6 @@ public class Main_MDI{
         internal_Usage_history.setVisible(false);
 
         desktopPane.setBackground(new Color(0xFFF5F5));
-
         frame = new JFrame("MDI Example");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
