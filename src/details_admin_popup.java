@@ -91,11 +91,17 @@ box_opinion, box_note ,box_plus;
         panel_but2 = new JPanel(new FlowLayout((FlowLayout.LEFT)));
         panel_but2.setBackground(new Color(0xFFEEE3));
         
-        cbmed = new JComboBox();
-        cbmed.addItem("1");
-        cbmed.addItem("2");
-        cbmed.addItem("3");
-        cbmed.addItem("4");
+        String list_medicine[] = {"medicine1", 
+        "medicine2", 
+        "medicine3", 
+        "medicine4", 
+        "medicine5", 
+        "medicine6", 
+        "medicine7", 
+        "medicine8", 
+        "medicine9", 
+        "medicine10"};
+        cbmed = new JComboBox(list_medicine);
         cbmed.setSelectedItem(null);
         cbmed.setPreferredSize(new Dimension(220, 25));
         
@@ -109,10 +115,12 @@ box_opinion, box_note ,box_plus;
         panel_but1.add(button_plus);
         panel_but2.add(button_minus);
         
-        panel_for_combo.add(txt_med); panel_for_combo2.add(cbmed);
-        panel_for_med.add(txt_plus); panel_for_med2.add(box_plus);
+        panel_for_combo.add(txt_med); 
+        panel_for_combo2.add(cbmed);
+        panel_for_med.add(txt_plus); 
+        panel_for_med2.add(box_plus);
         panel_for_combo.setBounds(10, 20, 100, 20);
-        panel_for_med.setBounds(285, 20, 100,20 );
+        panel_for_med.setBounds(265, 20, 100,20 );
 
         panel_em1.add(panel_for_combo);  
         panel_em1.add(panel_for_med); 
@@ -292,8 +300,8 @@ box_opinion, box_note ,box_plus;
         panel_treat_center.add(panel_help5);
         panel_treat_center.add(panel_help6);
         //sea
-          panel_treat_center.add(panel_em1);
-          panel_treat_center.add(panel_em2);
+        panel_treat_center.add(panel_em1);
+        panel_treat_center.add(panel_em2);
         
 
         panel_help1.add(txt_name_docter);

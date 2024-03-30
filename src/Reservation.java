@@ -40,6 +40,8 @@ panel_center_main, panel_center2, panel_box6, panel_box7;
         String type[] = {"เข้ารับการรักษา", "บริการอาบน้ำ/ตัดขน"};
         box_time = new JComboBox<>(time);
         box_type = new JComboBox<>(type);
+        box_time.setSelectedItem(null);
+        box_type.setSelectedItem(null);
 
         box_details = new JTextArea(null, 5, 30);
         box_details.setWrapStyleWord(true);
@@ -139,6 +141,7 @@ panel_center_main, panel_center2, panel_box6, panel_box7;
 
         frame_reservation.setSize(400, 600);
         frame_reservation.setVisible(true);
+        frame_reservation.setLocationRelativeTo(null);
         frame_reservation.setResizable(false);
     }
     public static void main(String[] args){

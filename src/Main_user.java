@@ -326,6 +326,7 @@ public class Main_user implements ActionListener {
         fr.setDefaultCloseOperation(fr.EXIT_ON_CLOSE);
         fr.setSize(1200, 950);
         fr.setVisible(true);
+        fr.setLocationRelativeTo(null);
 
         // AddListener
         edit.addActionListener(this);
@@ -423,9 +424,11 @@ public class Main_user implements ActionListener {
         if (e.getSource().equals(edit)) {
             fr.dispose();
             new edit_register();
-        } else if (e.getSource().equals(history)) {
+        }else if (e.getSource().equals(reserve)) {
+            new Reservation();
+        }else if (e.getSource().equals(history)) {
 
-        } else if (e.getSource().equals(logout)) {
+        }else if (e.getSource().equals(logout)) {
 
         }
     }
