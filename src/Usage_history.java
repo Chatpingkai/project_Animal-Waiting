@@ -147,7 +147,7 @@ public class Usage_history extends JInternalFrame implements MouseListener{
         if (e.getClickCount() == 2) {
             introw = table.rowAtPoint(e.getPoint());
             Customer customer = new Customer(id);
-            openInternalFrame(new history_(customer, data.get(introw), date_data.get(introw)));
+            new TrCosts(customer, data.get(introw), date_data.get(introw));
         }
 }
 
