@@ -35,8 +35,10 @@ panel_space2;
     private Ranmdom wordcode = new Ranmdom();
     private ResultSet rs;
     private details_admin_popup details;
+    private grooming_popup grooming;
     private Customer customer;
     private CureReipt cure_r;
+    private GroomReipt groom_r;
     public main_admin() {
         super("Animal-Waiting", false, false, false, true);
         today = String.format("%d-%02d-%02d", Datetoday.date.getYear()+543,Datetoday.date.getMonthValue(),Datetoday.date.getDayOfMonth());
@@ -122,6 +124,7 @@ panel_space2;
         table.getColumnModel().getColumn(0).setPreferredWidth(50);
         table.getColumnModel().getColumn(1).setPreferredWidth(300);
         table.setIntercellSpacing(new Dimension(5, 5));
+        table.setDefaultEditor(Object.class, null);
         table.addMouseListener(this);
         
         panel_right_button.add(button_logout);
@@ -229,33 +232,36 @@ panel_space2;
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        introw = table.rowAtPoint(e.getPoint());
-        tabledb = new Connec_table();
-        String sql = String.format("SELECT * FROM History where id = '%s' and time = '%s'and date = '%s'",datahistory.get(work[introw])[1],work[introw],today);
-        rs = tabledb.getData(sql);
-        try {
-            if(rs.next()){
-                code = rs.getString("Type_Code");
-                System.out.println(rs.getString("Type_Code")); 
-                tabledb.Discon();
-            }else{
-                tabledb.Discon();
-                code = datahistory.get(work[introw])[2]+"_"+datahistory.get(work[introw])[1]+wordcode.rcode();
-                sql = String.format("INSERT INTO History (ID, Type_Code, Date, Type, Time, Detail) VALUES('%s', '%s', '%s', '%s', '%s', '%s')",
-                   datahistory.get(work[introw])[1],code,today,datahistory.get(work[introw])[2],work[introw],datahistory.get(work[introw])[0]);
-                System.out.println(sql);
-                tabledb = new Connec_table();
-                tabledb.UpdateData(sql);
-                tabledb.Discon();
+        if (e.getClickCount() == 2){
+            introw = table.rowAtPoint(e.getPoint());
+            tabledb = new Connec_table();
+            String sql = String.format("SELECT * FROM History where id = '%s' and time = '%s'and date = '%s'",datahistory.get(work[introw])[1],work[introw],today);
+            rs = tabledb.getData(sql);
+            try {
+                if(rs.next()){
+                    code = rs.getString("Type_Code");
+                    System.out.println(rs.getString("Type_Code")); 
+                    tabledb.Discon();
+                }else{
+                    tabledb.Discon();
+                    code = datahistory.get(work[introw])[2]+"_"+datahistory.get(work[introw])[1]+wordcode.rcode();
+                    sql = String.format("INSERT INTO History (ID, Type_Code, Date, Type, Time, Detail) VALUES('%s', '%s', '%s', '%s', '%s', '%s')",
+                       datahistory.get(work[introw])[1],code,today,datahistory.get(work[introw])[2],work[introw],datahistory.get(work[introw])[0]);
+                    tabledb = new Connec_table();
+                    tabledb.UpdateData(sql);
+                    tabledb.Discon();
+                }
+                customer = new Customer(Integer.parseInt(datahistory.get(work[introw])[1]));
+                if (datahistory.get(work[introw])[2].equals("Cure")){
+                    cure_r = new CureReipt(customer, code,today);
+                    details = new details_admin_popup(cure_r);
+                }else{
+                    groom_r = new GroomReipt(customer, code,today);
+                    grooming = new grooming_popup(groom_r);
+                }
+            } catch (SQLException ex) {
             }
-            customer = new Customer(Integer.parseInt(datahistory.get(work[introw])[1]));
-            if (datahistory.get(work[introw])[2].equals("Cure")){
-                cure_r = new CureReipt(customer, code,today+"");
-                details = new details_admin_popup(cure_r);
-            }
-        } catch (SQLException ex) {
         }
-        
     }
 
     @Override

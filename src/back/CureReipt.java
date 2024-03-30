@@ -144,6 +144,7 @@ public class CureReipt extends Receipt{
     public String getRecom() {
         return recom;
     }
+    @Override
     public void updatedb(){
         String s = "";
         for(Med_code code: code_med){
@@ -152,8 +153,6 @@ public class CureReipt extends Receipt{
         }
         Connec_table tabledb = new Connec_table();
         System.out.println(s);
-
-
         String sql = String.format("INSERT INTO Cure (Type_Code, Veterinary, Symptom, Diagnose, Cure, Med_Code, Price_Med, Price_Veter, Price_Help, Price_Disease, Price_Cure, Recom, Other) "
                 + "VALUES('%s', '%s', '%s', '%s', '%s', '%s', %.2f, %.2f, %.2f, %.2f, %.2f, '%s', '%s')", 
                 this.type_code,

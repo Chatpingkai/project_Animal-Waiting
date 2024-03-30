@@ -33,22 +33,21 @@ public class Pet {
         ResultSet rs = db.getData(sql);
         try {
             if(rs.next()){
-                try {
-                    this.name = rs.getString("Name");
-                    this.type = rs.getString("Type");
-                    this.spicies = rs.getString("Spicies");
-                    this.birth = rs.getString("Birth");
-                    this.sex = rs.getString("Sex");
-                    this.disease = rs.getString("Disease");
-                    this.age = rs.getString("Age");
-                    this.weight = rs.getInt("Weight");
-                    this.treat = rs.getString("Treat");
-                    this.place = rs.getString("Place");
-                    
-                } catch (SQLException ex) {
-                }
+               this.name = rs.getString("Name");
+               this.type = rs.getString("Type");
+               this.spicies = rs.getString("Spicies");
+               this.birth = rs.getString("Birth");
+               this.sex = rs.getString("Sex");
+               this.disease = rs.getString("Disease");
+               this.age = rs.getString("Age");
+               this.weight = rs.getInt("Weight");
+               this.treat = rs.getString("Treat");
+               this.place = rs.getString("Place");
             }
         } catch (SQLException ex) {
+        }
+        finally{
+            db.Discon();
         }
     }
     public String getName(){
