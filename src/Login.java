@@ -206,6 +206,7 @@ panel_space4, panel_space5, panel_space6, panel_space7, panel_space8, panel_spac
                 rs = ct.getData(get);
                 if (rs.next()) {
                     System.out.println("In");
+                    ct.Discon();
                     if (userName.equals("")) {
                         new Main_MDI();
                     } else {

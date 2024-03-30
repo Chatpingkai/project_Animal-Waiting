@@ -445,16 +445,6 @@ box_opinion, box_note ,box_plus, box_date;
         fr.setVisible(true);
         fr.setResizable(false);
     }
-    public static void main(String[] args){
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-            } catch (Exception e) {
-            e.printStackTrace();
-            }
-            SwingUtilities.invokeLater(() -> { 
-                details_admin_popup frame = new details_admin_popup(new CureReipt(new Customer(1),"Cure_1PCHTU","2567-03-28"));
-            });
-    }
     @Override
     public void actionPerformed(ActionEvent e){
         if (e.getSource() == button_next){

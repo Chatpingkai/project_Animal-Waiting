@@ -22,4 +22,5 @@ public abstract class Receipt {
         return allprice;
     }
     public abstract void setAllprice();
+    public abstract void updatedb();
 }
