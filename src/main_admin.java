@@ -6,7 +6,6 @@ import java.awt.geom.Ellipse2D;
 import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
 import java.awt.event.ActionListener;
-import com.toedter.calendar.JCalendar;
 import java.awt.event.MouseEvent;
 
 import java.sql.*;
@@ -19,11 +18,10 @@ public class main_admin extends JInternalFrame implements MouseInputListener, Ac
     private JPanel panel_left, panel_right, panel_left1, panel_calendar, 
 panel_left2, panel_left3, panel_left4, panel_left5, panel_left6, panel_space1, 
 panel_right1, panel_right2, panel_right3, panel_right_button, panel_space, 
-panel_space2;
+panel_space2, pl1, pl2, pl3, space, space1, space2, space3, space4, space5;
     private JButton button_medicine, button_history, button_logout;
     private JTable table;
     private JLabel photo;
-    private JCalendar calendar;
     private ImageIcon profile, resizedImageIcon, roundedIcon;
     private Main_MDI main;
     private Connec_table tabledb;
@@ -39,6 +37,9 @@ panel_space2;
     private Customer customer;
     private CureReipt cure_r;
     private GroomReipt groom_r;
+    private JTextField[] boxes = new JTextField[42];
+    private JLabel[] dayLabels = new JLabel[7];
+
     public main_admin() {
         super("Animal-Waiting", false, false, false, true);
         today = String.format("%d-%02d-%02d", Datetoday.date.getYear()+543,Datetoday.date.getMonthValue(),Datetoday.date.getDayOfMonth());
@@ -73,6 +74,7 @@ panel_space2;
         panel_left5.setLayout(new FlowLayout());
         panel_left6.setLayout(new FlowLayout());
         panel_right_button.setLayout(new FlowLayout(FlowLayout.RIGHT));
+        panel_calendar.setLayout(new BorderLayout());
 
         button_medicine = new JButton("คลังยา");
         button_history = new JButton("เวชระเบียน");
@@ -84,8 +86,6 @@ panel_space2;
         button_medicine.setFont(new Font("Tahoma", Font.PLAIN, 15));
         button_history.setFont(new Font("Tahoma", Font.PLAIN, 15));
         button_logout.setFont(new Font("Tahoma", Font.BOLD, 15));
-
-        calendar = new JCalendar();
 
         profile = new ImageIcon(System.getProperty("user.dir")+"/src/admin_profile.jpg");
         resizedImageIcon = resizeImageIcon(profile, 100, 100);
@@ -110,8 +110,6 @@ panel_space2;
         panel_left3.add(button_medicine);
 
         panel_left4.add(button_history);
-        
-        panel_calendar.add(calendar);
 
         // สร้างตาราง
         String[][] data = {{"10:00 - 11:00", queue.get("10:00 - 11:00")}, {"11:00 - 12:00", queue.get("11:00 - 12:00")}, 
@@ -129,12 +127,36 @@ panel_space2;
         
         panel_right_button.add(button_logout);
 
+        pl1 = new JPanel(new BorderLayout());
+        pl2 = new JPanel(new GridLayout(1, 7));
+        pl3 = new JPanel(new GridLayout(6, 7));
+        space = new JPanel();
+        space1 = new JPanel();
+        space2 = new JPanel();
+        space3 = new JPanel();
+        space4 = new JPanel();
+        space5 = new JPanel(new BorderLayout());
+
+        updateCalendar();
+
+        pl1.add(space5, BorderLayout.NORTH);
+        pl1.add(pl3, BorderLayout.CENTER);
+        pl1.add(space, BorderLayout.WEST);
+        pl1.add(space1, BorderLayout.EAST);
+        pl1.add(space2, BorderLayout.SOUTH);
+
+        space5.add(pl2, BorderLayout.CENTER);
+        space5.add(space3, BorderLayout.WEST);
+        space5.add(space4, BorderLayout.EAST);
+
         panel_right.setLayout(new BorderLayout());
         panel_right.add(panel_right_button, BorderLayout.NORTH);
         panel_right.add(new JScrollPane(table), BorderLayout.CENTER);
         panel_right.add(panel_right1, BorderLayout.WEST);
         panel_right.add(panel_right2, BorderLayout.EAST);
         panel_right.add(panel_right3, BorderLayout.SOUTH);
+
+        panel_calendar.add(pl1);
 
         button_medicine.setPreferredSize(new Dimension(150, 50));
         button_history.setPreferredSize(new Dimension(150, 50));
@@ -146,6 +168,7 @@ panel_space2;
         panel_space.setPreferredSize(new Dimension(200, 10));
         panel_space1.setPreferredSize(new Dimension(200, 3));
         panel_space2.setPreferredSize(new Dimension(200, 10));
+        panel_left2.setPreferredSize(new Dimension(200, 150));
 
         panel_left.setBackground(new Color(0xFFE3A8));
         panel_left1.setBackground(new Color(0xFFE3A8));
@@ -175,6 +198,17 @@ panel_space2;
         new main_admin();
     }
 
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == button_medicine){
+            openInternalFrame(new Medicinehome());
+            button_medicine.setEnabled(false);
+        }else if (e.getSource() == button_history){
+            openInternalFrame(new Patient_history());
+            button_history.setEnabled(false);
+        }
+    }
+
     private ImageIcon resizeImageIcon(ImageIcon originalIcon, int width, int height) {
         Image img = originalIcon.getImage();
         Image resizedImg = img.getScaledInstance(width, height, Image.SCALE_SMOOTH);
@@ -194,15 +228,41 @@ panel_space2;
         return new ImageIcon(image);
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == button_medicine){
-            openInternalFrame(new Medicinehome());
-            button_medicine.setEnabled(false);
-        }else if (e.getSource() == button_history){
-            openInternalFrame(new Patient_history());
-            button_history.setEnabled(false);
+    private void updateCalendar() {
+        pl3.removeAll();
+        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Asia/Bangkok"));
+        cal.set(Calendar.DAY_OF_MONTH, 1);
+        int startingDay = cal.get(Calendar.DAY_OF_WEEK);
+        cal.add(Calendar.DAY_OF_MONTH, -startingDay + 1);
+    
+        int currentMonth = Calendar.getInstance().get(Calendar.MONTH);
+    
+        for (int i = 0; i < 42; i++) {
+            int dayOfMonth = cal.get(Calendar.DAY_OF_MONTH);
+            JTextField textField = new JTextField(String.valueOf(dayOfMonth));
+            textField.setEditable(false);
+            
+            if (cal.get(Calendar.MONTH) != currentMonth) {
+                textField.setBackground(Color.LIGHT_GRAY);
+            } else {
+                if (dayOfMonth == Calendar.getInstance().get(Calendar.DAY_OF_MONTH)) {
+                    textField.setBackground(Color.RED);
+                }
+            }
+    
+            boxes[i] = textField;
+            pl3.add(boxes[i]);
+            cal.add(Calendar.DAY_OF_MONTH, 1);
         }
+    
+        String[] dayNames = {"SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"};
+        for (int i = 0; i < 7; i++) {
+            dayLabels[i] = new JLabel(dayNames[i]);
+            pl2.add(dayLabels[i]);
+        }
+    
+        panel_calendar.validate();
+        panel_calendar.repaint();
     }
 
     private void openInternalFrame(JInternalFrame internalFrame) {
