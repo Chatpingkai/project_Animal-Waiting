@@ -21,6 +21,7 @@ public class Connec_table implements Connec{
             stm = con.createStatement();
             rs = stm.executeQuery(sql);
         } catch (SQLException ex) {
+            ex.printStackTrace();
         }
         return rs;
     }

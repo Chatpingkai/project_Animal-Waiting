@@ -1,11 +1,15 @@
 import back.Customer;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
+import back.*;
+import java.sql.*;
+import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.*;
 import javax.swing.table.*;
-public class CancelQ implements ActionListener{
+public class CancelQ implements ActionListener,MouseListener{
     private JFrame frcan;
     private JPanel pa1;
     private JLabel txt_his;
@@ -14,6 +18,8 @@ public class CancelQ implements ActionListener{
     private JTable table;
     private Customer customer;
     private static int lookid;
+    private DefaultTableModel model ;
+    private int introw;
     
     public CancelQ(Customer customer){
         
@@ -36,11 +42,8 @@ public class CancelQ implements ActionListener{
         pa1.add(butcan);
         butcan.addActionListener(this);
         
-        JTable table = new JTable();  
-        Object[] columns = {"วันที่","เวลา"};
-        DefaultTableModel model = new DefaultTableModel();
-        model.setColumnIdentifiers(columns);
-        table.setModel(model);
+        table = new JTable(); 
+        setTable();
         
         scroll = new JScrollPane();
         scroll.setViewportView(table);
@@ -64,17 +67,18 @@ public class CancelQ implements ActionListener{
         DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
         renderer.setBackground(new Color(0xFFE3A8));
         table.setDefaultRenderer(Object.class, renderer);
+        table.addMouseListener(this);
         
         //number of colum//
-//        setTable();
+
         
-         table.setDefaultEditor(Object.class, null);//un edit row//
+        table.setDefaultEditor(Object.class, null);//un edit row//
         
         frcan.add(pa1);
         frcan.setSize(420, 300);
         frcan.setResizable(false);
         frcan.setLocationRelativeTo(null); // Center the frame on the screen
-        frcan.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frcan.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frcan.setVisible(true);
         
     }
@@ -84,15 +88,62 @@ public class CancelQ implements ActionListener{
         } catch (Exception e) {
             e.printStackTrace();
         }
-        Customer customer = new Customer(lookid);
+        Customer customer = new Customer(15);
         SwingUtilities.invokeLater(() -> {
             CancelQ frame = new CancelQ(customer);
         });
     }
+    public void setTable(){
+        model = new DefaultTableModel();
+        Object[] columns = {"วันที่","เวลา"};
+        model.setColumnIdentifiers(columns);
+        Connec_table tabledb = new Connec_table();
+        String sql = String.format("select * from Reserve where ID = '%s'", customer.getId());
+        ResultSet rs = tabledb.getData(sql);
+        try {
+            while (rs.next()) {
+                String date = rs.getString("Date");
+                String time = rs.getString("Time");
+                String[] s = {date, time};
+                model.addRow(s);
+            }
+        } catch (SQLException ex) {
+        }
+        tabledb.Discon();
+        table.setDefaultEditor(Object.class, null);
+        table.setModel(model);
+    }
     @Override
     public void actionPerformed(ActionEvent e){
         if (e.getSource() == butcan){
-            frcan.dispose();
+            String selectedDate = (String) table.getValueAt(introw, 0);
+            String selectedTime = (String) table.getValueAt(introw, 1);
+            Connec_table tabledb = new Connec_table();
+            String sql = String.format("DELETE FROM Reserve WHERE ID = '%s' and Date = '%s' and Time = '%s'", customer.getId(),selectedDate,selectedTime);
+            tabledb.UpdateData(sql);
+            tabledb.Discon();
+            setTable();
         }
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        introw = table.rowAtPoint(e.getPoint());
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
     }
 }
