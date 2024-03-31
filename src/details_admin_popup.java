@@ -484,7 +484,7 @@ box_opinion, box_note ,box_plus, box_date;
 
     public void setText() {
         Pet pet = customer.getPet();
-        box_name.setText(customer.getFirstName());
+        box_name.setText(customer.getFirstName()+" "+customer.getLastName());
         box_name_pet.setText(pet.getName());
         box_type.setText(pet.getType());
         box_breed.setText(pet.getSpicies());
@@ -500,7 +500,6 @@ box_opinion, box_note ,box_plus, box_date;
         box_gender.setEditable(false);
         box_disease.setEditable(false);
         box_date.setEditable(false);
-        System.out.println(cure_r.getType_code());
     }
     
     public void setCombobox(){

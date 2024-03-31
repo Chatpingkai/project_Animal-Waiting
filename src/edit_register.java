@@ -1,7 +1,12 @@
 
+import back.Connec_table;
+import back.Customer;
+import back.RegisterBackend;
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Properties;
 import org.jdatepicker.JDatePicker;
 import org.jdatepicker.UtilDateModel;
@@ -37,8 +42,20 @@ circle_pet_female, circle_idk;
     private UtilDateModel model;
     private Properties ppt;
     private JDatePicker box_birthday;
-
+    private Customer customer;
+    private static int lookid;
+    
     public edit_register() {
+        this(new Customer());
+    }
+    
+    public edit_register(Customer customer) {
+        //send data
+        this.customer = customer;
+        this.lookid = customer.getId();
+        //===============================================================================
+
+        
         fr_edit_register = new JFrame("Edit Personal Information");
         fr_edit_register.setDefaultCloseOperation(fr_edit_register.EXIT_ON_CLOSE);
         fr_edit_register.setLayout(new GridLayout(1, 1));
@@ -229,7 +246,82 @@ circle_pet_female, circle_idk;
         txt_note = new JLabel("หมายเหตุ");
         txt_pet_information = new JLabel("ข้อมูลสัตว์เลี้ยง");
         txt_Contact_information = new JLabel("ข้อมูลติดต่อ");
-
+        
+        
+        //set data of human
+        try {
+            Connec_table ct = new Connec_table();
+            ResultSet rs;
+            String getData = String.format("SELECT * FROM User_Profile WHERE ID = '%s'",this.customer.getId());
+            rs = ct.getData(getData);
+            if (rs.next()) {
+                box_title.setSelectedItem(rs.getString("B_Name"));
+                box_name.setText(rs.getString("Name"));
+                box_lastname.setText(rs.getString("Last"));
+                box_ethnicity.setText(rs.getString("Ethnicity"));
+                box_nation.setText(rs.getString("Nation"));
+                box_religion.setText(rs.getString("Religion"));
+                box_phone.setText(rs.getString("Phone"));
+                box_email.setText(rs.getString("Email"));
+                box_note.setText(rs.getString("Other"));
+                try {
+                    String[] str = rs.getString("Contact").split(",");
+                    box_addres.setText(str[0]);
+                    box_alley.setText(str[1]);
+                    box_no.setText(str[2]);
+                    box_road.setText(str[3]);
+                    box_Sub_district.setText(str[4]);
+                    box_District.setText(str[5]);
+                    box_province.setText(str[6]);
+                    box_postal.setText(str[7]);
+                } catch(ArrayIndexOutOfBoundsException ex) {
+                }
+                if (rs.getString("Sex").equals(circle_male.getText())) {
+                    circle_male.setSelected(true);
+                } else if (rs.getString("Sex").equals(circle_female.getText())) {
+                    circle_female.setSelected(true);
+                } else if (rs.getString("Sex").equals(circle_other.getText())) {
+                    circle_other.setSelected(true);
+                }
+            ct.Discon();
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        //===============================================================================
+        
+        //set data of pet
+        try {
+            Connec_table ct = new Connec_table();
+            ResultSet rs;
+            String getData = String.format("SELECT * FROM Pet WHERE ID = '%s'",this.customer.getId());
+            rs = ct.getData(getData);
+            if (rs.next()) {
+                box_name_pet.setText(rs.getString("Name"));
+                box_type.setText(rs.getString("Type"));
+                box_species.setText(rs.getString("Spicies"));
+                box_weight.setText(rs.getString("Weight"));
+                if (rs.getString("Sex").equals(circle_male_pet.getText())) {
+                    circle_male_pet.setSelected(true);
+                } else if (rs.getString("Sex").equals(circle_pet_female.getText())) {
+                    circle_pet_female.setSelected(true);
+                } else if (rs.getString("Sex").equals(circle_idk.getText())) {
+                    circle_idk.setSelected(true);
+                }
+                box_disease.setText(rs.getString("Disease"));
+                box_raising.setText(rs.getString("Treat"));
+                box_place.setText(rs.getString("Place"));
+                String[] age = rs.getString("Age").split("\\.");
+                box_ageyear.setText(age[0]);
+                box_agemonth.setText(age[1]);
+            }
+            ct.Discon();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        //===============================================================================
+        
+        
         panel_main.add(txt_register);
         panel_main.add(empty2);
         panel_main.add(empty3);
@@ -729,11 +821,53 @@ circle_pet_female, circle_idk;
     @Override
     public void actionPerformed(ActionEvent e){
         if (e.getSource().equals(button_back)){
-                fr_edit_register.dispose();
-                new Main_user();
+            fr_edit_register.dispose();
+            new Main_user(customer);
         }
         else if (e.getSource().equals(button_save)){
-
+            //edit
+            String sexP = "อื่นๆ";
+            String sexPet = "ไม่ทราบ";
+            if(this.circle_male.isSelected()) { sexP = "ชาย"; } 
+            else if (this.circle_female.isSelected()) { sexP = "หญิง";}
+            else if (this.circle_other.isSelected()) { sexP = "อื่นๆ"; }
+            if (this.circle_male_pet.isSelected()) { sexPet = "ตัวผู้"; }
+            else if (this.circle_pet_female.isSelected()) { sexPet = "ตัวเมีย"; }
+            else if (this.circle_idk.isSelected()) { sexPet = "ไม่ทราบ"; }
+            RegisterBackend rb = new RegisterBackend(
+                this.box_title.getSelectedItem()+"",
+                this.box_name.getText(),
+                this.box_lastname.getText(),
+                this.box_ethnicity.getText(),
+                this.box_nation.getText(),
+                this.box_religion.getText(),
+                sexP,
+                this.box_name_pet.getText(),
+                this.box_type.getText(),
+                this.box_species.getText(),
+                sexPet,
+                box_birthday.getModel().getYear()+"-"+box_birthday.getModel().getMonth()+"-"+box_birthday.getModel().getDay()+"",
+                Double.parseDouble(this.box_weight.getText()),
+                this.box_disease.getText(),
+                Integer.parseInt(this.box_ageyear.getText()),
+                Integer.parseInt(this.box_agemonth.getText()),
+                this.box_raising.getText(),
+                this.box_place.getText(),
+                this.box_addres.getText(),
+                this.box_alley.getText(),
+                this.box_no.getText(),
+                this.box_road.getText(),
+                this.box_Sub_district.getText(),
+                this.box_District.getText(),
+                this.box_province.getText(),
+                this.box_postal.getText(),
+                this.box_phone.getText(),
+                this.box_email.getText(),
+                this.box_note.getText()
+            );
+            rb.Edit(customer.getId());
+            new Main_user(customer);
+            fr_edit_register.dispose();
         }
     }
 
@@ -743,8 +877,9 @@ circle_pet_female, circle_idk;
             } catch (Exception e) {
             e.printStackTrace();
             }
+        Customer customer = new Customer(lookid);
             SwingUtilities.invokeLater(() -> {
-                edit_register frame = new edit_register();
+                edit_register frame = new edit_register(customer);
             });
     }
 }

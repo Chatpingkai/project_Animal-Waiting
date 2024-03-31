@@ -1,9 +1,13 @@
 
+import back.Connec_table;
+import back.Customer;
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.TimeZone;
@@ -23,9 +27,15 @@ public class Main_user implements ActionListener {
     private JTextField[] boxes = new JTextField[42];
     private JLabel[] dayLabels = new JLabel[7];
     private JTextArea addressarea;
-
-    public Main_user() {
-
+    private Customer customer;
+    private static int lookid;
+    
+    public Main_user(Customer customer) {
+        
+        //send data
+        this.customer = customer;
+        this.lookid = customer.getId();
+        //====================
         // JFrame
         fr = new JFrame("Main");
         // JPanel
@@ -97,7 +107,47 @@ public class Main_user implements ActionListener {
         //JTextArea
         addressarea = new JTextArea();
         addressarea.setEditable(false);
-
+        
+        //set data for human
+        try {
+            Connec_table ct = new Connec_table();
+            ResultSet rs;
+            String getData = String.format("SELECT * FROM User_Profile WHERE ID = '%s'",this.customer.getId());
+            rs = ct.getData(getData);
+            if (rs.next()) {
+                nameLabel.setText(nameLabel.getText().substring(0, nameLabel.getText().length() - 1) + " : " + rs.getString("Name") + "  " + rs.getString("Last"));
+                callLabel.setText(callLabel.getText().substring(0, callLabel.getText().length() - 1) + " : " + rs.getString("Phone"));
+                mailLabel.setText(mailLabel.getText().substring(0, mailLabel.getText().length() - 1) + " : " + rs.getString("Email"));
+                addressLabel.setText(addressLabel.getText().substring(0, addressLabel.getText().length() - 2) + " : " + rs.getString("Contact"));
+            ct.Discon();
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        //====================================================================
+        
+        //set data for pet
+        try {
+            Connec_table ct = new Connec_table();
+            ResultSet rs;
+            String getData = String.format("SELECT * FROM Pet WHERE ID = '%s'",this.customer.getId());
+            rs = ct.getData(getData);
+            if (rs.next()) {
+                petnameLabel.setText(petnameLabel.getText().substring(0, petnameLabel.getText().length() - 1) + " : " + rs.getString("Name"));
+                typeLabel.setText(typeLabel.getText().substring(0, typeLabel.getText().length() - 1) + " : " + rs.getString("Type"));
+                breedLabel.setText(breedLabel.getText().substring(0, breedLabel.getText().length() - 1) + " : " + rs.getString("Spicies"));
+                dateLabel.setText(dateLabel.getText().substring(0, dateLabel.getText().length() - 1) + " : " + rs.getString("Birth"));
+                sexLabel.setText(sexLabel.getText().substring(0, sexLabel.getText().length() - 1) + " : " + rs.getString("Sex"));
+                ageLabel.setText(ageLabel.getText().substring(0, ageLabel.getText().length() - 1) + " : " + rs.getString("Age"));
+                weightLabel.setText(weightLabel.getText().substring(0, weightLabel.getText().length() - 1) + " : " + rs.getString("Weight"));
+            ct.Discon();
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        //====================================================================
+        
+        
         // panel northwest
         imagelogo = new ImageIcon(System.getProperty("user.dir") + "/src/test.jpg");
         resizedImageIcon = resizeImageIcon(imagelogo, 150, 150);
@@ -335,7 +385,7 @@ public class Main_user implements ActionListener {
         reserve.addActionListener(this);
 
     }
-
+    
     private ImageIcon resizeImageIcon(ImageIcon originalIcon, int width, int height) {
         Image img = originalIcon.getImage();
         Image resizedImg = img.getScaledInstance(width, height, Image.SCALE_SMOOTH);
@@ -423,13 +473,18 @@ public class Main_user implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(edit)) {
             fr.dispose();
-            new edit_register();
+            System.out.println(customer.getId());
+            new edit_register(customer);
         }else if (e.getSource().equals(reserve)) {
-            new Reservation();
+            new Reservation(customer);
         }else if (e.getSource().equals(history)) {
+            new User_history_J(customer.getId());
 
         }else if (e.getSource().equals(logout)) {
-
+            fr.dispose();
+            new Login();
+        }else if (e.getSource().equals(cancel)) {
+            new CancelQ(customer);
         }
     }
 
@@ -439,7 +494,8 @@ public class Main_user implements ActionListener {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        new Main_user();
+        Customer customer = new Customer(lookid);
+        new Main_user(customer);
     }
 
 }

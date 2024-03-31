@@ -1,7 +1,11 @@
 
 package back;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -191,6 +195,29 @@ public class CureReipt extends Receipt{
     public void setAllprice() {
         allprice = p_med+p_veter+p_help+p_disease+p_disease+p_cure;
     }
-    
+    public void setData(){
+        Connec_table tabledb = new Connec_table();
+        String sql = String.format("select * from Cure Where Type_Code = '%s'", type_code);
+        ResultSet rs = tabledb.getData(sql);
+        try {
+            if (rs.next()) {
+                this.veterinary = rs.getString("Veterinary");
+                this.symptom = rs.getString("Symptom");
+                this.diagnose = rs.getString("Diagnose");
+                this.cure = rs.getString("Cure");
+                this.p_med = rs.getDouble("Price_Med");
+                this.p_veter = rs.getDouble("Price_Veter");
+                this.p_help = rs.getDouble("Price_Help");
+                this.p_disease = rs.getDouble("Price_Disease");
+                this.p_cure = rs.getDouble("Price_Cure");
+                this.recom = rs.getString("Recom");
+                this.ohter = rs.getString("Other");
+            }
+        } catch (SQLException ex) {
+        }
+        finally{
+            tabledb.Discon();
+        }
+    }
     
 }
