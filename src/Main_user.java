@@ -478,6 +478,7 @@ public class Main_user implements ActionListener {
         }else if (e.getSource().equals(reserve)) {
             new Reservation(customer);
         }else if (e.getSource().equals(history)) {
+            new User_history_J(customer.getId());
 
         }else if (e.getSource().equals(logout)) {
             fr.dispose();

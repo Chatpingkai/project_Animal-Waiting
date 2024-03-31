@@ -18,14 +18,15 @@ public class BatheAndCutHair implements ActionListener{
     private JTextArea tdescrip;
     private JScrollPane scroll;
     private JButton Treatment;
+    private GroomReipt groom_r;
     private Customer customer;
     private Pet pet;
-    private String type_code,details;
-    private double p_cut, p_shower;
+    private String type_code;
     
-    public BatheAndCutHair(Customer customer, String type_code){
-        this.customer = customer;
-        this.type_code = type_code;
+    public BatheAndCutHair(GroomReipt groom_r){
+        this.groom_r = groom_r;
+        this.customer = groom_r.getCustomer();
+        this.type_code = groom_r.getGroom_code();
         this.pet = customer.getPet();
         frame = new JFrame("สรุป");
         panelAll = new JPanel(new BorderLayout());
@@ -215,9 +216,9 @@ public class BatheAndCutHair implements ActionListener{
         ResultSet rs = tabledb.getData(sql);
         try {
             if (rs.next()) {
-                p_cut = rs.getDouble("Cut");
-                p_shower = rs.getDouble("Shower");
-                details = rs.getString("Recom");
+                groom_r.setCut(rs.getDouble("Cut"));
+                groom_r.setShower(rs.getDouble("Shower"));
+                groom_r.setDetails(rs.getString("Recom"));
             }
         } catch (SQLException ex) {
         }
@@ -241,17 +242,17 @@ public class BatheAndCutHair implements ActionListener{
         textGenderA.setText(pet.getSex());
         textGenderA.setEditable(false);
         getdb();
-        textcutHair.setText(p_cut+"");
+        textcutHair.setText(groom_r.getCut()+"");
         textcutHair.setEditable(false);
-        textshower.setText(p_shower+"");
+        textshower.setText(groom_r.getShower()+"");
         textshower.setEditable(false);
-        tdescrip.setText(details);
+        tdescrip.setText(groom_r.getDetails());
         tdescrip.setEditable(false);
     }
     @Override
     public void actionPerformed(ActionEvent ev) {
         if (ev.getSource().equals(Treatment)) {
-            new Treatment_BAC();
+            new Treatment_BAC(groom_r);
         }
     }
 

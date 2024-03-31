@@ -34,7 +34,7 @@ public class Reservation implements ActionListener{
         
         
         frame_reservation = new JFrame("Reservation");
-        frame_reservation.setDefaultCloseOperation(frame_reservation.EXIT_ON_CLOSE);
+        frame_reservation.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame_reservation.setLayout(new BorderLayout());
 
         txt_reservation = new JLabel("จองคิว");
@@ -171,10 +171,10 @@ public class Reservation implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        System.out.println(box_date.getModel().getYear()+"-"+box_date.getModel().getMonth()+"-"+box_date.getModel().getDay());
         if (e.getSource().equals(button_sub)) {
             Connec_table ct = new Connec_table();
-            String date = box_date.getModel().getYear()+"-"+box_date.getModel().getMonth()+"-"+box_date.getModel().getDay();
+            String date = String.format("%02d-%02d-%02d", box_date.getModel().getYear(),box_date.getModel().getMonth()+1,box_date.getModel().getDay());
+            System.out.println(date);
             
             //find same thing
             String same = String.format("SELECT * FROM Reserve WHERE Date = '%s' AND Time = '%s'", date, box_time.getSelectedItem());
@@ -186,11 +186,11 @@ public class Reservation implements ActionListener{
                     String insertReserve = String.format("INSERT INTO Reserve (ID, Date, Time, Type, Details) VALUES('%s', '%s', '%s', '%s', '%s')",
                         customer.getId(), date, box_time.getSelectedItem(), box_type.getSelectedItem(), box_details.getText());
                     ct.UpdateData(insertReserve);
+                    frame_reservation.dispose();
                 }
             } catch (SQLException ex) {
             }
             ct.Discon();
-            frame_reservation.dispose();
         }
     }
     

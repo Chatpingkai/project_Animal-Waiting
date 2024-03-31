@@ -23,22 +23,12 @@ public class TrCosts implements ActionListener {
     private JButton Treatment;
     private DefaultTableModel model;
     private Connec_table table_db;
+    private CureReipt cure_r;
     private String type_code;
     private Customer customer;
     private String date;
     private CureReipt curereipt;
     private String[] med_codelist;
-    public static void main(String[] args) {
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    
-        SwingUtilities.invokeLater(() -> {
-            new TrCosts();
-        });
-    }
     public TrCosts(){
         this.type_code = "";
         this.customer = null;
@@ -48,10 +38,12 @@ public class TrCosts implements ActionListener {
         setFrame();
     
     }
-    public TrCosts(Customer customer, String type_code, String date){
-        this.type_code = type_code;
-        this.customer = customer;
-        this.date = date;
+    public TrCosts(CureReipt cure_r){
+        this.cure_r = cure_r;
+        cure_r.setData();
+        this.type_code = cure_r.getType_code();
+        this.customer = cure_r.getCustomer();
+        this.date = cure_r.getDate();
         table = new JTable();
         setTable();
         setFrame();
@@ -65,20 +57,11 @@ public class TrCosts implements ActionListener {
         tage.setText(customer.getPet().getAge()+"");
         tgender.setText(customer.getPet().getSex()+"");
         tdisea.setText(customer.getPet().getDisease());
-        System.out.println(customer.getPet().getDisease());
-        table_db = new Connec_table();
-        String sql = String.format("select * from Cure Where Type_Code = '%s'", type_code);
-        ResultSet rs = table_db.getData(sql);
-        try {
-            while (rs.next()) {
-                tsymptom.setText(rs.getString("Symptom"));
-                txtadocopi.setText(rs.getString("Diagnose"));
-                txtacure.setText(rs.getString("Cure"));
-                txtadocdescrip.setText(rs.getString("Recom"));
-                tdocname.setText(rs.getString("Veterinary"));
-            }
-        } catch (SQLException ex) {
-        }
+        tsymptom.setText(cure_r.getSymptom());
+        txtadocopi.setText(cure_r.getDiagnose());
+        txtacure.setText(cure_r.getCure());
+        txtadocdescrip.setText(cure_r.getRecom());
+        tdocname.setText(cure_r.getVeterinary());
         tdate.setText(date);
     }
     private void setMed_CodeList(){
@@ -369,7 +352,7 @@ public class TrCosts implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent ev) {
         if (ev.getSource().equals(Treatment)) {
-            new Treatment();
+            new Treatment(cure_r);
         }
 
     }

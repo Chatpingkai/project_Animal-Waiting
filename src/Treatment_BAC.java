@@ -2,6 +2,8 @@ import java.awt.*;
 import static java.awt.Color.*;
 import java.text.*;
 import javax.swing.*;
+import java.sql.*;
+import back.*;
 
 import java.util.*;
 public class Treatment_BAC {
@@ -12,18 +14,13 @@ public class Treatment_BAC {
     private JLabel pureAmount, description, amount, sumPureAmountTH, nameO, nameA, type, 
     address, payee, signature, receipt, thenameO, theNameA, theType, theAddrass, thePayee,  sumPureAmount;
     private JTextArea descriptionData, amountData;
-    public static void main(String[] args) {
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    
-        SwingUtilities.invokeLater(() -> {
-            new Treatment_BAC();
-        });
-    }
-    public Treatment_BAC(){
+    private GroomReipt groom_r;
+    private Customer customer;
+    private Pet pet;
+    public Treatment_BAC(GroomReipt groom_r){
+        this.groom_r = groom_r;
+        this.customer = groom_r.getCustomer();
+        this.pet = customer.getPet();
         frame = new JFrame("สรุป");
         panel1 = new JPanel(new BorderLayout());
         panel2 = new JPanel(new BorderLayout()); 
@@ -202,14 +199,12 @@ public class Treatment_BAC {
         receipt.setHorizontalAlignment(SwingConstants.CENTER);
         panelreceipt.add(receipt);
         //time
-        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        Date date = new Date();
         StringBuilder thereceipt = new StringBuilder();
         JTextArea empty = new JTextArea("", 1, 50);
         empty.setEditable(false);
         ppanelthereceipt = new JPanel(new FlowLayout(FlowLayout.LEFT));
         ppanelthereceipt.setBackground(white);
-        thereceipt.append("วันที่ออกใบเสร็จ (Date): ").append(dateFormat.format(date)).append("\n");
+        thereceipt.append("วันที่ออกใบเสร็จ (Date): "+groom_r.getDate());
         JLabel receipt = new JLabel("                                                                                                       "+thereceipt.toString());
         receipt.setFont(new Font(receipt.getFont().getName(), Font.PLAIN, 9));
         ppanelthereceipt.add(receipt);
@@ -241,11 +236,22 @@ public class Treatment_BAC {
         panel1.add(panel2);
         panel1.setBackground(new Color(0xFFEEE3));
 
+        setText();
         frame.add(panel1, BorderLayout.CENTER);
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setSize(600, 525);
         frame.setLocationRelativeTo(null);
+    }
+    public void setText(){
+        amountData.setText(groom_r.getCut()+"\n"+groom_r.getShower());
+        descriptionData.setText("ค่าตัดขน"+"\n"+"ค่าอาบน้ำ");
+        nameO.setText(nameO.getText()+" "+customer.getFirstName()+" "+customer.getLastName());
+        nameA.setText(nameA.getText()+" "+pet.getName());
+        type.setText(type.getText()+" "+pet.getType());
+        address.setText(address.getText()+" "+customer.getAddress());
+        groom_r.setAllprice();
+        sumPureAmount.setText(groom_r.getAllprice()+" บาท");
     }
 }
