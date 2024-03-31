@@ -21,12 +21,10 @@ public class Main_MDI{
         this(null);
     }
     public Main_MDI(Customer customer){
-        
         //send data
         this.customer = customer;
         lookid = customer.getId();
         //====================
-        
         desktopPane = new JDesktopPane();
         internal_Main_admin = new main_admin();
         internal_AddMedicine = new AddMedicine();

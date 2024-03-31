@@ -26,42 +26,33 @@ public class Patient_history extends JInternalFrame implements MouseListener{
         
         scroll.setBounds(40, 30, 870, 590);
         pa1.add(scroll);
-//        frpatient.add(pa1);
-        
-        
         
         table = new JTable();
-        // create a table model and set a Column Identifiers to this model 
         Object[] columns = {"ชื่อสัตว์เลี้ยง","ชื่อเจ้าของ", "ชนิด","สายพันธุ์"};
         model = new DefaultTableModel();
         model.setColumnIdentifiers(columns);
         setTable();
-        // set the model to the table
         table.setModel(model);
         
         scroll.setViewportView(table);
         table.setRowHeight(24);
-        table.getTableHeader().setReorderingAllowed(false); //tap can't move//
-        table.setGridColor(new Color(0xFFE3A7)); //color of grid//
-        
+        table.getTableHeader().setReorderingAllowed(false);
+        table.setGridColor(new Color(0xFFE3A7));
         
         Font defaultFont2 = table.getFont();
         Font font = defaultFont2.deriveFont(defaultFont2.getSize() + 2.5f); 
         table.setFont(font);
         table.getTableHeader().setFont(font);
         
-        //color of table//
         DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
         renderer.setBackground(new Color(0xFFE3A8));
         table.setDefaultRenderer(Object.class, renderer);
         
-        
-        //number of colum//
         for(int i=0; i <=50; i++){
             model.addRow(new Object[0]);
         }
         
-         table.setDefaultEditor(Object.class, null);//un edit row//
+        table.setDefaultEditor(Object.class, null);
         table.addMouseListener(this);
         
         

@@ -20,7 +20,7 @@ panel_space4, panel_space5, panel_space6, panel_space7, panel_space8, panel_spac
     private JButton button_login, register;
     private JTextField usernameField;
     private JPasswordField passwordField;
-    private ImageIcon imagepage, imagelogo, resizedImageIcon, roundedIcon;
+    private ImageIcon imagepage, imagelogo, resizedImageIcon;
 
     public Login() {
 
@@ -35,10 +35,9 @@ panel_space4, panel_space5, panel_space6, panel_space7, panel_space8, panel_spac
         imagLabel.setLocation(10,70);
 
         //Head Line
-        imagelogo = new ImageIcon(System.getProperty("user.dir")+"/src/test.jpg");
+        imagelogo = new ImageIcon(System.getProperty("user.dir")+"/src/logo1.png");
         resizedImageIcon = resizeImageIcon(imagelogo, 100, 100);
-        roundedIcon = getRoundedImageIcon(resizedImageIcon);
-        imagelogoLabel = new JLabel(roundedIcon);
+        imagelogoLabel = new JLabel(resizedImageIcon);
 
         panel_left = new JPanel(new GridLayout(1, 1));
         panel_right = new JPanel(new BorderLayout());
