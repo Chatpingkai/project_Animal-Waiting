@@ -21,7 +21,7 @@ panel_right1, panel_right2, panel_right3, panel_right_button, panel_space,
 panel_space2, pl1, pl2, pl3, space, space1, space2, space3, space4, space5;
     private JButton button_medicine, button_history, button_logout;
     private JTable table;
-    private JLabel photo;
+    private JLabel photo, monthLabel;
     private ImageIcon profile, resizedImageIcon, roundedIcon;
     private Main_MDI main;
     private Connec_table tabledb;
@@ -39,6 +39,9 @@ panel_space2, pl1, pl2, pl3, space, space1, space2, space3, space4, space5;
     private GroomReipt groom_r;
     private JTextField[] boxes = new JTextField[42];
     private JLabel[] dayLabels = new JLabel[7];
+    private String[] month = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+    private Calendar calendar;
+    private int currentMonth;
 
     public main_admin() {
         super("Animal-Waiting", false, false, false, true);
@@ -131,7 +134,7 @@ panel_space2, pl1, pl2, pl3, space, space1, space2, space3, space4, space5;
         pl2 = new JPanel(new GridLayout(1, 7));
         pl3 = new JPanel(new GridLayout(6, 7));
         space = new JPanel();
-        space1 = new JPanel();
+        space1 = new JPanel(new BorderLayout());
         space2 = new JPanel();
         space3 = new JPanel();
         space4 = new JPanel();
@@ -141,13 +144,18 @@ panel_space2, pl1, pl2, pl3, space, space1, space2, space3, space4, space5;
 
         pl1.add(space5, BorderLayout.NORTH);
         pl1.add(pl3, BorderLayout.CENTER);
-        pl1.add(space, BorderLayout.WEST);
-        pl1.add(space1, BorderLayout.EAST);
-        pl1.add(space2, BorderLayout.SOUTH);
 
-        space5.add(pl2, BorderLayout.CENTER);
-        space5.add(space3, BorderLayout.WEST);
-        space5.add(space4, BorderLayout.EAST);
+        space5.add(space1, BorderLayout.CENTER);
+        space5.add(pl2, BorderLayout.SOUTH);
+
+        calendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/Bangkok"));
+        currentMonth = calendar.get(Calendar.MONTH);
+        monthLabel = new JLabel(month[currentMonth]);
+        space1.add(monthLabel, BorderLayout.CENTER);
+
+        space1.add(space2, BorderLayout.SOUTH);
+
+        monthLabel.setFont(new Font("Angsana New", Font.BOLD, 40));
 
         panel_right.setLayout(new BorderLayout());
         panel_right.add(panel_right_button, BorderLayout.NORTH);
@@ -169,6 +177,10 @@ panel_space2, pl1, pl2, pl3, space, space1, space2, space3, space4, space5;
         panel_space1.setPreferredSize(new Dimension(200, 3));
         panel_space2.setPreferredSize(new Dimension(200, 10));
         panel_left2.setPreferredSize(new Dimension(200, 150));
+        space5.setPreferredSize(new Dimension(50, 60));
+        space2.setPreferredSize(new Dimension(250, 1));
+        space1.setPreferredSize(new Dimension(50, 50));
+        pl2.setPreferredSize(new Dimension(50, 20));
 
         panel_left.setBackground(new Color(0xFFE3A8));
         panel_left1.setBackground(new Color(0xFFE3A8));
@@ -186,6 +198,10 @@ panel_space2, pl1, pl2, pl3, space, space1, space2, space3, space4, space5;
         panel_right2.setBackground(new Color(0xFFEEE3));
         panel_right3.setBackground(new Color(0xFFEEE3));
         panel_space1.setBackground(Color.WHITE);
+        space5.setBackground(Color.WHITE);
+        pl2.setBackground(Color.WHITE);
+        space1.setBackground(Color.WHITE);
+        space2.setBackground(Color.BLACK);
 
         getContentPane().add(panel_left, BorderLayout.WEST);
         getContentPane().add(panel_right, BorderLayout.CENTER);
@@ -247,6 +263,8 @@ panel_space2, pl1, pl2, pl3, space, space1, space2, space3, space4, space5;
             } else {
                 if (dayOfMonth == Calendar.getInstance().get(Calendar.DAY_OF_MONTH)) {
                     textField.setBackground(Color.RED);
+                }else {
+                    textField.setBackground(Color.WHITE);
                 }
             }
     

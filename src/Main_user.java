@@ -16,12 +16,12 @@ public class Main_user implements ActionListener {
 
     private JFrame fr;
     private JPanel info, pn, main, line1, line2, line3, colorL, colorR, ex1, buttonPanel, bordercalen, empty, namePanel,
-            petnamePanel, line4,pl1, pl2, pl3, space, space1, space2, space3, space4, space5,
+            petnamePanel, line4,pl1, pl2, pl3, space, space1, space2, space3, space4, space5, help1, help2, help3, 
             typePanel, breedPanel, datePanel, sexPanel, agePanel, weightPanel, callPanel, mailPanel, addressPanel,
-            emptyline, something, reservePanel, cancelPanel, allreservePanel,border1, border2,border3,border4,
+            emptyline, something, reservePanel, cancelPanel, allreservePanel,border1, border2,border3,border4, help10, 
             infotop, infobottom, empty1, empty2, empty3, empty4, empty5, empty6, border, edit1, edit2, edit3, edit4, edit5;
     private JLabel imagelogoLabel, nameLabel, petnameLabel, typeLabel, breedLabel, dateLabel,
-            sexLabel, ageLabel, weightLabel, callLabel, mailLabel, addressLabel;
+            sexLabel, ageLabel, weightLabel, callLabel, mailLabel, addressLabel, monthLabel;
     private JButton edit, history, logout, reserve, cancel;
     private ImageIcon imagelogo, resizedImageIcon, roundedIcon;
     private JTextField[] boxes = new JTextField[42];
@@ -29,6 +29,9 @@ public class Main_user implements ActionListener {
     private JTextArea addressarea;
     private Customer customer;
     private static int lookid;
+    private String[] month = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+    private Calendar calendar;
+    private int currentMonth;
     
     public Main_user(Customer customer) {
         
@@ -310,6 +313,10 @@ public class Main_user implements ActionListener {
         space3 = new JPanel();
         space4 = new JPanel();
         space5 = new JPanel(new BorderLayout());
+        help1 = new JPanel(new FlowLayout());
+        help2 = new JPanel(new BorderLayout());
+        help3 = new JPanel();
+        help10 = new JPanel();
 
         space.setBackground(Color.white);
         space1.setBackground(Color.white);
@@ -333,11 +340,34 @@ public class Main_user implements ActionListener {
         pl1.add(space1, BorderLayout.EAST);
         pl1.add(space2, BorderLayout.SOUTH);
 
-        space5.add(pl2, BorderLayout.CENTER);
+        space5.add(help1, BorderLayout.SOUTH);
         space5.add(space3, BorderLayout.WEST);
         space5.add(space4, BorderLayout.EAST);
+        space5.add(help2, BorderLayout.CENTER);
+        space5.add(help3, BorderLayout.NORTH);
+
+        help1.add(pl2);
+
+        help2.add(help10, BorderLayout.SOUTH);
 
         updateCalendar();
+
+        space5.setPreferredSize(new Dimension(200, 90));
+        pl2.setPreferredSize(new Dimension(670, 20));
+        help3.setPreferredSize(new Dimension(200, 5));
+        help10.setPreferredSize(new Dimension(200, 2));
+
+        help1.setBackground(Color.WHITE);
+        help2.setBackground(Color.WHITE);
+        help3.setBackground(Color.WHITE);
+        help10.setBackground(Color.BLACK);
+
+        calendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/Bangkok"));
+        currentMonth = calendar.get(Calendar.MONTH);
+        monthLabel = new JLabel(month[currentMonth]);
+        help2.add(monthLabel, BorderLayout.CENTER);
+
+        monthLabel.setFont(new Font("Angsana New", Font.BOLD, 50));
 
      // setting and addcomponent
         // Left
