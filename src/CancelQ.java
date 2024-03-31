@@ -1,3 +1,4 @@
+import back.Customer;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,7 +12,15 @@ public class CancelQ implements ActionListener{
     private JButton butcan;
     private JScrollPane scroll;
     private JTable table;
-    public CancelQ(){
+    private Customer customer;
+    private static int lookid;
+    
+    public CancelQ(Customer customer){
+        
+        //set data
+        this.customer = customer;
+        this.lookid = customer.getId();
+        
         frcan = new JFrame("ยกเลิกการจอง");
         pa1 = new JPanel(null);
         pa1.setBackground(new Color(0xFFEEE3));
@@ -77,15 +86,16 @@ public class CancelQ implements ActionListener{
         } catch (Exception e) {
             e.printStackTrace();
         }
+        Customer customer = new Customer(lookid);
         SwingUtilities.invokeLater(() -> {
-            CancelQ frame = new CancelQ();
+            CancelQ frame = new CancelQ(customer);
         });
     }
     @Override
     public void actionPerformed(ActionEvent e){
         if (e.getSource() == butcan){
             frcan.dispose();
-            new Main_user();
+            new Main_user(customer);
         }
     }
 }

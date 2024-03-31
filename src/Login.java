@@ -1,3 +1,5 @@
+import back.Account;
+import back.Customer;
 import back.Connec_table;
 import back.hash;
 import java.awt.*;
@@ -206,11 +208,16 @@ panel_space4, panel_space5, panel_space6, panel_space7, panel_space8, panel_spac
                 rs = ct.getData(get);
                 if (rs.next()) {
                     System.out.println("In");
-                    ct.Discon();
+                    int id = Integer.parseInt(rs.getString("id"));
                     if (userName.equals("")) {
-                        new Main_MDI();
+                        ct.Discon();
+                        Account customer = new Customer(id);
+                        new Main_MDI((Customer) customer);
                     } else {
-                        new Main_user();
+                        ct.Discon();
+                        System.out.println(id);
+                        Account customer = new Customer(id);
+                        new Main_user((Customer) customer);
                     }
                     fr.dispose();
                 } else {

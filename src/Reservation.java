@@ -1,16 +1,21 @@
 
+import back.Connec_table;
+import back.Customer;
 import java.awt.*;
 import java.util.concurrent.Flow;
-
+import javax.swing.JOptionPane;
 import javax.swing.*;
 import org.jdatepicker.JDatePicker;
 import org.jdatepicker.UtilDateModel;
 import java.awt.event.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class Reservation implements ActionListener{
     private JFrame frame_reservation;
     private JPanel panel_main, panel_north, panel_center1, panel_south, panel_box1, 
-panel_box2, panel_box3, panel_space1, panel_space2, panel_box4, panel_box5, 
-panel_center_main, panel_center2, panel_box6, panel_box7;
+        panel_box2, panel_box3, panel_space1, panel_space2, panel_box4, panel_box5, 
+        panel_center_main, panel_center2, panel_box6, panel_box7;
     private JComboBox box_time, box_type;
     private JTextArea box_details;
     private JLabel txt_reservation, txt_date, txt_time, txt_type, txt_details;
@@ -18,8 +23,16 @@ panel_center_main, panel_center2, panel_box6, panel_box7;
     private JDatePicker box_date;
     private JScrollPane scroll;
     private JButton button_sub;
-
-    public Reservation(){
+    private Customer customer;
+    private static int lookid;
+    
+    public Reservation(Customer customer){
+        
+        //set data
+        this.customer = customer;
+        this.lookid = customer.getId();
+        
+        
         frame_reservation = new JFrame("Reservation");
         frame_reservation.setDefaultCloseOperation(frame_reservation.EXIT_ON_CLOSE);
         frame_reservation.setLayout(new BorderLayout());
@@ -150,15 +163,35 @@ panel_center_main, panel_center2, panel_box6, panel_box7;
             } catch (Exception e) {
             e.printStackTrace();
             }
+        Customer customer = new Customer(lookid);
             SwingUtilities.invokeLater(() -> { 
-                Reservation frame = new Reservation();
+                Reservation frame = new Reservation(customer);
             });
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         System.out.println(box_date.getModel().getYear()+"-"+box_date.getModel().getMonth()+"-"+box_date.getModel().getDay());
-        
+        if (e.getSource().equals(button_sub)) {
+            Connec_table ct = new Connec_table();
+            String date = box_date.getModel().getYear()+"-"+box_date.getModel().getMonth()+"-"+box_date.getModel().getDay();
+            
+            //find same thing
+            String same = String.format("SELECT * FROM Reserve WHERE Date = '%s' AND Time = '%s'", date, box_time.getSelectedItem());
+            ResultSet rs = ct.getData(same);
+            try {
+                if (rs.next()) {
+                    JOptionPane.showMessageDialog(null, "This time was reserved, pls select another time");
+                } else {
+                    String insertReserve = String.format("INSERT INTO Reserve (ID, Date, Time, Type, Details) VALUES('%s', '%s', '%s', '%s', '%s')",
+                        customer.getId(), date, box_time.getSelectedItem(), box_type.getSelectedItem(), box_details.getText());
+                    ct.UpdateData(insertReserve);
+                }
+            } catch (SQLException ex) {
+            }
+            ct.Discon();
+            frame_reservation.dispose();
+        }
     }
     
 }

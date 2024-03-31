@@ -1,4 +1,5 @@
 
+import back.Customer;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
@@ -13,7 +14,19 @@ public class Main_MDI{
     private Patient_history internal_Patient_history;
     private history_ internal_history;
     private Usage_history internal_Usage_history;
-    public Main_MDI(){
+    private Customer customer;
+    private static int lookid;
+    
+    public Main_MDI() {
+        this(null);
+    }
+    public Main_MDI(Customer customer){
+        
+        //send data
+        this.customer = customer;
+        lookid = customer.getId();
+        //====================
+        
         desktopPane = new JDesktopPane();
         internal_Main_admin = new main_admin();
         internal_AddMedicine = new AddMedicine();
@@ -49,8 +62,9 @@ public class Main_MDI{
             } catch (Exception e) {
             e.printStackTrace();
             }
+        Customer customer = new Customer(lookid);
             SwingUtilities.invokeLater(() -> {
-                Main_MDI fr = new Main_MDI();
+                Main_MDI fr = new Main_MDI(customer);
             });
     }
 }
