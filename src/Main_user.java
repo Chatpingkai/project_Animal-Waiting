@@ -383,6 +383,7 @@ public class Main_user implements ActionListener {
         history.addActionListener(this);
         logout.addActionListener(this);
         reserve.addActionListener(this);
+        cancel.addActionListener(this);
 
     }
     

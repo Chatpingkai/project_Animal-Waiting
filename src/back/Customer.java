@@ -151,26 +151,31 @@ public class Customer extends Account{
 
     
     public void reserve(String date, String time, String type){
-//        try{
-//            db = new Connec();
-//            String sql = String.format("INSERT INTO reserve (Date, Time, Type) VALUES('%s', '%s', '%s')", date, time, type);
-//            db.getInsert(sql);
-//            db.discon();
-//        }
-//        catch(Exception e){
-//            e.printStackTrace();
-//        }
+        try{
+            db = new Connec_table();
+            String sql = String.format("INSERT INTO Reserve (ID, Date, Time, Type, Details) VALUES('%s', '%s', '%s', '%s', '%s')", id,date, time, type, "");
+            db.UpdateData(sql);
+
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        finally{
+            db.Discon();
+        }
     }
     public void reserve(String date, String time, String type, String detail){
-//        try{
-//            db = new Connec();
-//            String sql = String.format("INSERT INTO reserve (Date, Time, Type, detail) VALUES('%s', '%s', '%s', '%s')", date, time, type, detail);
-//            db.getInsert(sql);
-//            db.discon();
-//        }
-//        catch(Exception e){
-//            e.printStackTrace();
-//        }
+        try{
+            db = new Connec_table();
+            String sql = String.format("INSERT INTO Reserve (ID, Date, Time, Type, Details) VALUES('%s', '%s', '%s', '%s', '%s')", id,date, time, type, detail);
+            db.UpdateData(sql);
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        finally{
+            db.Discon();
+        }
     }
     public static void main(String[] args) {
         try {

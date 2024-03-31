@@ -66,9 +66,7 @@ public class CancelQ implements ActionListener{
         table.setDefaultRenderer(Object.class, renderer);
         
         //number of colum//
-        for(int i=0; i <=50; i++){
-            model.addRow(new Object[0]);
-        }
+//        setTable();
         
          table.setDefaultEditor(Object.class, null);//un edit row//
         
@@ -95,7 +93,6 @@ public class CancelQ implements ActionListener{
     public void actionPerformed(ActionEvent e){
         if (e.getSource() == butcan){
             frcan.dispose();
-            new Main_user(customer);
         }
     }
 }

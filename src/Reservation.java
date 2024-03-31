@@ -183,14 +183,18 @@ public class Reservation implements ActionListener{
                 if (rs.next()) {
                     JOptionPane.showMessageDialog(null, "This time was reserved, pls select another time");
                 } else {
-                    String insertReserve = String.format("INSERT INTO Reserve (ID, Date, Time, Type, Details) VALUES('%s', '%s', '%s', '%s', '%s')",
-                        customer.getId(), date, box_time.getSelectedItem(), box_type.getSelectedItem(), box_details.getText());
-                    ct.UpdateData(insertReserve);
+                    if(box_details.getText().equals("")){
+                        customer.reserve(date, box_time.getSelectedItem()+"", box_type.getSelectedItem()+"");
+                    }else{
+                        customer.reserve(date, box_time.getSelectedItem()+"", box_type.getSelectedItem()+"",box_details.getText());
+                    }
                     frame_reservation.dispose();
                 }
             } catch (SQLException ex) {
             }
-            ct.Discon();
+            finally{
+                ct.Discon();  
+            }
         }
     }
     
