@@ -231,14 +231,15 @@ Lmedorcapsule, Ltime, Lmedorcapsule2, Lbaht;
         table_db = new Connec_table();
         ResultSet rs = table_db.getData(sql);
         try {
-            System.out.println(rs.next());
-            Tcommon_name.setText(rs.getString("Full_Name"));
-            Ttrade_name.setText(rs.getString("Name"));
-            Ttypandsize.setText(rs.getString("Type"));
-            Tall_capsule.setText(rs.getString("Amount"));
-            Tprice.setText(rs.getString("Price"));
-            Thowtouse.setText(rs.getString("How"));
-            Trecommend.setText(rs.getString("Recom"));
+            if(rs.next()){
+                Tcommon_name.setText(rs.getString("Full_Name"));
+                Ttrade_name.setText(rs.getString("Name"));
+                Ttypandsize.setText(rs.getString("Type"));
+                Tall_capsule.setText(rs.getString("Amount"));
+                Tprice.setText(rs.getString("Price"));
+                Thowtouse.setText(rs.getString("How"));
+                Trecommend.setText(rs.getString("Recom"));  
+            }
         } catch (SQLException ex) {
             Logger.getLogger(AddMedicine.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -256,10 +257,8 @@ Lmedorcapsule, Ltime, Lmedorcapsule2, Lbaht;
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(add)) {
-            System.out.println("hehe");
             String sql = String.format("INSERT INTO Med (Full_Name, Name, Type, Amount, Price, How, Recom) VALUES('%s', '%s', '%s', '%s', '%s', '%s', '%s')", 
             Tcommon_name.getText(), Ttrade_name.getText(), Ttypandsize.getText(),Tall_capsule.getText(), Tprice.getText(), Thowtouse.getText(), Trecommend.getText());
-            System.out.println(sql);
             table_db = new Connec_table();
             table_db.UpdateData(sql);
             table_db.Discon();
@@ -285,7 +284,6 @@ Lmedorcapsule, Ltime, Lmedorcapsule2, Lbaht;
             }
             setTextBlank();
         }else if (e.getSource().equals(update)){
-            System.out.println("uuuuuuuu");
             table_db = new Connec_table();
             String sql = String.format("UPDATE Med SET Full_name = '%s', Name = '%s', Type = '%s', Amount = '%s', Price = '%s', How = '%s', Recom = '%s' WHERE Full_Name = '%s'",
                     Tcommon_name.getText(),Ttrade_name.getText(),Ttypandsize.getText(),Tall_capsule.getText(),Tprice.getText(),Thowtouse.getText(),Trecommend.getText(),data.get(introw));

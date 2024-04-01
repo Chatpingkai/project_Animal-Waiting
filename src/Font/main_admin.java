@@ -222,7 +222,17 @@ panel_space2, pl1, pl2, pl3, space, space1, space2, space3, space4, space5;
             openInternalFrame(new Patient_history());
             button_history.setEnabled(false);
         }else if (e.getSource().equals(button_logout)){
-            System.exit(0);
+            JDesktopPane desktopPane = getDesktopPane();
+            if (desktopPane != null) {
+                JRootPane rootPane = desktopPane.getRootPane();
+                if (rootPane != null) {
+                    JFrame topLevelFrame = (JFrame) SwingUtilities.getWindowAncestor(rootPane);
+                    if (topLevelFrame != null) {
+                        topLevelFrame.dispose();
+                    }
+                }
+            }
+            new Login();
         }
     }
 
@@ -312,7 +322,8 @@ panel_space2, pl1, pl2, pl3, space, space1, space2, space3, space4, space5;
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        if (e.getClickCount() == 2){
+        try{
+          if (e.getClickCount() == 2){
             introw = table.rowAtPoint(e.getPoint());
             tabledb = new Connec_table();
             String sql = String.format("SELECT * FROM History where id = '%s' and time = '%s'and date = '%s'",datahistory.get(work[introw])[1],work[introw],today);
@@ -320,11 +331,14 @@ panel_space2, pl1, pl2, pl3, space, space1, space2, space3, space4, space5;
             try {
                 if(rs.next()){
                     code = rs.getString("Type_Code");
-                    System.out.println(rs.getString("Type_Code")); 
                     tabledb.Discon();
                 }else{
                     tabledb.Discon();
-                    code = datahistory.get(work[introw])[2]+"_"+datahistory.get(work[introw])[1]+wordcode.rcode();
+                    if(datahistory.get(work[introw])[2].equals("เข้ารับการรักษา")){
+                       code = "Cure"+"_"+datahistory.get(work[introw])[1]+wordcode.rcode(); 
+                    }else{
+                        code = "Grooming"+"_"+datahistory.get(work[introw])[1]+wordcode.rcode();
+                    }
                     sql = String.format("INSERT INTO History (ID, Type_Code, Date, Type, Time, Detail) VALUES('%s', '%s', '%s', '%s', '%s', '%s')",
                        datahistory.get(work[introw])[1],code,today,datahistory.get(work[introw])[2],work[introw],datahistory.get(work[introw])[0]);
                     tabledb = new Connec_table();
@@ -332,16 +346,37 @@ panel_space2, pl1, pl2, pl3, space, space1, space2, space3, space4, space5;
                     tabledb.Discon();
                 }
                 customer = new Customer(Integer.parseInt(datahistory.get(work[introw])[1]));
-                if (datahistory.get(work[introw])[2].equals("Cure")){
-                    cure_r = new CureReipt(customer, code,today);
-                    details = new details_admin_popup(cure_r);
+
+               if (datahistory.get(work[introw])[2].equals("เข้ารับการรักษา")){
+                    tabledb = new Connec_table();
+                    sql = String.format("SELECT * FROM Cure where Type_Code = '%s'",code);
+                    rs = tabledb.getData(sql);
+                    if (!rs.next()) {
+                        cure_r = new CureReipt(customer, code,today);
+                        details = new details_admin_popup(cure_r);
+                    }else{
+                        JOptionPane.showMessageDialog(null, "This page has completed filling out information.");
+                    }
+                    tabledb.Discon();
                 }else{
-                    groom_r = new GroomReipt(customer, code,today);
-                    grooming = new grooming_popup(groom_r);
+                    tabledb = new Connec_table();
+                    sql = String.format("SELECT * FROM Groomer where Type_Code = '%s'",code);
+                    rs = tabledb.getData(sql);
+                    if (!rs.next()) {
+                        groom_r = new GroomReipt(customer, code,today);
+                        grooming = new grooming_popup(groom_r);
+                    }else{
+                        JOptionPane.showMessageDialog(null, "This page has completed filling out information.");
+                    }
                 }
+                tabledb.Discon();
             } catch (SQLException ex) {
             }
+          }  
+        }catch(NullPointerException nu){
+            JOptionPane.showMessageDialog(null, "No information"); 
         }
+        
     }
 
     @Override

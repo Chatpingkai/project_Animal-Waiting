@@ -471,16 +471,23 @@ box_opinion, box_note ,box_plus, box_date;
                     cure_r.setP_med(cure_r.getP_med()+want*use.getPrice());
                     box_plus.setText("");
                     cbmed.setSelectedItem(null);
+                }else{
+                 JOptionPane.showMessageDialog(null, "Not enough medicine"); 
                 }
             setTable();
         }else if(e.getSource().equals(button_minus)){
-            String[] delete = select_med.get(introw);
-            Med del_med = map.get(delete[0]);
-            del_med.setAmount(del_med.getAmount()+Double.parseDouble(delete[1]));
-            cure_r.getCode_med().remove(introw);
-            cure_r.setP_med(cure_r.getP_med()-Double.parseDouble(delete[2]));
-            select_med.remove(introw);
-            setTable();
+            try {
+                String[] delete = select_med.get(introw);
+                Med del_med = map.get(delete[0]);
+                del_med.setAmount(del_med.getAmount()+Double.parseDouble(delete[1]));
+                cure_r.getCode_med().remove(introw);
+                cure_r.setP_med(cure_r.getP_med()-Double.parseDouble(delete[2]));
+                select_med.remove(introw);
+                setTable();  
+            }catch (Exception exc) {
+                JOptionPane.showMessageDialog(null, "Please select the medicine you want to delete.");
+            }
+            
         }
     }
 

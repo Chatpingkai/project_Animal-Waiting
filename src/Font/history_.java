@@ -288,7 +288,6 @@ public class history_  extends JInternalFrame{
         tage.setText(customer.getPet().getAge()+"");
         tgender.setText(customer.getPet().getSex()+"");
         tdisea.setText(customer.getPet().getDisease());
-        System.out.println(customer.getPet().getDisease());
         table_db = new Connec_table();
         String sql = String.format("select * from Cure Where Type_Code = '%s'", type_code);
         ResultSet rs = table_db.getData(sql);
@@ -333,7 +332,6 @@ public class history_  extends JInternalFrame{
             }
         }
         sql = String.format("select * from Med_Code where Med_Code in (%s)", med_code);
-        System.out.println(sql);
         rs = table_db.getData(sql);
             try {
                 while (rs.next()) {
