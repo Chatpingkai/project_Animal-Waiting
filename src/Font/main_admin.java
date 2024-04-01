@@ -1,3 +1,5 @@
+package Font;
+
 
 import  back.*;
 import java.awt.*;
@@ -90,7 +92,7 @@ panel_space2, pl1, pl2, pl3, space, space1, space2, space3, space4, space5;
         button_history.setFont(new Font("Tahoma", Font.PLAIN, 15));
         button_logout.setFont(new Font("Tahoma", Font.BOLD, 15));
 
-        profile = new ImageIcon(System.getProperty("user.dir")+"/src/admin_profile.jpg");
+        profile = new ImageIcon(System.getProperty("user.dir")+"/src/Font/admin_profile.jpg");
         resizedImageIcon = resizeImageIcon(profile, 100, 100);
         roundedIcon = getRoundedImageIcon(resizedImageIcon);
         photo = new JLabel(roundedIcon);
@@ -202,16 +204,13 @@ panel_space2, pl1, pl2, pl3, space, space1, space2, space3, space4, space5;
         pl2.setBackground(Color.WHITE);
         space1.setBackground(Color.WHITE);
         space2.setBackground(Color.BLACK);
+        button_logout.addActionListener(this);
 
         getContentPane().add(panel_left, BorderLayout.WEST);
         getContentPane().add(panel_right, BorderLayout.CENTER);
         setSize(1000, 550);
         setLocation(470, 200);
         setVisible(true);
-    }
-
-    public static void main(String[] args) {
-        new main_admin();
     }
 
     @Override
@@ -222,6 +221,8 @@ panel_space2, pl1, pl2, pl3, space, space1, space2, space3, space4, space5;
         }else if (e.getSource() == button_history){
             openInternalFrame(new Patient_history());
             button_history.setEnabled(false);
+        }else if (e.getSource().equals(button_logout)){
+            System.exit(0);
         }
     }
 

@@ -1,3 +1,5 @@
+package Font;
+
 
 import java.awt.*;
 import javax.swing.*;
@@ -776,16 +778,6 @@ circle_pet_female, circle_idk;
         fr_register.setVisible(true);
         fr_register.setLocationRelativeTo(null);
         fr_register.setResizable(false);
-    }
-    public static void main(String[] args){
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-            } catch (Exception e) {
-            e.printStackTrace();
-            }
-            SwingUtilities.invokeLater(() -> { 
-                Register frame = new Register();
-            });
     }
     @Override
     public void actionPerformed(ActionEvent e) {

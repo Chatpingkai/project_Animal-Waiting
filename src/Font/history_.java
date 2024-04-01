@@ -1,3 +1,5 @@
+package Font;
+
 import back.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -346,16 +348,5 @@ public class history_  extends JInternalFrame{
         model.setColumnIdentifiers(columns);
         table.setModel(model);
         table_db.Discon();
-    }
-    public static void main(String[] args) {
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        SwingUtilities.invokeLater(() -> {
-            history_ frame = new history_();
-        });
     }
 }

@@ -1,3 +1,5 @@
+package Font;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -65,18 +67,6 @@ public class Usage_history extends JInternalFrame implements MouseListener{
         setVisible(true);
         setResizable(false);
     }
-    public static void main(String[] args) {
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        SwingUtilities.invokeLater(() -> {
-            Usage_history frame = new Usage_history();
-        });
-    }
-
     private void setTable() {
         table = new JTable(); 
         // create a table model and set a Column Identifiers to this model 
