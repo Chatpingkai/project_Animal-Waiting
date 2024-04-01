@@ -56,7 +56,7 @@ monthLabel, address10;
         line4 = new JPanel(new BorderLayout());
         colorL = new JPanel(new BorderLayout());
         colorR = new JPanel(new BorderLayout());
-        ex1 = new JPanel(new FlowLayout());
+        ex1 = new JPanel(new BorderLayout());
         edit16 = new JPanel();
         edit17 = new JPanel(new BorderLayout());
         buttonPanel = new JPanel(new GridLayout(4, 1));
@@ -181,11 +181,11 @@ monthLabel, address10;
         colorR.setBackground(new Color(255, 238, 227));
         colorL.setPreferredSize(new Dimension(350, 1000));
         ex1.setBackground(new Color(0xFEE3A8));
-        ex1.add(edit16);
-        ex1.add(imagelogoLabel);
+        ex1.add(edit16, BorderLayout.NORTH);
+        ex1.add(imagelogoLabel, BorderLayout.CENTER);
 
         ex1.setPreferredSize(new Dimension(400, 150));
-        edit16.setPreferredSize(new Dimension(400, 10));
+        edit16.setPreferredSize(new Dimension(1000, 10));
         edit16.setBackground(new Color(0xFEE3A8));
 
         // button southwest
@@ -228,7 +228,7 @@ monthLabel, address10;
         empty3.setBackground(new Color(0xFEE3A8));
         empty4.setBackground(new Color(0xFEE3A8));
         info.setBackground(new Color(0xFDFAE5));
-        info.setBorder(BorderFactory.createLineBorder(Color.black, 2));
+        info.setBorder(BorderFactory.createLineBorder(Color.black, 0));
         infobottom.setBackground(new Color(0xFDFAE5));
         infobottom.add(addressPanel);
         namePanel.setBackground(new Color(0xFDFAE5));
