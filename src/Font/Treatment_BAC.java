@@ -1,10 +1,14 @@
+package Font;
+
 import java.awt.*;
 import static java.awt.Color.*;
 import java.text.*;
 import javax.swing.*;
+import java.sql.*;
+import back.*;
 
 import java.util.*;
-public class Treatment{
+public class Treatment_BAC {
     private JFrame frame;
     private JPanel panel1, panel2, panelreceipt, panel4, panel5, panel6, panel7, panel8, panel9, panel10, panel11, panel12, panel9_1, panelsumPureAmountTH, 
     panelpureAmount, panelsumPureAmount, panel13, panel14, panel15, paneldescription, panelamount, paneldescriptionData, panelamountData, panelnameO, 
@@ -12,18 +16,13 @@ public class Treatment{
     private JLabel pureAmount, description, amount, sumPureAmountTH, nameO, nameA, type, 
     address, payee, signature, receipt, thenameO, theNameA, theType, theAddrass, thePayee,  sumPureAmount;
     private JTextArea descriptionData, amountData;
-    public static void main(String[] args) {
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    
-        SwingUtilities.invokeLater(() -> {
-            new Treatment();
-        });
-    }
-    public Treatment(){
+    private GroomReipt groom_r;
+    private Customer customer;
+    private Pet pet;
+    public Treatment_BAC(GroomReipt groom_r){
+        this.groom_r = groom_r;
+        this.customer = groom_r.getCustomer();
+        this.pet = customer.getPet();
         frame = new JFrame("สรุป");
         panel1 = new JPanel(new BorderLayout());
         panel2 = new JPanel(new BorderLayout()); 
@@ -96,13 +95,13 @@ public class Treatment{
         descriptionData = new JTextArea("");
         descriptionData.setEditable(false);
         descriptionData.setFont(new Font("Angsana New", Font.PLAIN, 16));
-        descriptionData.setPreferredSize(new Dimension(350, 200));
+        descriptionData.setPreferredSize(new Dimension(300, 200));
         amount = new JLabel("จำนวนเงิน (Amount)");
 
         amountData = new JTextArea("");
         amountData.setEditable(false);
         amountData.setFont(new Font("Angsana New", Font.PLAIN, 16));
-        amountData.setPreferredSize(new Dimension(170, 200));
+        amountData.setPreferredSize(new Dimension(155, 200));
         amountData.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
         paneldescription.setBorder(BorderFactory.createCompoundBorder(
             BorderFactory.createEmptyBorder(-1, -1, -1, 1),
@@ -151,7 +150,7 @@ public class Treatment{
             BorderFactory.createEmptyBorder(-1, -1, -1, 1),
             BorderFactory.createLineBorder(Color.BLACK, 1)
         ));
-        pureAmount = new JLabel("                                                                      ยอดเงินบริสุทธิ์");
+        pureAmount = new JLabel("                                                           ยอดเงินบริสุทธิ");
         //
         //เงินรวม
         //
@@ -189,7 +188,7 @@ public class Treatment{
         a1.setEditable(false); a2.setEditable(false);
         panelpayee.setBackground(white); panelsignature.setBackground(white);
         payee = new JLabel("        ผู้รับเงิน :");
-        signature = new JLabel("                               ลายเว็นผู้รับเงิน : ..................");
+        signature = new JLabel("                      ลายเซ็นผู้รับเงิน : ..................");
         thePayee = new JLabel("");
         panelpayee.add(payee); panelpayee.add(thePayee);
         panelsignature.add(signature);
@@ -202,15 +201,13 @@ public class Treatment{
         receipt.setHorizontalAlignment(SwingConstants.CENTER);
         panelreceipt.add(receipt);
         //time
-        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        Date date = new Date();
         StringBuilder thereceipt = new StringBuilder();
         JTextArea empty = new JTextArea("", 1, 50);
         empty.setEditable(false);
         ppanelthereceipt = new JPanel(new FlowLayout(FlowLayout.LEFT));
         ppanelthereceipt.setBackground(white);
-        thereceipt.append("วันที่ออกใบเสร็จ (Date): ").append(dateFormat.format(date)).append("\n");
-        JLabel receipt = new JLabel("                                                                                                                        "+thereceipt.toString());
+        thereceipt.append("วันที่ออกใบเสร็จ (Date): "+groom_r.getDate());
+        JLabel receipt = new JLabel("                                                                                                       "+thereceipt.toString());
         receipt.setFont(new Font(receipt.getFont().getName(), Font.PLAIN, 9));
         ppanelthereceipt.add(receipt);
         panelreceipt.add(empty); panelreceipt.add(ppanelthereceipt);
@@ -241,12 +238,23 @@ public class Treatment{
         panel1.add(panel2);
         panel1.setBackground(new Color(0xFFEEE3));
 
+        setText();
         frame.add(panel1, BorderLayout.CENTER);
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.setSize(650, 550);
+        frame.setSize(600, 525);
         frame.setLocationRelativeTo(null);
+        frame.setResizable(false);
+    }
+    public void setText(){
+        amountData.setText(groom_r.getCut()+"\n"+groom_r.getShower());
+        descriptionData.setText("ค่าตัดขน"+"\n"+"ค่าอาบน้ำ");
+        nameO.setText(nameO.getText()+" "+customer.getFirstName()+" "+customer.getLastName());
+        nameA.setText(nameA.getText()+" "+pet.getName());
+        type.setText(type.getText()+" "+pet.getType());
+        address.setText(address.getText()+" "+customer.getAddress());
+        groom_r.setAllprice();
+        sumPureAmount.setText(groom_r.getAllprice()+" บาท");
     }
 }
-

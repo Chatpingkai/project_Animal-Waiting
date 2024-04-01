@@ -1,8 +1,13 @@
+package Font;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import back.*;
+import java.sql.*;
 import static java.awt.Color.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 
 public class BatheAndCutHair implements ActionListener{
@@ -15,20 +20,16 @@ public class BatheAndCutHair implements ActionListener{
     private JTextArea tdescrip;
     private JScrollPane scroll;
     private JButton Treatment;
-
-    public static void main(String[] args) {
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    private GroomReipt groom_r;
+    private Customer customer;
+    private Pet pet;
+    private String type_code;
     
-        SwingUtilities.invokeLater(() -> {
-            new BatheAndCutHair();
-        });
-        
-    }
-    public BatheAndCutHair(){
+    public BatheAndCutHair(GroomReipt groom_r){
+        this.groom_r = groom_r;
+        this.customer = groom_r.getCustomer();
+        this.type_code = groom_r.getGroom_code();
+        this.pet = customer.getPet();
         frame = new JFrame("สรุป");
         panelAll = new JPanel(new BorderLayout());
         panelAllHistory = new JPanel(new BorderLayout());
@@ -188,7 +189,6 @@ public class BatheAndCutHair implements ActionListener{
 
         textshower.setBackground(white);
         textshower.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        textshower.setBackground(white);
         textcutHair.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         scroll.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         panelExpenses_t.add(expenses);
@@ -204,18 +204,58 @@ public class BatheAndCutHair implements ActionListener{
         paneladdButton.add(panelAllExpenses, BorderLayout.NORTH); paneladdButton.add(panelbutton, BorderLayout.CENTER);
 
         panelAll.add(panelAllHistory, BorderLayout.NORTH); panelAll.add(paneladdButton, BorderLayout.CENTER);
+        setText();
         frame.add(panelAll);
         frame.setVisible(true);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setSize(650, 550);
         frame.setLocationRelativeTo(null);
         Treatment.addActionListener(this);
+        frame.setResizable(false);
     }
-
+    public void getdb(){
+        Connec_table tabledb = new Connec_table();
+        String sql = String.format("select * from Groomer where Type_Code = '%s'", type_code);
+        ResultSet rs = tabledb.getData(sql);
+        try {
+            if (rs.next()) {
+                groom_r.setCut(rs.getDouble("Cut"));
+                groom_r.setShower(rs.getDouble("Shower"));
+                groom_r.setDetails(rs.getString("Recom"));
+            }
+        } catch (SQLException ex) {
+        }
+        finally{
+           tabledb.Discon(); 
+        }
+    }
+    public void setText(){
+        textNameOw.setText(customer.getFirstName()+" "+customer.getLastName());
+        textNameOw.setEditable(false);
+        textNameAn.setText(pet.getName());
+        textNameAn.setEditable(false);
+        textTypeA.setText(pet.getType());
+        textTypeA.setEditable(false);
+        textSpecies.setText(pet.getSpicies());
+        textSpecies.setEditable(false);
+        textAgeA.setText(pet.getAge());
+        textAgeA.setEditable(false);
+        textChronicDisease.setText(pet.getDisease());
+        textChronicDisease.setEditable(false);
+        textGenderA.setText(pet.getSex());
+        textGenderA.setEditable(false);
+        getdb();
+        textcutHair.setText(groom_r.getCut()+"");
+        textcutHair.setEditable(false);
+        textshower.setText(groom_r.getShower()+"");
+        textshower.setEditable(false);
+        tdescrip.setText(groom_r.getDetails());
+        tdescrip.setEditable(false);
+    }
     @Override
     public void actionPerformed(ActionEvent ev) {
         if (ev.getSource().equals(Treatment)) {
-            new Treatment_BAC();
+            new Treatment_BAC(groom_r);
         }
     }
 

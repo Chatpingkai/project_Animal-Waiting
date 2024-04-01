@@ -1,3 +1,5 @@
+package Font;
+
 import back.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -26,42 +28,33 @@ public class Patient_history extends JInternalFrame implements MouseListener{
         
         scroll.setBounds(40, 30, 870, 590);
         pa1.add(scroll);
-//        frpatient.add(pa1);
-        
-        
         
         table = new JTable();
-        // create a table model and set a Column Identifiers to this model 
         Object[] columns = {"ชื่อสัตว์เลี้ยง","ชื่อเจ้าของ", "ชนิด","สายพันธุ์"};
         model = new DefaultTableModel();
         model.setColumnIdentifiers(columns);
         setTable();
-        // set the model to the table
         table.setModel(model);
         
         scroll.setViewportView(table);
         table.setRowHeight(24);
-        table.getTableHeader().setReorderingAllowed(false); //tap can't move//
-        table.setGridColor(new Color(0xFFE3A7)); //color of grid//
-        
+        table.getTableHeader().setReorderingAllowed(false);
+        table.setGridColor(new Color(0xFFE3A7));
         
         Font defaultFont2 = table.getFont();
         Font font = defaultFont2.deriveFont(defaultFont2.getSize() + 2.5f); 
         table.setFont(font);
         table.getTableHeader().setFont(font);
         
-        //color of table//
         DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
         renderer.setBackground(new Color(0xFFE3A8));
         table.setDefaultRenderer(Object.class, renderer);
         
-        
-        //number of colum//
         for(int i=0; i <=50; i++){
             model.addRow(new Object[0]);
         }
         
-         table.setDefaultEditor(Object.class, null);//un edit row//
+        table.setDefaultEditor(Object.class, null);
         table.addMouseListener(this);
         
         
@@ -70,8 +63,9 @@ public class Patient_history extends JInternalFrame implements MouseListener{
  
         getContentPane().add(pa1);
         setSize(980, 700);
-        setLocation(700, 200);
+        setLocation(100, 200);
         setVisible(true);
+        setLayer(1);
     }
     private void setTable(){
         table_db = new Connec_table();
@@ -92,17 +86,6 @@ public class Patient_history extends JInternalFrame implements MouseListener{
         } catch (SQLException e) {
         }
         table_db.Discon();
-    }
-    public static void main(String[] args) {
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        SwingUtilities.invokeLater(() -> {
-            Patient_history frame = new Patient_history();
-        });
     }
     private void openInternalFrame(JInternalFrame internalFrame) {
         internalFrame.addInternalFrameListener(new InternalFrameAdapter() {

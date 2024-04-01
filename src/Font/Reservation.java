@@ -1,16 +1,23 @@
+package Font;
 
+
+import back.Connec_table;
+import back.Customer;
 import java.awt.*;
 import java.util.concurrent.Flow;
-
+import javax.swing.JOptionPane;
 import javax.swing.*;
 import org.jdatepicker.JDatePicker;
 import org.jdatepicker.UtilDateModel;
 import java.awt.event.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class Reservation implements ActionListener{
     private JFrame frame_reservation;
     private JPanel panel_main, panel_north, panel_center1, panel_south, panel_box1, 
-panel_box2, panel_box3, panel_space1, panel_space2, panel_box4, panel_box5, 
-panel_center_main, panel_center2, panel_box6, panel_box7;
+        panel_box2, panel_box3, panel_space1, panel_space2, panel_box4, panel_box5, 
+        panel_center_main, panel_center2, panel_box6, panel_box7;
     private JComboBox box_time, box_type;
     private JTextArea box_details;
     private JLabel txt_reservation, txt_date, txt_time, txt_type, txt_details;
@@ -18,10 +25,18 @@ panel_center_main, panel_center2, panel_box6, panel_box7;
     private JDatePicker box_date;
     private JScrollPane scroll;
     private JButton button_sub;
-
-    public Reservation(){
+    private Customer customer;
+    private static int lookid;
+    
+    public Reservation(Customer customer){
+        
+        //set data
+        this.customer = customer;
+        this.lookid = customer.getId();
+        
+        
         frame_reservation = new JFrame("Reservation");
-        frame_reservation.setDefaultCloseOperation(frame_reservation.EXIT_ON_CLOSE);
+        frame_reservation.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame_reservation.setLayout(new BorderLayout());
 
         txt_reservation = new JLabel("จองคิว");
@@ -35,7 +50,7 @@ panel_center_main, panel_center2, panel_box6, panel_box7;
         box_date = new JDatePicker(model);
 
         String time[] = {"10:00 - 11:00", "11:00 - 12:00", "12:00 - 13:00", 
-"13:00 - 14:00", "14:00 - 15:00", "15:00 - 16:00", "16:00 - 17:00", "17:00 - 18:00", 
+"14:00 - 15:00", "15:00 - 16:00", "16:00 - 17:00", "17:00 - 18:00", 
 "18:00 - 19:00", "19:00 - 20:00", };
         String type[] = {"เข้ารับการรักษา", "บริการอาบน้ำ/ตัดขน"};
         box_time = new JComboBox<>(time);
@@ -144,21 +159,34 @@ panel_center_main, panel_center2, panel_box6, panel_box7;
         frame_reservation.setLocationRelativeTo(null);
         frame_reservation.setResizable(false);
     }
-    public static void main(String[] args){
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-            } catch (Exception e) {
-            e.printStackTrace();
-            }
-            SwingUtilities.invokeLater(() -> { 
-                Reservation frame = new Reservation();
-            });
-    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        System.out.println(box_date.getModel().getYear()+"-"+box_date.getModel().getMonth()+"-"+box_date.getModel().getDay());
-        
+        if (e.getSource().equals(button_sub)) {
+            Connec_table ct = new Connec_table();
+            String date = String.format("%02d-%02d-%02d", box_date.getModel().getYear(),box_date.getModel().getMonth()+1,box_date.getModel().getDay());
+            System.out.println(date);
+            
+            //find same thing
+            String same = String.format("SELECT * FROM Reserve WHERE Date = '%s' AND Time = '%s'", date, box_time.getSelectedItem());
+            ResultSet rs = ct.getData(same);
+            try {
+                if (rs.next()) {
+                    JOptionPane.showMessageDialog(null, "This time was reserved, pls select another time");
+                } else {
+                    if(box_details.getText().equals("")){
+                        customer.reserve(date, box_time.getSelectedItem()+"", box_type.getSelectedItem()+"");
+                    }else{
+                        customer.reserve(date, box_time.getSelectedItem()+"", box_type.getSelectedItem()+"",box_details.getText());
+                    }
+                    frame_reservation.dispose();
+                }
+            } catch (SQLException ex) {
+            }
+            finally{
+                ct.Discon();  
+            }
+        }
     }
     
 }

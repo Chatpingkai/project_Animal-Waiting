@@ -1,3 +1,5 @@
+package Font;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -7,8 +9,8 @@ import java.sql.*;
 import java.util.*;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
-public class Usage_history extends JInternalFrame implements MouseListener{
-//    private JFrame frused;
+public class User_history_J implements MouseListener{
+    private JFrame frused;
     private JScrollPane scroll;
     private JTable table;
     private JPanel pa1;
@@ -16,67 +18,54 @@ public class Usage_history extends JInternalFrame implements MouseListener{
     private ArrayList<String> data;
     private ArrayList<String> date_data;
     private int id;
-    private int introw;
-    public Usage_history(){
-        super("Animal-Waiting", false, true, false, true);
+    private int introw, intcol;
+    public User_history_J(){
         this.id = 0;
         data = new ArrayList<String>();
         date_data = new ArrayList<String>();
-//        frused = new JFrame("ประวัติการใช้บริการ");
+        frused = new JFrame("ประวัติการใช้บริการ");
         pa1 = new JPanel();
         pa1.setLayout(null);
         scroll = new JScrollPane();
         
         scroll.setBounds(40, 30, 1200, 590);
         pa1.add(scroll);
-//        frused.add(pa1);
+        frused.add(pa1);
         setTable();
         
         Color backgroundColor = new Color(0xFFEEE3);
         pa1.setBackground(backgroundColor);
  
-        getContentPane().add(pa1);
-        setSize(1300, 700);
-        setLocation(200, 200);
-        setVisible(true);
-        setResizable(false);
+        frused.setSize(1300, 700);
+        frused.setLocation(200, 200);
+        frused.setVisible(true);
+        frused.setResizable(false);
     }
-    public Usage_history(int id){
-        super("Animal-Waiting", false, true, false, true);
+    public User_history_J(int id){
+//        super("Animal-Waiting", false, true, false, true);
         this.id = id;
         data = new ArrayList<String>();
         date_data = new ArrayList<String>();
-//        frused = new JFrame("ประวัติการใช้บริการ");
+        frused = new JFrame("ประวัติการใช้บริการ");
         pa1 = new JPanel();
         pa1.setLayout(null);
         scroll = new JScrollPane();
         
         scroll.setBounds(40, 30, 1200, 590);
         pa1.add(scroll);
-//        frused.add(pa1);
+        frused.add(pa1);
         setTable();
         
         Color backgroundColor = new Color(0xFFEEE3);
         pa1.setBackground(backgroundColor);
  
-        getContentPane().add(pa1);
-        setSize(1300, 700);
-        setLocation(200, 200);
-        setVisible(true);
-        setResizable(false);
+//        frused.getContentPane().add(pa1);
+        frused.setSize(1300, 700);
+        frused.setLocation(200, 200);
+        frused.setVisible(true);
+        frused.setResizable(false);
+        frused.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
-    public static void main(String[] args) {
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        SwingUtilities.invokeLater(() -> {
-            Usage_history frame = new Usage_history();
-        });
-    }
-
     private void setTable() {
         table = new JTable(); 
         // create a table model and set a Column Identifiers to this model 
@@ -134,20 +123,21 @@ public class Usage_history extends JInternalFrame implements MouseListener{
         table.setDefaultEditor(Object.class, null);//un edit row//}
         table.addMouseListener(this);
     }
-    private void openInternalFrame(JInternalFrame internalFrame) {
-        internalFrame.addInternalFrameListener(new InternalFrameAdapter() {
-        @Override
-        public void internalFrameClosing(InternalFrameEvent e) {
-            }
-        });
-        getParent().add(internalFrame);
-    }
+    
     @Override
     public void mouseClicked(MouseEvent e) {
         if (e.getClickCount() == 2) {
             introw = table.rowAtPoint(e.getPoint());
+            intcol = 1;
+            String selectedData = (String) table.getValueAt(introw, intcol);
             Customer customer = new Customer(id);
-            openInternalFrame(new history_(customer, data.get(introw), date_data.get(introw)));
+            if(selectedData.equals("Cure")){
+                CureReipt cure_r = new CureReipt(customer, data.get(introw), date_data.get(introw));
+                new TrCosts(cure_r);
+            }else{
+                GroomReipt groom_r = new GroomReipt(customer, data.get(introw), date_data.get(introw));
+                new BatheAndCutHair(groom_r);
+            }
         }
 }
 

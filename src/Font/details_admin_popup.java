@@ -1,3 +1,5 @@
+package Font;
+
 
 import back.*;
 import java.awt.*;
@@ -5,7 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.*;;
+import java.util.*;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -41,6 +43,7 @@ box_opinion, box_note ,box_plus, box_date;
     private Map<String, Med> map = new HashMap<String, Med>();
     private Ranmdom wordcode = new Ranmdom();
     private int introw;
+    private doctor_popup nextpop;
     public details_admin_popup(CureReipt cure_r){
         this.cure_r = cure_r;
         this.customer = cure_r.getCustomer();
@@ -444,22 +447,17 @@ box_opinion, box_note ,box_plus, box_date;
         fr.setVisible(true);
         fr.setResizable(false);
     }
-    public static void main(String[] args){
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-            } catch (Exception e) {
-            e.printStackTrace();
-            }
-            SwingUtilities.invokeLater(() -> { 
-                details_admin_popup frame = new details_admin_popup(new CureReipt(new Customer(1),"Cure_1PCHTU","2567-03-28"));
-            });
-    }
     @Override
     public void actionPerformed(ActionEvent e){
         if (e.getSource() == button_next){
             fr.dispose();
-//            cure_r.updatedb();
-            new doctor_popup();
+            cure_r.setVeterinary(box_name_docter.getText());
+            cure_r.setSymptom(box_symptom.getText());
+            cure_r.setDiagnose(box_diagnose.getText());
+            cure_r.setCure(box_trestment_method.getText());
+            cure_r.setRecom(box_opinion.getText());
+            cure_r.setOther(box_note.getText());
+            nextpop = new doctor_popup(cure_r);
         }else if (e.getSource().equals(button_plus)){
             Med use = map.get(cbmed.getSelectedItem());
             int want =  Integer.parseInt(box_plus.getText());
@@ -468,24 +466,34 @@ box_opinion, box_note ,box_plus, box_date;
                     String[] s = {use.getFullName(),want+"",want*use.getPrice()+""};
                     select_med.add(s);
                     String code = use.getFullName()+wordcode.rcode();
-                    Med_code med_code = new Med_code(use, code);
+                    Med_code med_code = new Med_code(use, code,want);
                     cure_r.getCode_med().add(med_code);
+                    cure_r.setP_med(cure_r.getP_med()+want*use.getPrice());
                     box_plus.setText("");
                     cbmed.setSelectedItem(null);
+                }else{
+                 JOptionPane.showMessageDialog(null, "Not enough medicine"); 
                 }
             setTable();
         }else if(e.getSource().equals(button_minus)){
-            String[] delete = select_med.get(introw);
-            Med del_med = map.get(delete[0]);
-            del_med.setAmount(del_med.getAmount()+Double.parseDouble(delete[1]));
-            select_med.remove(introw);
-            setTable();
+            try {
+                String[] delete = select_med.get(introw);
+                Med del_med = map.get(delete[0]);
+                del_med.setAmount(del_med.getAmount()+Double.parseDouble(delete[1]));
+                cure_r.getCode_med().remove(introw);
+                cure_r.setP_med(cure_r.getP_med()-Double.parseDouble(delete[2]));
+                select_med.remove(introw);
+                setTable();  
+            }catch (Exception exc) {
+                JOptionPane.showMessageDialog(null, "Please select the medicine you want to delete.");
+            }
+            
         }
     }
 
     public void setText() {
         Pet pet = customer.getPet();
-        box_name.setText(customer.getFirstName());
+        box_name.setText(customer.getFirstName()+" "+customer.getLastName());
         box_name_pet.setText(pet.getName());
         box_type.setText(pet.getType());
         box_breed.setText(pet.getSpicies());
@@ -501,7 +509,6 @@ box_opinion, box_note ,box_plus, box_date;
         box_gender.setEditable(false);
         box_disease.setEditable(false);
         box_date.setEditable(false);
-        System.out.println(cure_r.getType_code());
     }
     
     public void setCombobox(){

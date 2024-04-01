@@ -1,8 +1,12 @@
+package Font;
+
 
 import javax.swing.*;
 import java.awt.*;
+import back.*;
+import java.awt.event.*;
 
-public class doctor_popup{
+public class doctor_popup implements ActionListener{
     private JFrame frame_Hospital_Medical_Expenses;
     private JLabel service, Medical_Supplies, Medical_Service, Home_Medication, 
 medication_expenses, Physician_Evaluation, amount;
@@ -10,9 +14,11 @@ medication_expenses, Physician_Evaluation, amount;
 box_medication_expenses, box_Physician_Evaluation, box_amount;
     private JPanel fr_service, fr_button, space_west, space_east, fr_main, space;
     private JButton button_sub;
-    public doctor_popup(){
+    private CureReipt cur_r;
+    public doctor_popup(CureReipt cur_r){
+        this.cur_r = cur_r;
         frame_Hospital_Medical_Expenses = new JFrame("Hospital_Medical_Expenses");
-        frame_Hospital_Medical_Expenses.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame_Hospital_Medical_Expenses.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame_Hospital_Medical_Expenses.setLayout(new BorderLayout());
 
         service = new JLabel("  ค่าบริการ");
@@ -42,7 +48,8 @@ box_medication_expenses, box_Physician_Evaluation, box_amount;
         button_sub.setBackground(Color.WHITE);
         button_sub.setPreferredSize(new Dimension(80, 30));
         button_sub.setFont(new Font("Jost", Font.PLAIN, 15));
-
+        button_sub.addActionListener(this);
+        
         fr_service = new JPanel();
         fr_button = new JPanel();
         fr_main = new JPanel();
@@ -69,8 +76,8 @@ box_medication_expenses, box_Physician_Evaluation, box_amount;
         fr_main.add(box_medication_expenses);
         fr_main.add(Physician_Evaluation);
         fr_main.add(box_Physician_Evaluation);
-        fr_main.add(amount);
-        fr_main.add(box_amount);
+//        fr_main.add(amount);
+//        fr_main.add(box_amount);
 
         box_Medical_Supplies.setFont(new Font("Tahoma", Font.PLAIN, 13));
         box_Medical_Service.setFont(new Font("Tahoma", Font.PLAIN, 13));
@@ -91,24 +98,28 @@ box_medication_expenses, box_Physician_Evaluation, box_amount;
         frame_Hospital_Medical_Expenses.add(fr_button, BorderLayout.SOUTH);
         frame_Hospital_Medical_Expenses.add(space_east, BorderLayout.EAST);
         frame_Hospital_Medical_Expenses.add(space_west, BorderLayout.WEST);
-
+        setText();
+        
         space.setPreferredSize(new Dimension(1, 20));
         frame_Hospital_Medical_Expenses.setSize(500, 400);
         frame_Hospital_Medical_Expenses.setVisible(true);
         frame_Hospital_Medical_Expenses.setLocationRelativeTo(null);
         frame_Hospital_Medical_Expenses.setResizable(false);
     }
-    public static void main(String[] args){
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-            } catch (Exception e) {
-            e.printStackTrace();
-            }
-            SwingUtilities.invokeLater(() -> { 
-                doctor_popup frame = new doctor_popup();
-            });
-    }
     public JFrame getFrame(){
         return frame_Hospital_Medical_Expenses;
+    }
+    public void setText(){
+        box_Home_Medication.setText(cur_r.getP_med()+"");
+        box_Home_Medication.setEditable(false);
+    }
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        cur_r.setP_veter(Double.parseDouble(box_Medical_Supplies.getText()));
+        cur_r.setP_help(Double.parseDouble(box_Medical_Service.getText()));
+        cur_r.setP_disease(Double.parseDouble(box_medication_expenses.getText()));
+        cur_r.setP_cure(Double.parseDouble(box_Physician_Evaluation.getText()));
+        cur_r.updatedb();
+        frame_Hospital_Medical_Expenses.dispose();
     }
 }

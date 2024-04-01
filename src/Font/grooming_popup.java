@@ -1,8 +1,12 @@
+package Font;
 
+
+import back.*;
 import java.awt.*;
 import javax.swing.*;
+import java.awt.event.*;
 
-public class grooming_popup{
+public class grooming_popup implements ActionListener, MouseListener{
     private JFrame frame_grooming;
     private JTextField box_name_owner, box_name_pet, box_type, box_breed, box_age, 
 box_sex, box_Chronic_illness, box_date, box_cutting, box_shower, box_amount;
@@ -15,10 +19,13 @@ space19, space20, space21, space22, space23, space24, space25, space26, space27,
 space28, space29, space30, space31, space32, space33;
     private JTextArea box_details;
     private JScrollPane scroll;
-
-    public grooming_popup(){
+    private GroomReipt groom_r;
+    private Customer customer;
+    public grooming_popup(GroomReipt groom_r){
+        this.customer = groom_r.getCustomer();
+        this.groom_r = groom_r;
         frame_grooming = new JFrame("Other Service Charge");
-        frame_grooming.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame_grooming.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame_grooming.setLayout(new GridLayout(1, 1));
 
         p1 = new JPanel();
@@ -57,7 +64,7 @@ space28, space29, space30, space31, space32, space33;
 
         pet_history = new JLabel("  ประวัติสัตว์เลี้ยง");
         pet_history.setFont(new Font("Tahoma", Font.BOLD, 25));
-        name_owner = new JLabel("ชื่อลุกค้า :");
+        name_owner = new JLabel("ชื่อลูกค้า :");
         name_owner.setFont(new Font("Tahoma", Font.PLAIN, 15));
         name_pet = new JLabel("ชื่อสัตวืเลี้ยง : ");
         name_pet.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -150,10 +157,10 @@ space28, space29, space30, space31, space32, space33;
         p1.add(box_shower);
         p1.add(space23);
         p1.add(space24);
-        p1.add(amount);
+//        p1.add(amount);
         p1.add(space25);
         p1.add(space26);
-        p1.add(box_amount);
+//        p1.add(box_amount);
         p1.add(space27);
         p1.add(space28);
         p1.add(details);
@@ -243,20 +250,62 @@ space28, space29, space30, space31, space32, space33;
         box_shower.setPreferredSize(new Dimension(375, 20));
         box_amount.setPreferredSize(new Dimension(375, 20));
         button_submit.setPreferredSize(new Dimension(100, 40));
-
+        button_submit.addActionListener(this);
+        setText();
         frame_grooming.setSize(500, 650);
         frame_grooming.setVisible(true);
         frame_grooming.setLocationRelativeTo(null);
         frame_grooming.setResizable(false);
+        
     }
-    public static void main(String[] args){
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-            } catch (Exception e) {
-            e.printStackTrace();
-            }
-            SwingUtilities.invokeLater(() -> {
-                grooming_popup frame = new grooming_popup();
-            });
+    public void setText(){
+        Pet pet = customer.getPet();
+        box_date.setText(groom_r.getDate());
+        box_date.setEditable(false);
+        box_name_owner.setText(customer.getFirstName()+" "+customer.getLastName());
+        box_name_owner.setEditable(false);
+        box_name_pet.setText(pet.getName());
+        box_name_pet.setEditable(false);
+        box_breed.setText(pet.getType());
+        box_breed.setEditable(false);
+        box_sex.setText(pet.getSex());
+        box_sex.setEditable(false);
+        box_type.setText(pet.getSpicies());
+        box_type.setEditable(false);
+        box_Chronic_illness.setText(pet.getDisease());
+        box_Chronic_illness.setEditable(false);
+        box_age.setText(pet.getAge());
+        box_age.setEditable(false);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if(e.getSource().equals(button_submit)){
+            groom_r.setCut(Double.parseDouble(box_cutting.getText()));
+            groom_r.setShower(Double.parseDouble(box_shower.getText()));
+            groom_r.setDetails(box_details.getText());
+            groom_r.updatedb();
+            frame_grooming.dispose();
+        }
+     }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
     }
 }

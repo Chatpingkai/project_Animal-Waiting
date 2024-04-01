@@ -1,3 +1,5 @@
+package Font;
+
 import java.awt.*;
 import java.awt.event.ActionListener;
 import static java.awt.Color.*;
@@ -21,9 +23,6 @@ public class SummaryOfTreatment implements ActionListener{
     private JTextArea descriptionData, amountData, sumPureAmount, thenameO, theNameA, theType, theAddrass, thePayee,  textSymptom, textDiagnosis, textTreatmentt, textDoctorOpinion;
     private JTextField textNameOw, textNameAn, textTypeA, textSpecies, textAgeA, textGenderA, textChronicDisease,
     textDateOfTreatment, textDoctor;
-    public static void main(String[] args) {
-        new SummaryOfTreatment();
-    }
     public SummaryOfTreatment(){
         frame = new JFrame("สรุป");
 

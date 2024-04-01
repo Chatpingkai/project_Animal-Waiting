@@ -5,6 +5,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.PreparedStatement;
 
 /**
  *
@@ -82,6 +83,56 @@ public class RegisterBackend {
         this.password = password;
     }
     
+    public RegisterBackend(String nameTitle, String name, String lastname, String ethnicity, String nationality, String religion, String sex, String petName, String petType, String breed, String petSex, String petBirthday, double petWeight, String chronicDisease, int ageYear, int ageMonth, String animalHusbandry, String place, String address, String alley, String swine, String roadName, String subDistrict, String subArea, String area, String postCode, String phoneNumber, String email, String note) {
+        this.nameTitle = nameTitle;
+        this.name = name;
+        this.lastname = lastname;
+        this.ethnicity = ethnicity;
+        this.nationality = nationality;
+        this.religion = religion;
+        this.sex = sex;
+        this.petName = petName;
+        this.petType = petType;
+        this.breed = breed;
+        this.petSex = petSex;
+        this.petBirthday = petBirthday;
+        this.petWeight = petWeight;
+        this.chronicDisease = chronicDisease;
+        this.ageYear = ageYear;
+        this.ageMonth = ageMonth;
+        this.animalHusbandry = animalHusbandry;
+        this.place = place;
+        this.address = address;
+        this.alley = alley;
+        this.swine = swine;
+        this.roadName = roadName;
+        this.subDistrict = subDistrict;
+        this.subArea = subArea;
+        this.area = area;
+        this.postCode = postCode;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.note = note;
+    }
+    
+    public void Edit(int id) {
+        Connec_table ctEdit = new Connec_table();
+        String contact = address+","+alley+","+swine+","+roadName+","+subDistrict+","+subArea+","+area+","+postCode;
+            String[] checkNull = contact.split(",");
+            for (int i = 0; i < checkNull.length; i++) {
+                if (checkNull[i] == null || checkNull[i].isEmpty()) {
+                    checkNull[i] = " ";
+                }
+            }
+            contact = String.join(",", checkNull);
+            String edit = String.format(
+                "UPDATE User_Profile SET Name = '%s', Last = '%s', B_name = '%s', Sex = '%s', Nation = '%s', Ethnicity = '%s', Religion = '%s', Contact = '%s', Phone = '%s', Email = '%s', Other = '%s' WHERE ID = %d",
+                name, lastname, nameTitle, sex, nationality, ethnicity, religion, contact, phoneNumber, email, note, id);
+        ctEdit.UpdateData(edit);
+        ctEdit.Discon();
+        System.out.println("Edited");
+    }
+    
     public String hash(String p) {
         try {
             MessageDigest md;
@@ -100,7 +151,8 @@ public class RegisterBackend {
     
     public void writeDB() {
         //Table User_id
-        hashPass = this.hash(this.password);
+        hash h = new hash();
+        hashPass = h.doHash(this.password);
         String sql = String.format("INSERT INTO User_id (username, password) VALUES('%s', '%s')",this.username, hashPass);
         String get = String.format("SELECT * FROM User_id WHERE username = '%s'", username);
         Connec_table ct = new Connec_table();
@@ -117,7 +169,7 @@ public class RegisterBackend {
         
         //Table User_Profile
         Connec_table ctPro = new Connec_table();
-        String getID = String.format("SELECT * FROM User_Profile WHERE ID = '%s'", id);
+        String getID = String.format("SELECT * FROM User_Profile WHERE ID = '%d'", id);
         try {
             ResultSet rs = ctPro.getData(getID);
             System.out.println(rs.next());
@@ -128,12 +180,32 @@ public class RegisterBackend {
             ctPro.UpdateData(update);
             System.out.println("Updated");
         } catch (SQLException ex) {
+            String contact = address+","+alley+","+swine+","+roadName+","+subDistrict+","+subArea+","+area+","+postCode;
+            String[] checkNull = contact.split(",");
+            for (int i = 0; i < checkNull.length; i++) {
+                if (checkNull[i] == null || checkNull[i].isEmpty()) {
+                    checkNull[i] = " ";
+                }
+            }
+            contact = String.join(",", checkNull);
             String insert = String.format(
                 "INSERT INTO User_Profile (Name, Last, B_name, Sex, Nation, Ethnicity, Religion, Contact, Phone, Email, Other, ID) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%d')",
-                name, lastname, nameTitle, sex, nationality, ethnicity, religion, address, phoneNumber, email, note, id);
+                name, lastname, nameTitle, sex, nationality, ethnicity, religion, contact, phoneNumber, email, note, id);
             ctPro.UpdateData(insert);
             System.out.println("Inserted");
         }
-        ctPro.Discon();
+        ct.Discon();
+        
+        //Table Pet
+        Connec_table ctPet = new Connec_table();
+        String age = ageYear+"."+ageMonth;
+        String insertPet = String.format(
+            "INSERT INTO Pet (Name, Type, Spicies, Birth, Sex, Disease, Age, Weight, Treat, Place, ID) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')",
+            petName, petType, breed, petBirthday, petSex, chronicDisease, age, petWeight, animalHusbandry, place, id);
+        ctPet.UpdateData(insertPet);
+        System.out.println("Inserted Pet");
+        
+        //disconnect database
+        ctPro.Discon(); 
     }
 }

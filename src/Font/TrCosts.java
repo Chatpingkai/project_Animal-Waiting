@@ -1,8 +1,15 @@
+package Font;
+
+import back.Connec_table;
+import back.CureReipt;
+import back.Customer;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import static java.awt.Color.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -16,18 +23,95 @@ public class TrCosts implements ActionListener {
     private JScrollPane meddi, symp, descrip, cure,opi,scrollPane, symto;
     private JTable table;
     private JButton Treatment;
-    public static void main(String[] args) {
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    
-        SwingUtilities.invokeLater(() -> {
-            new TrCosts();
-        });
-    }
+    private DefaultTableModel model;
+    private Connec_table table_db;
+    private CureReipt cure_r;
+    private String type_code;
+    private Customer customer;
+    private String date;
+    private CureReipt curereipt;
+    private String[] med_codelist;
     public TrCosts(){
+        this.type_code = "";
+        this.customer = null;
+        this.date = "";
+        table = new JTable();
+        setTable();
+        setFrame();
+    
+    }
+    public TrCosts(CureReipt cure_r){
+        this.cure_r = cure_r;
+        cure_r.setData();
+        this.type_code = cure_r.getType_code();
+        this.customer = cure_r.getCustomer();
+        this.date = cure_r.getDate();
+        table = new JTable();
+        setTable();
+        setFrame();
+        setTextField();
+    }
+    private void setTextField(){
+        tpeoplename.setText(customer.getFirstName()+" "+customer.getLastName());
+        tanimalname.setText(customer.getPet().getName());
+        tcateanimal.setText(customer.getPet().getType());
+        ttypeanimal.setText(customer.getPet().getSpicies());
+        tage.setText(customer.getPet().getAge()+"");
+        tgender.setText(customer.getPet().getSex()+"");
+        tdisea.setText(customer.getPet().getDisease());
+        tsymptom.setText(cure_r.getSymptom());
+        txtadocopi.setText(cure_r.getDiagnose());
+        txtacure.setText(cure_r.getCure());
+        txtadocdescrip.setText(cure_r.getRecom());
+        tdocname.setText(cure_r.getVeterinary());
+        tdate.setText(date);
+    }
+    private void setMed_CodeList(){
+        table_db = new Connec_table();
+        String sql = String.format("select Med_Code from Cure where type_code = '%s'", type_code);
+        ResultSet rs = table_db.getData(sql);
+        try {
+            while (rs.next()) {
+                String med_code = rs.getString("Med_Code");
+                med_codelist = med_code.split("0");
+            }
+        } catch (SQLException ex) {
+        }
+    }
+    private void setTable(){
+        setMed_CodeList();
+        Object[] columns = {"","ชื่อยา","จำนวน","ข้อบ่งใช้"};
+        model = new DefaultTableModel();
+        model.setColumnIdentifiers(columns);
+        table.setModel(model);
+        table_db = new Connec_table();
+        String sql;
+        ResultSet rs;
+        String med_code="";
+        for (String med_cod : med_codelist) {
+            med_code = med_code+"'"+med_cod+"'";
+            if (!med_cod.equals(med_codelist[med_codelist.length-1])) {
+                med_code = med_code+", ";
+            }
+        }
+        sql = String.format("select * from Med_Code where Med_Code in (%s)", med_code);
+        System.out.println(sql);
+        rs = table_db.getData(sql);
+            try {
+                while (rs.next()) {
+                    String name = rs.getString("Name");
+                    String amount = rs.getString("Amount");
+                    String how = rs.getString("How");
+                    String[] row = {"", name, amount, how};
+                    model.addRow(row);
+                }
+            } catch (SQLException ex) {
+            }
+        model.setColumnIdentifiers(columns);
+        table.setModel(model);
+        table_db.Discon();
+    }
+    private void setFrame(){
         frhis = new JFrame("ประวัติ");
         pa1 = new JPanel(null);
         pa1.setBackground(new Color(0xFFEEE3));
@@ -213,13 +297,6 @@ public class TrCosts implements ActionListener {
         opi.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         pa1.add(opi);
         
-        JTable table = new JTable();  
-        Object[] columns = {"","ชื่อยา","จำนวน","ข้อบ่งใช้"};
-        DefaultTableModel model = new DefaultTableModel();
-        model.setColumnIdentifiers(columns);
-        
-        table.setModel(model);
-        
         meddi = new JScrollPane(table);
 //        meddi.setViewportView(table);
         meddi.setBounds(210, 565, 500, 120);
@@ -277,7 +354,7 @@ public class TrCosts implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent ev) {
         if (ev.getSource().equals(Treatment)) {
-            new Treatment();
+            new Treatment(cure_r);
         }
 
     }

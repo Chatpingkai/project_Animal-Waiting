@@ -1,3 +1,5 @@
+package Font;
+
 import back.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -87,13 +89,13 @@ public class Medicinehome extends JInternalFrame{
         setSize(980, 700);
         setLocation(700, 200);
         setVisible(true);
-        
+        setLayer(1);
         
     }
     public void setTable(String sql) throws SQLException{
         table_db = new Connec_table();
         ResultSet rs = table_db.getData(sql);
-        Object[] columns = {"ชื่อสามัญทางยา","ชื่อทางการค้า","รูปแบบ/ขนาด","ราคา","จำนวน","เหลือ","คำแนะนำ"};
+        Object[] columns = {"ชื่อสามัญทางยา","ชื่อทางการค้า","รูปแบบ/ขนาด","ราคา","จำนวน","ข้อบ่งใช้","คำแนะนำ"};
         model = new DefaultTableModel();
         model.setColumnIdentifiers(columns);
         int i =0;
@@ -112,18 +114,6 @@ public class Medicinehome extends JInternalFrame{
         model.setColumnIdentifiers(columns);
         table.setModel(model);
         table_db.Discon();
-    }
-
-    public static void main(String[] args) {
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        SwingUtilities.invokeLater(() -> {
-            Medicinehome frame = new Medicinehome();
-        });
     }
     private void openInternalFrame(JInternalFrame internalFrame) {
         internalFrame.addInternalFrameListener(new InternalFrameAdapter() {

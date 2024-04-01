@@ -1,4 +1,7 @@
+package Font;
 
+
+import back.Customer;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
@@ -13,7 +16,17 @@ public class Main_MDI{
     private Patient_history internal_Patient_history;
     private history_ internal_history;
     private Usage_history internal_Usage_history;
-    public Main_MDI(){
+    private Customer customer;
+    private static int lookid;
+    
+    public Main_MDI() {
+        this(null);
+    }
+    public Main_MDI(Customer customer){
+        //send data
+        this.customer = customer;
+        lookid = customer.getId();
+        //====================
         desktopPane = new JDesktopPane();
         internal_Main_admin = new main_admin();
         internal_AddMedicine = new AddMedicine();
@@ -36,22 +49,11 @@ public class Main_MDI{
         internal_Usage_history.setVisible(false);
 
         desktopPane.setBackground(new Color(0xFFF5F5));
-
         frame = new JFrame("MDI Example");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setContentPane(desktopPane);
         frame.setVisible(true);
         frame.setResizable(false);
-    }
-    public static void main(String[] args){
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-            } catch (Exception e) {
-            e.printStackTrace();
-            }
-            SwingUtilities.invokeLater(() -> {
-                Main_MDI fr = new Main_MDI();
-            });
     }
 }
