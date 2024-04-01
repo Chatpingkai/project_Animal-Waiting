@@ -25,7 +25,8 @@ cancelPanel, allreservePanel,border1, border2,border3,border4, help10, infotop, 
 empty1, empty2, empty3, empty4, empty5, empty6, border, edit1, edit2, edit3, edit4, edit5, 
 edit16, edit17;
     private JLabel imagelogoLabel, nameLabel, petnameLabel, typeLabel, breedLabel, dateLabel,
-            sexLabel, ageLabel, weightLabel, callLabel, mailLabel, addressLabel, monthLabel;
+sexLabel, ageLabel, weightLabel, callLabel, mailLabel, addressLabel, 
+monthLabel, address10;
     private JButton edit, history, logout, reserve, cancel;
     private ImageIcon imagelogo, resizedImageIcon, roundedIcon;
     private JTextField[] boxes = new JTextField[42];
@@ -118,6 +119,7 @@ edit16, edit17;
         addressarea.setEditable(false);
         addressarea.setBackground(new Color(0xFDFAE5));
         addressarea.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        address10 = new JLabel("");
         
         //set data for human
         try {
@@ -133,11 +135,15 @@ edit16, edit17;
                 String address = String.format("บ้านเลขที่ : '%s'  หมู่ : '%s' ซอย : '%s' ถนน : '%s'",
                         listAddress[0], listAddress[2], listAddress[1], listAddress[3]
                 );
-                String address2 = String.format("อำเภอ : '%s' ตำบล : '%s' จังหวัด : '%s' รหัสไปรษณีย์ : '%s'",
-                        listAddress[5], listAddress[4], listAddress[6], listAddress[7]
+                String address2 = String.format("อำเภอ : '%s' ตำบล : '%s'",
+                        listAddress[5], listAddress[4]
+                );
+                String address3 = String.format("จังหวัด : '%s' รหัสไปรษณีย์ : '%s'",
+                        listAddress[6], listAddress[7]
                 );
                 addressLabel.setText(addressLabel.getText().substring(0, addressLabel.getText().length() - 2) + " : " + address.replaceAll("'", ""));
                 addressarea.setText(address2.replaceAll("'", ""));
+                address10.setText(address3.replaceAll("'", ""));
             ct.Discon();
             }
         } catch (SQLException ex) {
@@ -252,6 +258,7 @@ edit16, edit17;
         mailPanel.add(mailLabel);
         addressPanel.add(addressLabel);
         addressPanel.add(addressarea);
+        addressPanel.add(address10);
         infotop.add(namePanel);
         infotop.add(petnamePanel);
         infotop.add(typePanel);
@@ -263,6 +270,8 @@ edit16, edit17;
         infotop.add(callPanel);
         infotop.add(mailPanel);
         edit17.add(addressPanel);
+
+        address10.setFont(new Font("tahoma", Font.PLAIN, 13));
 
         edit17.setPreferredSize(new Dimension(30, 90));
 
