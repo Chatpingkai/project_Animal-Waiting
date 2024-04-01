@@ -23,7 +23,7 @@ space3, space4, space5, help1, help2, help3, typePanel, breedPanel, datePanel, s
 agePanel, weightPanel, callPanel, mailPanel, addressPanel, emptyline, something, reservePanel, 
 cancelPanel, allreservePanel,border1, border2,border3,border4, help10, infotop, infobottom, 
 empty1, empty2, empty3, empty4, empty5, empty6, border, edit1, edit2, edit3, edit4, edit5, 
-edit16;
+edit16, edit17;
     private JLabel imagelogoLabel, nameLabel, petnameLabel, typeLabel, breedLabel, dateLabel,
             sexLabel, ageLabel, weightLabel, callLabel, mailLabel, addressLabel, monthLabel;
     private JButton edit, history, logout, reserve, cancel;
@@ -57,6 +57,7 @@ edit16;
         colorR = new JPanel(new BorderLayout());
         ex1 = new JPanel(new FlowLayout());
         edit16 = new JPanel();
+        edit17 = new JPanel(new BorderLayout());
         buttonPanel = new JPanel(new GridLayout(4, 1));
         bordercalen = new JPanel(new BorderLayout());
         empty = new JPanel(new BorderLayout());
@@ -77,7 +78,6 @@ edit16;
         reservePanel = new JPanel();
         cancelPanel = new JPanel();
         allreservePanel = new JPanel(new GridLayout(3,1));
-        infotop = new JPanel(new GridLayout(11, 1));
         infobottom = new JPanel(new FlowLayout(FlowLayout.LEFT));
         empty1 = new JPanel();
         empty2 = new JPanel();
@@ -117,7 +117,7 @@ edit16;
         addressarea = new JTextArea();
         addressarea.setEditable(false);
         addressarea.setBackground(new Color(0xFDFAE5));
-        addressarea.setFont(new Font("Tahoma", Font.PLAIN, 10));
+        addressarea.setFont(new Font("Tahoma", Font.PLAIN, 13));
         
         //set data for human
         try {
@@ -223,10 +223,8 @@ edit16;
         empty4.setBackground(new Color(0xFEE3A8));
         info.setBackground(new Color(0xFDFAE5));
         info.setBorder(BorderFactory.createLineBorder(Color.black, 2));
-        info.add(infotop, BorderLayout.CENTER);
         infobottom.setBackground(new Color(0xFDFAE5));
         infobottom.add(addressPanel);
-        infotop.setBackground(new Color(0xFDFAE5));
         namePanel.setBackground(new Color(0xFDFAE5));
         petnamePanel.setBackground(new Color(0xFDFAE5));
         typePanel.setBackground(new Color(0xFDFAE5));
@@ -238,6 +236,10 @@ edit16;
         callPanel.setBackground(new Color(0xFDFAE5));
         mailPanel.setBackground(new Color(0xFDFAE5));
         addressPanel.setBackground(new Color(0xFDFAE5));
+        infotop = new JPanel(new GridLayout(10, 1));
+        info.add(infotop, BorderLayout.CENTER);
+        info.add(edit17, BorderLayout.SOUTH);
+        infotop.setBackground(new Color(0xFDFAE5));
         namePanel.add(nameLabel);
         petnamePanel.add(petnameLabel);
         typePanel.add(typeLabel);
@@ -258,9 +260,11 @@ edit16;
         infotop.add(sexPanel);
         infotop.add(agePanel);
         infotop.add(weightPanel);
-        infotop.add(addressPanel);
         infotop.add(callPanel);
         infotop.add(mailPanel);
+        edit17.add(addressPanel);
+
+        edit17.setPreferredSize(new Dimension(30, 90));
 
         // Main 
         edit1.setBackground(new Color(255, 238, 227));
@@ -275,6 +279,7 @@ edit16;
         reserve.setFocusPainted(false);
 //        reserve.setBorder(BorderFactory.createLineBorder(Color.black, 2));
         reserve.setPreferredSize(new Dimension(120, 40));
+        edit16.setPreferredSize(new Dimension(30, 5));
 
 //        cancel.setBackground(Color.white);
         cancel.setForeground(Color.RED);
@@ -317,6 +322,7 @@ edit16;
         border2.setBackground(new Color(0xFEE3A8));
         border3.setBackground(new Color(0xFEE3A8));
         border4.setBackground(new Color(0xFEE3A8));
+        edit17.setBackground(new Color(0xFEE3A8));
 
         border1.setPreferredSize(new Dimension(20,20));
         border2.setPreferredSize(new Dimension(20,20));
