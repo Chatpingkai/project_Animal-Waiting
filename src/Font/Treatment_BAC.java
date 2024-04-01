@@ -253,7 +253,14 @@ public class Treatment_BAC {
         nameO.setText(nameO.getText()+" "+customer.getFirstName()+" "+customer.getLastName());
         nameA.setText(nameA.getText()+" "+pet.getName());
         type.setText(type.getText()+" "+pet.getType());
-        address.setText(address.getText()+" "+customer.getAddress());
+        String[] listAddress = customer.getAddress().split(",");
+        String ad = String.format("บ้านเลขที่ : '%s'  หมู่ : '%s' ซอย : '%s' ถนน : '%s'",
+                        listAddress[0], listAddress[2], listAddress[1], listAddress[3]
+                );
+        String ad2 = String.format(" อำเภอ : '%s' ตำบล : '%s' จังหวัด : '%s' รหัสไปรษณีย์ : '%s'",
+                        listAddress[5], listAddress[4], listAddress[6], listAddress[7]
+                );
+        address.setText(address.getText()+" "+ad+ad2);
         groom_r.setAllprice();
         sumPureAmount.setText(groom_r.getAllprice()+" บาท");
     }

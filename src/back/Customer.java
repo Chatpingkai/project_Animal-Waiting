@@ -153,7 +153,7 @@ public class Customer extends Account{
     public void reserve(String date, String time, String type){
         try{
             db = new Connec_table();
-            String sql = String.format("INSERT INTO Reserve (ID, Date, Time, Type, Details) VALUES('%s', '%s', '%s', '%s', '%s')", id,date, time, type, "");
+            String sql = String.format("INSERT INTO Reserve (ID, Date, Time, Type, Details) VALUES('%s', '%s', '%s', '%s', '%s')", id,date, time, type, "ไม่มีรายละเอียด");
             db.UpdateData(sql);
 
         }
