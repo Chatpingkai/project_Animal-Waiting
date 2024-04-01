@@ -116,6 +116,8 @@ edit16;
         //JTextArea
         addressarea = new JTextArea();
         addressarea.setEditable(false);
+        addressarea.setBackground(new Color(0xFDFAE5));
+        addressarea.setFont(new Font("Tahoma", Font.PLAIN, 10));
         
         //set data for human
         try {
@@ -127,7 +129,15 @@ edit16;
                 nameLabel.setText(nameLabel.getText().substring(0, nameLabel.getText().length() - 1) + " : " + rs.getString("Name") + "  " + rs.getString("Last"));
                 callLabel.setText(callLabel.getText().substring(0, callLabel.getText().length() - 1) + " : " + rs.getString("Phone"));
                 mailLabel.setText(mailLabel.getText().substring(0, mailLabel.getText().length() - 1) + " : " + rs.getString("Email"));
-                addressLabel.setText(addressLabel.getText().substring(0, addressLabel.getText().length() - 2) + " : " + rs.getString("Contact"));
+                String[] listAddress = rs.getString("Contact").split(",");
+                String address = String.format("บ้านเลขที่ : '%s'  หมู่ : '%s' ซอย : '%s' ถนน : '%s'",
+                        listAddress[0], listAddress[2], listAddress[1], listAddress[3]
+                );
+                String address2 = String.format("อำเภอ : '%s' ตำบล : '%s' จังหวัด : '%s' รหัสไปรษณีย์ : '%s'",
+                        listAddress[5], listAddress[4], listAddress[6], listAddress[7]
+                );
+                addressLabel.setText(addressLabel.getText().substring(0, addressLabel.getText().length() - 2) + " : " + address.replaceAll("'", ""));
+                addressarea.setText(address2.replaceAll("'", ""));
             ct.Discon();
             }
         } catch (SQLException ex) {
