@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 public class Connec_table implements Connec{
     private Connection con;
     private Statement stm;
-    public static ResultSet rs;
+    private ResultSet rs;
     public Connec_table(){
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");

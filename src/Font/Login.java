@@ -1,6 +1,7 @@
 package Font;
 
 import back.Account;
+import back.Admin;
 import back.Customer;
 import back.Connec_table;
 import back.hash;
@@ -23,7 +24,6 @@ panel_space4, panel_space5, panel_space6, panel_space7, panel_space8, panel_spac
     private JTextField usernameField;
     private JPasswordField passwordField;
     private ImageIcon imagepage, imagelogo, resizedImageIcon;
-
     public Login() {
 
         //Main Page
@@ -201,31 +201,31 @@ panel_space4, panel_space5, panel_space6, panel_space7, panel_space8, panel_spac
         ResultSet rs = null;
         hash h = new hash();
         if (ev.getSource() == button_login) {
+            Admin admin = new Admin();
             userName = usernameField.getText();
             passWord = new String(passwordField.getPassword());
-            passWord = h.doHash(passWord);
-            String get = String.format("SELECT * FROM User_id WHERE username = '%s' and password = '%s'", userName, passWord);
-            try {
-                rs = ct.getData(get);
-                if (rs.next()) {
-                    int id = Integer.parseInt(rs.getString("id"));
-                    if (userName.equals("manza007")) {
-                        ct.Discon();
-                        Account customer = new Customer(id);
-                        new Main_MDI((Customer) customer);
-                    } else {
+            if (userName.equals(admin.getUSERNAME()) && (passWord.equals(admin.getPASSWORD()))) {
+                new Main_MDI();
+            }else{
+                passWord = h.doHash(passWord);
+                String get = String.format("SELECT * FROM User_id WHERE username = '%s' and password = '%s'", userName, passWord);
+                try {
+                    rs = ct.getData(get);
+                    if (rs.next()) {
+                        int id = Integer.parseInt(rs.getString("id"));
                         ct.Discon();
                         System.out.println(id);
                         Account customer = new Customer(id);
                         new Main_user((Customer) customer);
+                        fr.dispose();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Invaild Username or Password");
                     }
-                    fr.dispose();
-                } else {
-                    JOptionPane.showMessageDialog(null, "Invaild Username or Password");
-                }
-            } catch (SQLException ex) {
-                ex.printStackTrace();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                } 
             }
+            
         }
         if (ev.getSource() == register) {
             fr.dispose();
