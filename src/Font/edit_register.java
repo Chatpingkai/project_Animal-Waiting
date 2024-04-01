@@ -815,6 +815,7 @@ circle_pet_female, circle_idk;
         fr_edit_register.setSize(1000, 850);
         fr_edit_register.setVisible(true);
         fr_edit_register.setResizable(false);
+        fr_edit_register.setLocationRelativeTo(null);
 
         button_back.addActionListener(this);
         button_save.addActionListener(this);
