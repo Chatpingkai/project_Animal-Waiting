@@ -29,10 +29,11 @@ public class Main_user implements ActionListener {
     private JTextArea addressarea;
     private Customer customer;
     private static int lookid;
+    private String[] name_day = {"SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"};
     private String[] month = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
     private Calendar calendar;
     private int currentMonth;
-    
+
     public Main_user(Customer customer) {
         
         //send data
@@ -128,7 +129,7 @@ public class Main_user implements ActionListener {
             ex.printStackTrace();
         }
         //====================================================================
-        
+
         //set data for pet
         try {
             Connec_table ct = new Connec_table();
@@ -149,8 +150,7 @@ public class Main_user implements ActionListener {
             ex.printStackTrace();
         }
         //====================================================================
-        
-        
+
         // panel northwest
         imagelogo = new ImageIcon(System.getProperty("user.dir") + "/src/test.jpg");
         resizedImageIcon = resizeImageIcon(imagelogo, 150, 150);
@@ -489,10 +489,9 @@ public class Main_user implements ActionListener {
             cal.add(Calendar.DAY_OF_MONTH, 1);
             
         }
-    
-        String[] dayNames = {"SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"};
+
         for (int i = 0; i < 7; i++) {
-            dayLabels[i] = new JLabel(dayNames[i]);
+            dayLabels[i] = new JLabel(name_day[i]);
             pl2.add(dayLabels[i]);
         }
     
