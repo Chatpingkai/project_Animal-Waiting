@@ -4,17 +4,22 @@ import java.awt.*;
 import static java.awt.Color.*;
 import java.text.*;
 import javax.swing.*;
+import javax.swing.border.Border;
+
 import java.sql.*;
 import back.*;
 
 import java.util.*;
 public class Treatment_BAC {
     private JFrame frame;
-    private JPanel panel1, panel2, panelreceipt, panel4, panel5, panel6, panel7, panel8, panel9, panel10, panel11, panel12, panel9_1, panelsumPureAmountTH, 
-    panelpureAmount, panelsumPureAmount, panel13, panel14, panel15, paneldescription, panelamount, paneldescriptionData, panelamountData, panelnameO, 
-    panelnameA, paneltype, paneladdress, panelpayee, panelsignature, ppanelthereceipt;
+    private JPanel panel1, panel2, panelreceipt, panel4, panel5, panel6, panel7, panel8, 
+panel9, panel10, panel11, panel12, panel9_1, panelsumPureAmountTH, panelpureAmount, 
+panelsumPureAmount, panel13, panel14, panel15, paneldescription, panelamount, 
+paneldescriptionData, panelamountData, panelnameO, panelnameA, paneltype, paneladdress, 
+panelpayee, panelsignature, ppanelthereceipt, panel_helpme, panel_helpme1;
     private JLabel pureAmount, description, amount, sumPureAmountTH, nameO, nameA, type, 
-    address, payee, signature, receipt, thenameO, theNameA, theType, theAddrass, thePayee,  sumPureAmount;
+address, payee, signature, receipt, thenameO, theNameA, theType, theAddrass, thePayee,  
+sumPureAmount, help;
     private JTextArea descriptionData, amountData;
     private GroomReipt groom_r;
     private Customer customer;
@@ -33,14 +38,17 @@ public class Treatment_BAC {
         panel7 = new JPanel(new BorderLayout());
 
         //in panel7
-        panel8 = new JPanel(new GridLayout(4,1));
+        panel8 = new JPanel(new GridLayout(3,1));
+        panel_helpme = new JPanel(new BorderLayout());
+        panel_helpme1 = new JPanel(new GridLayout(2, 1));
         panel9 = new JPanel(new BorderLayout());
         panel10 = new JPanel();
         panel11 = new JPanel();
         panel12 = new JPanel(new BorderLayout());
         panel8.setBackground(white);
         panel8.setPreferredSize(new Dimension(20, 95));
-        panel7.add(panel8, BorderLayout.NORTH);
+        panel7.add(panel_helpme, BorderLayout.NORTH);
+        panel_helpme.add(panel8, BorderLayout.CENTER);
         panel9.setBackground(white);
         panel9.setPreferredSize(new Dimension(20, 60));
         panel7.add(panel9, BorderLayout.SOUTH);
@@ -70,14 +78,20 @@ public class Treatment_BAC {
         theNameA = new JLabel("");
         theType = new JLabel("");
         theAddrass = new JLabel("");
+        help = new JLabel("");
         panelnameO.add(nameO); panelnameO.add(thenameO); 
         panelnameA.add(nameA); panelnameA.add(theNameA);
         paneltype.add(type); paneltype.add(theType);
-        paneladdress.add(address); paneladdress.add(theAddrass); 
+        panel_helpme1.add(address);
+        panel_helpme1.add(help); 
         panel8.add(panelnameO); 
         panel8.add(panelnameA);
-        panel8.add(paneltype); panel8.add(paneladdress);
-
+        panel8.add(paneltype);
+        panel_helpme.add(panel8, BorderLayout.CENTER);
+        panel_helpme.add(panel_helpme1, BorderLayout.SOUTH);
+        panel8.setPreferredSize(new Dimension(170,70));
+        panel_helpme1.setPreferredSize(new Dimension(170,50));
+        panel_helpme1.setBackground(Color.WHITE);
 
         //ช่อง description และ amount
         panel13 = new JPanel(new BorderLayout());
@@ -260,7 +274,8 @@ public class Treatment_BAC {
         String ad2 = String.format(" อำเภอ : '%s' ตำบล : '%s' จังหวัด : '%s' รหัสไปรษณีย์ : '%s'",
                         listAddress[5], listAddress[4], listAddress[6], listAddress[7]
                 );
-        address.setText(address.getText()+" "+ad+ad2);
+        address.setText(address.getText()+" "+ad.replaceAll("'", ""));
+        help.setText(ad2.replaceAll("'", ""));
         groom_r.setAllprice();
         sumPureAmount.setText(groom_r.getAllprice()+" บาท");
     }
