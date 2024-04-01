@@ -12,6 +12,10 @@ public abstract class Receipt {
         this.customer = customer;
         this.allprice = 0;
     }
+    public Receipt(Customer customer, double allprice){
+        this.customer = customer;
+        this.allprice = allprice;
+    }
     public Customer getCustomer(){
         return customer;
     }

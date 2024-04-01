@@ -3,6 +3,8 @@ package back;
 
 import java.sql.*;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Connec_table implements Connec{
     private Connection con;
@@ -39,9 +41,20 @@ public class Connec_table implements Connec{
     public void Discon() {
         try {
             stm.close();
+        } catch (SQLException ex) {
+        }
+        try {
             con.close();
         } catch (SQLException ex) {
         }
     }
-    
+    public void Connec_IN_Discon(Connec cn){
+        cn.Discon();
+    }
+    public void Connec_In_Up(Connec cn,String sql){
+        cn.UpdateData(sql);
+    }
+    public ResultSet Connec_In_Date(Connec cn,String sql){
+        return cn.getData(sql);
+    }
 }

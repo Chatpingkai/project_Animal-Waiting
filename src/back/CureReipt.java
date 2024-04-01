@@ -219,5 +219,9 @@ public class CureReipt extends Receipt{
             tabledb.Discon();
         }
     }
+   public void setReceipt(Receipt r){
+        this.setCustomer(r.getCustomer());
+        this.allprice = r.getAllprice();
+    }
     
 }
