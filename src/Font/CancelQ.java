@@ -1,3 +1,5 @@
+package Font;
+
 import back.Customer;
 import java.awt.*;
 import java.awt.event.*;
@@ -81,17 +83,6 @@ public class CancelQ implements ActionListener,MouseListener{
         frcan.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frcan.setVisible(true);
         
-    }
-    public static void main(String[] args) {
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        Customer customer = new Customer(15);
-        SwingUtilities.invokeLater(() -> {
-            CancelQ frame = new CancelQ(customer);
-        });
     }
     public void setTable(){
         model = new DefaultTableModel();

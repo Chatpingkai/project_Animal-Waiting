@@ -1,3 +1,5 @@
+package Font;
+
 import back.Account;
 import back.Customer;
 import back.Connec_table;
@@ -29,13 +31,13 @@ panel_space4, panel_space5, panel_space6, panel_space7, panel_space8, panel_spac
         fr.setLayout(new BorderLayout());
 
         //BorderLayout.WEST
-        imagepage = new ImageIcon(System.getProperty("user.dir")+"/src/test6.jpg");
+        imagepage = new ImageIcon(System.getProperty("user.dir")+"/src/Font/test6.jpg");
         imagLabel = new JLabel(imagepage);
         imagLabel.setPreferredSize(new Dimension(300, 200));
         imagLabel.setLocation(10,70);
 
         //Head Line
-        imagelogo = new ImageIcon(System.getProperty("user.dir")+"/src/logo1.png");
+        imagelogo = new ImageIcon(System.getProperty("user.dir")+"/src/Font/logo1.png");
         resizedImageIcon = resizeImageIcon(imagelogo, 100, 100);
         imagelogoLabel = new JLabel(resizedImageIcon);
 
@@ -206,9 +208,8 @@ panel_space4, panel_space5, panel_space6, panel_space7, panel_space8, panel_spac
             try {
                 rs = ct.getData(get);
                 if (rs.next()) {
-                    System.out.println("In");
                     int id = Integer.parseInt(rs.getString("id"));
-                    if (userName.equals("")) {
+                    if (userName.equals("manza007")) {
                         ct.Discon();
                         Account customer = new Customer(id);
                         new Main_MDI((Customer) customer);
@@ -230,17 +231,5 @@ panel_space4, panel_space5, panel_space6, panel_space7, panel_space8, panel_spac
             fr.dispose();
             new Register();
         }
-    }
-    
-
-    public static void main(String[] args) {
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            SwingUtilities.invokeLater(() -> { 
-                Login frame = new Login();
-            });
     }
 }

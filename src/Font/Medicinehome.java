@@ -1,3 +1,5 @@
+package Font;
+
 import back.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -112,18 +114,6 @@ public class Medicinehome extends JInternalFrame{
         model.setColumnIdentifiers(columns);
         table.setModel(model);
         table_db.Discon();
-    }
-
-    public static void main(String[] args) {
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        SwingUtilities.invokeLater(() -> {
-            Medicinehome frame = new Medicinehome();
-        });
     }
     private void openInternalFrame(JInternalFrame internalFrame) {
         internalFrame.addInternalFrameListener(new InternalFrameAdapter() {

@@ -1,3 +1,5 @@
+package Font;
+
 
 import back.Connec_table;
 import back.Customer;
@@ -156,17 +158,6 @@ public class Reservation implements ActionListener{
         frame_reservation.setVisible(true);
         frame_reservation.setLocationRelativeTo(null);
         frame_reservation.setResizable(false);
-    }
-    public static void main(String[] args){
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-            } catch (Exception e) {
-            e.printStackTrace();
-            }
-        Customer customer = new Customer(lookid);
-            SwingUtilities.invokeLater(() -> { 
-                Reservation frame = new Reservation(customer);
-            });
     }
 
     @Override

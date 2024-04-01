@@ -1,3 +1,5 @@
+package Font;
+
 
 import back.Connec_table;
 import back.Customer;
@@ -869,17 +871,5 @@ circle_pet_female, circle_idk;
             new Main_user(customer);
             fr_edit_register.dispose();
         }
-    }
-
-    public static void main(String[] args){
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-            } catch (Exception e) {
-            e.printStackTrace();
-            }
-        Customer customer = new Customer(lookid);
-            SwingUtilities.invokeLater(() -> {
-                edit_register frame = new edit_register(customer);
-            });
     }
 }

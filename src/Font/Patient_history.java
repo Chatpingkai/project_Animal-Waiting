@@ -1,3 +1,5 @@
+package Font;
+
 import back.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -83,17 +85,6 @@ public class Patient_history extends JInternalFrame implements MouseListener{
         } catch (SQLException e) {
         }
         table_db.Discon();
-    }
-    public static void main(String[] args) {
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        SwingUtilities.invokeLater(() -> {
-            Patient_history frame = new Patient_history();
-        });
     }
     private void openInternalFrame(JInternalFrame internalFrame) {
         internalFrame.addInternalFrameListener(new InternalFrameAdapter() {

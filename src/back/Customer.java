@@ -177,20 +177,4 @@ public class Customer extends Account{
             db.Discon();
         }
     }
-    public static void main(String[] args) {
-        try {
-            String p = "mmmmmmm";
-            MessageDigest md;
-            md = MessageDigest.getInstance("SHA-256");
-            md.update(p.getBytes());
-            byte[] bytes = md.digest();
-            StringBuilder sb = new StringBuilder();
-            for (byte b : bytes) {
-                sb.append(Integer.toString((b & 0xff) + 0x100, 16).substring(1)); 
-            }  
-        } catch (NoSuchAlgorithmException ex) {
-        }
-        Account acct = new Customer(1);
-        System.out.println(((Customer) acct).getPet().getAge());
-    }
 }

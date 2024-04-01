@@ -1,3 +1,5 @@
+package Font;
+
 import back.Connec_table;
 import java.awt.*;
 import java.awt.event.*;
@@ -251,17 +253,6 @@ Lmedorcapsule, Ltime, Lmedorcapsule2, Lbaht;
             Thowtouse.setText("");
             Trecommend.setText("");
     }
-    public static void main(String[] args) {
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        SwingUtilities.invokeLater(() -> {
-            AddMedicine frame = new AddMedicine();
-        });
-    }
-
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(add)) {

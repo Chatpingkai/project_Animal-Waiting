@@ -1,3 +1,5 @@
+package Font;
+
 
 import back.Customer;
 import java.awt.*;
@@ -53,16 +55,5 @@ public class Main_MDI{
         frame.setContentPane(desktopPane);
         frame.setVisible(true);
         frame.setResizable(false);
-    }
-    public static void main(String[] args){
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-            } catch (Exception e) {
-            e.printStackTrace();
-            }
-        Customer customer = new Customer(lookid);
-            SwingUtilities.invokeLater(() -> {
-                Main_MDI fr = new Main_MDI(customer);
-            });
     }
 }

@@ -1,3 +1,5 @@
+package Font;
+
 
 import back.Connec_table;
 import back.Customer;
@@ -152,7 +154,7 @@ public class Main_user implements ActionListener {
         
         
         // panel northwest
-        imagelogo = new ImageIcon(System.getProperty("user.dir") + "/src/test.jpg");
+        imagelogo = new ImageIcon(System.getProperty("user.dir") + "/src/Font/test.jpg");
         resizedImageIcon = resizeImageIcon(imagelogo, 150, 150);
         roundedIcon = getRoundedImageIcon(resizedImageIcon);
         imagelogoLabel = new JLabel(roundedIcon);
@@ -164,19 +166,19 @@ public class Main_user implements ActionListener {
         ex1.add(imagelogoLabel);
 
         // button southwest
-        edit.setBackground(Color.white);
+//        edit.setBackground(Color.white);
         edit.setFocusPainted(false);
-        edit.setBorder(BorderFactory.createLineBorder(Color.black, 2));
+//        edit.setBorder(BorderFactory.createLineBorder(Color.black, 2));
         edit.setPreferredSize(new Dimension(120, 40));
 
-        history.setBackground(Color.white);
+//        history.setBackground(Color.white);
         history.setFocusPainted(false);
-        history.setBorder(BorderFactory.createLineBorder(Color.black, 2));
+//        history.setBorder(BorderFactory.createLineBorder(Color.black, 2));
         history.setPreferredSize(new Dimension(120, 40));
 
-        logout.setBackground(Color.white);
+//        logout.setBackground(Color.white);
         logout.setFocusPainted(false);
-        logout.setBorder(BorderFactory.createLineBorder(Color.black, 2));
+//        logout.setBorder(BorderFactory.createLineBorder(Color.black, 2));
         logout.setPreferredSize(new Dimension(120, 40));
 
         emptyline.setBackground(new Color(0xFEE3A8));
@@ -254,13 +256,13 @@ public class Main_user implements ActionListener {
         line4.setBackground(new Color(255, 238, 227));
         empty5.setBackground(new Color(255, 238, 227));
         reserve.setFocusPainted(false);
-        reserve.setBorder(BorderFactory.createLineBorder(Color.black, 2));
+//        reserve.setBorder(BorderFactory.createLineBorder(Color.black, 2));
         reserve.setPreferredSize(new Dimension(120, 40));
 
-        cancel.setBackground(Color.white);
+//        cancel.setBackground(Color.white);
         cancel.setForeground(Color.RED);
         cancel.setFocusPainted(false);
-        cancel.setBorder(BorderFactory.createLineBorder(Color.black, 2));
+//        cancel.setBorder(BorderFactory.createLineBorder(Color.black, 2));
         cancel.setPreferredSize(new Dimension(120, 40));
 
         reservePanel.setBackground(new Color(255, 238, 227));
@@ -518,15 +520,4 @@ public class Main_user implements ActionListener {
             new CancelQ(customer);
         }
     }
-
-    public static void main(String[] args) {
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        Customer customer = new Customer(lookid);
-        new Main_user(customer);
-    }
-
 }
