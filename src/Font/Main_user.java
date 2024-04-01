@@ -188,20 +188,13 @@ monthLabel, address10;
         edit16.setPreferredSize(new Dimension(1000, 10));
         edit16.setBackground(new Color(0xFEE3A8));
 
-        // button southwest
-//        edit.setBackground(Color.white);
         edit.setFocusPainted(false);
-//        edit.setBorder(BorderFactory.createLineBorder(Color.black, 2));
         edit.setPreferredSize(new Dimension(150, 40));
 
-//        history.setBackground(Color.white);
         history.setFocusPainted(false);
-//        history.setBorder(BorderFactory.createLineBorder(Color.black, 2));
         history.setPreferredSize(new Dimension(150, 40));
 
-//        logout.setBackground(Color.white);
         logout.setFocusPainted(false);
-//        logout.setBorder(BorderFactory.createLineBorder(Color.black, 2));
         logout.setPreferredSize(new Dimension(150, 40));
 
         emptyline.setBackground(new Color(0xFEE3A8));
@@ -286,14 +279,11 @@ monthLabel, address10;
         line4.setBackground(new Color(255, 238, 227));
         empty5.setBackground(new Color(255, 238, 227));
         reserve.setFocusPainted(false);
-//        reserve.setBorder(BorderFactory.createLineBorder(Color.black, 2));
         reserve.setPreferredSize(new Dimension(120, 40));
         edit16.setPreferredSize(new Dimension(30, 5));
 
-//        cancel.setBackground(Color.white);
         cancel.setForeground(Color.RED);
         cancel.setFocusPainted(false);
-//        cancel.setBorder(BorderFactory.createLineBorder(Color.black, 2));
         cancel.setPreferredSize(new Dimension(120, 40));
 
         reservePanel.setBackground(new Color(255, 238, 227));
@@ -455,42 +445,6 @@ monthLabel, address10;
         Image img = originalIcon.getImage();
         Image resizedImg = img.getScaledInstance(width, height, Image.SCALE_SMOOTH);
         return new ImageIcon(resizedImg);
-    }
-
-    private ImageIcon getRoundedImageIcon(ImageIcon originalIcon) {
-        int diameter = Math.min(originalIcon.getIconWidth(), originalIcon.getIconHeight());
-        BufferedImage image = new BufferedImage(diameter, diameter, BufferedImage.TYPE_INT_ARGB);
-        Graphics2D g2 = image.createGraphics();
-
-        Ellipse2D.Double ellipse = new Ellipse2D.Double(0, 0, diameter, diameter);
-        g2.setClip(ellipse);
-        originalIcon.paintIcon(null, g2, 0, 0);
-
-        g2.dispose();
-        return new ImageIcon(image);
-    }
-
-    private void setCurrentMonth() {
-        Calendar cal = new GregorianCalendar();
-        cal.set(Calendar.DAY_OF_MONTH, 1); // Set to first day of the month
-        int firstDayOfWeek = cal.get(Calendar.DAY_OF_WEEK); // Get the day of the week of the first day
-
-        int month = cal.get(Calendar.MONTH);
-        int year = cal.get(Calendar.YEAR);
-
-        // Set label for each box with corresponding date
-        int dayOfMonth = 1;
-        for (int i = firstDayOfWeek - 1; i < boxes.length; i++) {
-            if (cal.get(Calendar.MONTH) == month) {
-                boxes[i].setText(String.valueOf(dayOfMonth));
-                dayOfMonth++;
-                
-            }
-            else {
-                boxes[i].setText("");
-            }
-            cal.add(Calendar.DAY_OF_MONTH, 1); // Move to the next day
-        }
     }
 
     private void updateCalendar() {
