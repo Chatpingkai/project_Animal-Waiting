@@ -17,9 +17,9 @@ public class Main_MDI{
         internal_Main_admin = new main_admin();
 
         desktopPane.add(internal_Main_admin);
-
-
+        
         desktopPane.setBackground(new Color(0xFFF5F5));
+
         frame = new JFrame("MDI Example");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
