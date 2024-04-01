@@ -258,5 +258,4 @@ public class BatheAndCutHair implements ActionListener{
             new Treatment_BAC(groom_r);
         }
     }
-
 }

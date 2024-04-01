@@ -61,7 +61,7 @@ panel_space4, panel_space5, panel_space6, panel_space7, panel_space8, panel_spac
         panel_space8 = new JPanel();
         panel_space9 = new JPanel();
 
-        head = new JLabel("    Animal-Waiting");
+        head = new JLabel("  Animal - Waiting");
         donthaveacc = new JLabel("Don't have an account?");
         username = new JLabel("Username");
         password = new JLabel("Password");
@@ -113,7 +113,7 @@ panel_space4, panel_space5, panel_space6, panel_space7, panel_space8, panel_spac
         panel_box5.add(button_login);
         panel_box5.add(panel_box4);
 
-        head.setFont(new Font("Josefin Sans", Font.BOLD, 30));
+        head.setFont(new Font("Arial", Font.PLAIN, 45));
         username.setFont(new Font("Jost", Font.BOLD, 20));
         password.setFont(new Font("Jost", Font.BOLD, 20));
         donthaveacc.setFont(new Font("Inter", Font.PLAIN, 15));

@@ -36,11 +36,6 @@ public class Main_MDI{
         internal_Usage_history = new Usage_history();
 
         desktopPane.add(internal_Main_admin);
-        desktopPane.add(internal_AddMedicine);
-        desktopPane.add(internal_Medicinehome);
-        desktopPane.add(internal_Patient_history);
-        desktopPane.add(internal_history);
-        desktopPane.add(internal_Usage_history);
 
         internal_Medicinehome.setVisible(false); 
         internal_AddMedicine.setVisible(false);
