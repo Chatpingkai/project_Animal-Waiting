@@ -155,7 +155,6 @@ public class Customer extends Account{
             db = new Connec_table();
             String sql = String.format("INSERT INTO Reserve (ID, Date, Time, Type, Details) VALUES('%s', '%s', '%s', '%s', '%s')", id,date, time, type, "ไม่มีรายละเอียด");
             db.UpdateData(sql);
-
         }
         catch(Exception e){
             e.printStackTrace();

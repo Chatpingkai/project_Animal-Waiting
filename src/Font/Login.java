@@ -206,6 +206,7 @@ panel_space4, panel_space5, panel_space6, panel_space7, panel_space8, panel_spac
             passWord = new String(passwordField.getPassword());
             if (userName.equals(admin.getUSERNAME()) && (passWord.equals(admin.getPASSWORD()))) {
                 new Main_MDI();
+                fr.dispose();
             }else{
                 passWord = h.doHash(passWord);
                 String get = String.format("SELECT * FROM User_id WHERE username = '%s' and password = '%s'", userName, passWord);
@@ -214,7 +215,6 @@ panel_space4, panel_space5, panel_space6, panel_space7, panel_space8, panel_spac
                     if (rs.next()) {
                         int id = Integer.parseInt(rs.getString("id"));
                         ct.Discon();
-                        System.out.println(id);
                         Account customer = new Customer(id);
                         new Main_user((Customer) customer);
                         fr.dispose();
