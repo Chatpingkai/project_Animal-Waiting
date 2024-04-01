@@ -204,9 +204,10 @@ Lmedorcapsule, Ltime, Lmedorcapsule2, Lbaht;
         getContentPane().add(pa1);
 //        fraddmed.add(pa1);
         setSize(500, 650);
-        setLocation(250, 198);
+        setLocation(900, 198);
         setResizable(false);
         setVisible(true);
+        setLayer(2);
     }
     public void setTable(String sql) throws SQLException{
         data = new ArrayList<String>();

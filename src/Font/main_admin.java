@@ -211,6 +211,7 @@ panel_space2, pl1, pl2, pl3, space, space1, space2, space3, space4, space5;
         setSize(1000, 550);
         setLocation(470, 200);
         setVisible(true);
+        setLayer(0);
     }
 
     @Override

@@ -244,6 +244,7 @@ public class Treatment{
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setSize(650, 550);
         frame.setLocationRelativeTo(null);
+        frame.setResizable(false);
     }
     public void setText(){
         amountData.setText(cure_r.getP_veter()+"\n"+cure_r.getP_help()+"\n"+cure_r.getP_med()+"\n"+cure_r.getP_disease()+"\n"+cure_r.getP_cure());

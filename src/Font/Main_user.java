@@ -17,11 +17,13 @@ import java.util.TimeZone;
 public class Main_user implements ActionListener {
 
     private JFrame fr;
-    private JPanel info, pn, main, line1, line2, line3, colorL, colorR, ex1, buttonPanel, bordercalen, empty, namePanel,
-            petnamePanel, line4,pl1, pl2, pl3, space, space1, space2, space3, space4, space5, help1, help2, help3, 
-            typePanel, breedPanel, datePanel, sexPanel, agePanel, weightPanel, callPanel, mailPanel, addressPanel,
-            emptyline, something, reservePanel, cancelPanel, allreservePanel,border1, border2,border3,border4, help10, 
-            infotop, infobottom, empty1, empty2, empty3, empty4, empty5, empty6, border, edit1, edit2, edit3, edit4, edit5;
+    private JPanel info, pn, main, line1, line2, line3, colorL, colorR, ex1, buttonPanel, 
+bordercalen, empty, namePanel, petnamePanel, line4,pl1, pl2, pl3, space, space1, space2, 
+space3, space4, space5, help1, help2, help3, typePanel, breedPanel, datePanel, sexPanel, 
+agePanel, weightPanel, callPanel, mailPanel, addressPanel, emptyline, something, reservePanel, 
+cancelPanel, allreservePanel,border1, border2,border3,border4, help10, infotop, infobottom, 
+empty1, empty2, empty3, empty4, empty5, empty6, border, edit1, edit2, edit3, edit4, edit5, 
+edit16;
     private JLabel imagelogoLabel, nameLabel, petnameLabel, typeLabel, breedLabel, dateLabel,
             sexLabel, ageLabel, weightLabel, callLabel, mailLabel, addressLabel, monthLabel;
     private JButton edit, history, logout, reserve, cancel;
@@ -54,6 +56,7 @@ public class Main_user implements ActionListener {
         colorL = new JPanel(new BorderLayout());
         colorR = new JPanel(new BorderLayout());
         ex1 = new JPanel(new FlowLayout());
+        edit16 = new JPanel();
         buttonPanel = new JPanel(new GridLayout(4, 1));
         bordercalen = new JPanel(new BorderLayout());
         empty = new JPanel(new BorderLayout());
@@ -154,32 +157,36 @@ public class Main_user implements ActionListener {
         //====================================================================
 
         // panel northwest
-        imagelogo = new ImageIcon(System.getProperty("user.dir") + "/src/Font/test.jpg");
-        resizedImageIcon = resizeImageIcon(imagelogo, 150, 150);
-        roundedIcon = getRoundedImageIcon(resizedImageIcon);
-        imagelogoLabel = new JLabel(roundedIcon);
+        imagelogo = new ImageIcon(System.getProperty("user.dir")+"/src/Font/logo1.png");
+        resizedImageIcon = resizeImageIcon(imagelogo, 100, 100);
+        imagelogoLabel = new JLabel(resizedImageIcon);
 
         colorL.setBackground(new Color(0xFFE3A8));
         colorR.setBackground(new Color(255, 238, 227));
         colorL.setPreferredSize(new Dimension(350, 1000));
         ex1.setBackground(new Color(0xFEE3A8));
+        ex1.add(edit16);
         ex1.add(imagelogoLabel);
+
+        ex1.setPreferredSize(new Dimension(400, 150));
+        edit16.setPreferredSize(new Dimension(400, 10));
+        edit16.setBackground(new Color(0xFEE3A8));
 
         // button southwest
 //        edit.setBackground(Color.white);
         edit.setFocusPainted(false);
 //        edit.setBorder(BorderFactory.createLineBorder(Color.black, 2));
-        edit.setPreferredSize(new Dimension(120, 40));
+        edit.setPreferredSize(new Dimension(150, 40));
 
 //        history.setBackground(Color.white);
         history.setFocusPainted(false);
 //        history.setBorder(BorderFactory.createLineBorder(Color.black, 2));
-        history.setPreferredSize(new Dimension(120, 40));
+        history.setPreferredSize(new Dimension(150, 40));
 
 //        logout.setBackground(Color.white);
         logout.setFocusPainted(false);
 //        logout.setBorder(BorderFactory.createLineBorder(Color.black, 2));
-        logout.setPreferredSize(new Dimension(120, 40));
+        logout.setPreferredSize(new Dimension(150, 40));
 
         emptyline.setBackground(new Color(0xFEE3A8));
         line1.add(edit);

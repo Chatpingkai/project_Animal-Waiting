@@ -63,8 +63,9 @@ public class Patient_history extends JInternalFrame implements MouseListener{
  
         getContentPane().add(pa1);
         setSize(980, 700);
-        setLocation(700, 200);
+        setLocation(100, 200);
         setVisible(true);
+        setLayer(1);
     }
     private void setTable(){
         table_db = new Connec_table();

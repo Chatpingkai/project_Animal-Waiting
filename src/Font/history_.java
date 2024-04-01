@@ -275,10 +275,11 @@ public class history_  extends JInternalFrame{
         getContentPane().add(scrollPane);
 //        frhis.add(scrollPane);
         setSize(820, 700);
-        setLocation(400, 200);
+        setLocation(100, 200);
         setResizable(false);
 //        frhis.setLocationRelativeTo(null); // Center the frame on the screen
         setVisible(true);
+        setLayer(3);
     }
     private void setTextField(){
         tpeoplename.setText(customer.getFirstName()+" "+customer.getLastName());

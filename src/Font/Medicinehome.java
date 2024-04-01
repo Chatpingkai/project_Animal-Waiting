@@ -89,7 +89,7 @@ public class Medicinehome extends JInternalFrame{
         setSize(980, 700);
         setLocation(700, 200);
         setVisible(true);
-        
+        setLayer(1);
         
     }
     public void setTable(String sql) throws SQLException{

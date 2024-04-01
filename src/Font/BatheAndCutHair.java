@@ -211,6 +211,7 @@ public class BatheAndCutHair implements ActionListener{
         frame.setSize(650, 550);
         frame.setLocationRelativeTo(null);
         Treatment.addActionListener(this);
+        frame.setResizable(false);
     }
     public void getdb(){
         Connec_table tabledb = new Connec_table();

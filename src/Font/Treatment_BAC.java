@@ -245,6 +245,7 @@ public class Treatment_BAC {
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setSize(600, 525);
         frame.setLocationRelativeTo(null);
+        frame.setResizable(false);
     }
     public void setText(){
         amountData.setText(groom_r.getCut()+"\n"+groom_r.getShower());

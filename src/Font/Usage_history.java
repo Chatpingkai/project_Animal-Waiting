@@ -63,9 +63,10 @@ public class Usage_history extends JInternalFrame implements MouseListener{
  
         getContentPane().add(pa1);
         setSize(1300, 700);
-        setLocation(200, 200);
+        setLocation(100, 200);
         setVisible(true);
         setResizable(false);
+        setLayer(2);
     }
     private void setTable() {
         table = new JTable(); 
