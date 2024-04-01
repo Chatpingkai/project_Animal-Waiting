@@ -29,7 +29,7 @@ public class Main_MDI{
         desktopPane.add(internal_history);
         desktopPane.add(internal_Usage_history);
 
-        internal_Medicinehome.setVisible(false);
+        internal_Medicinehome.setVisible(false); 
         internal_AddMedicine.setVisible(false);
         internal_Patient_history.setVisible(false);
         internal_history.setVisible(false);
