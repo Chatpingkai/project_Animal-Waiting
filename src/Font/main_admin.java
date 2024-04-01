@@ -157,7 +157,7 @@ panel_space2, pl1, pl2, pl3, space, space1, space2, space3, space4, space5;
 
         space1.add(space2, BorderLayout.SOUTH);
 
-        monthLabel.setFont(new Font("Angsana New", Font.BOLD, 40));
+        monthLabel.setFont(new Font("Angsana New", Font.BOLD, 35));
 
         panel_right.setLayout(new BorderLayout());
         panel_right.add(panel_right_button, BorderLayout.NORTH);
